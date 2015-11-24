@@ -10,9 +10,9 @@ CND_CONF=default
 CND_DISTDIR=dist
 TMPDIR=build/${CND_CONF}/${IMAGE_TYPE}/tmp-packaging
 TMPDIRNAME=tmp-packaging
-OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/GLCD.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-OUTPUT_BASENAME=GLCD.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
-PACKAGE_TOP_DIR=glcd.x/
+OUTPUT_PATH=dist/${CND_CONF}/${IMAGE_TYPE}/glcd.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+OUTPUT_BASENAME=glcd.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+PACKAGE_TOP_DIR=glcd/
 
 # Functions
 function checkReturnCode
@@ -57,15 +57,15 @@ mkdir -p ${TMPDIR}
 
 # Copy files and create directories and links
 cd "${TOP}"
-makeDirectory ${TMPDIR}/glcd.x/bin
+makeDirectory ${TMPDIR}/glcd/bin
 copyFileToTmpDir "${OUTPUT_PATH}" "${TMPDIR}/${PACKAGE_TOP_DIR}bin/${OUTPUT_BASENAME}" 0755
 
 
 # Generate tar file
 cd "${TOP}"
-rm -f ${CND_DISTDIR}/${CND_CONF}/package/glcd.x.tar
+rm -f ${CND_DISTDIR}/${CND_CONF}/package/glcd.tar
 cd ${TMPDIR}
-tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/glcd.x.tar *
+tar -vcf ../../../../${CND_DISTDIR}/${CND_CONF}/package/glcd.tar *
 checkReturnCode
 
 # Cleanup

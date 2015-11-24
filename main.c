@@ -76,7 +76,7 @@
 
 int main(void)
 {
-    unsigned int i;
+    
     
     // Set up output pin for LED
     TRISAbits.TRISA0 = 0;
@@ -93,68 +93,31 @@ int main(void)
     lcd_screenon(1);
     __delay_ms(500);
      //lcd_cls();
+     _lcd_reset();
+     lcd_screenon(0);
+     int i=0;
+     int j=0;
 
     while(1)
-    {
+    {       
         
-        
-        _lcd_reset();
-        lcd_screenon(1);
-        __delay_ms(5);
-        LCD_TRIS = 0xFF;
-        __delay_ms(5);
-       /***READ*/
-        RW=1;
-        DI=0;
-        _lcd_enable();
-        /***END READ*/
-        __delay_ms(5);
-        lcd_screenon(0);
-        __delay_ms(5);
-        /***READ*/
-        LCD_TRIS = 0xFF;
-        __delay_ms(5)
-        RW=1;
-        DI=0;
-        _lcd_enable();
-        /***END READ*/
-        
-        
-        /*
-        PORTAbits.RA0 = 1;
-        __delay_ms(100)
-        PORTAbits.RA0 = 0;
-        __delay_ms(100);
-        */
-        
-       /* int i=40;
-        int j=0;
-
-        // To make the LED blink visibly, we have to wait a while between toggling
-
-        // the LED pin.
-       // for(i = 0; i < 128; i++)
+       
+       
+        for(i = 0; i < 128; i++)
         
             for(j=0;j<60;j++){
             lcd_plotpixel(i,j); 
             __delay_ms(200);
-            DI=0; RW=1;
-            __delay_ms(100);
           
-            PORTB=0;
-            
-            RW = 0;*/
-            
-           // Nop();
-           // Nop();
-        __delay_ms(40);
+        
         }
         
                 
        
-        
+        __delay_ms(20000);
         
         
         
     }
+}
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/GLCD.X.production.elf">
+  <executable name="dist/default/production/glcd.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>2048</length>
@@ -11,8 +11,8 @@
     <memory name="program">
       <units>bytes</units>
       <length>16128</length>
-      <used>2283</used>
-      <free>13845</free>
+      <used>2292</used>
+      <free>13836</free>
     </memory>
   </executable>
 </project>
