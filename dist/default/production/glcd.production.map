@@ -66,11 +66,11 @@ Program Memory  [Origin = 0x200, Length = 0x2a00]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x338           0x4d4  (1236)
-.text                        0x538               0x2a2           0x3f3  (1011)
-.init.delay32                0x7da                0x1c            0x2a  (42)
-.dinit                       0x7f6                 0x2             0x3  (3)
+.text                        0x538               0x298           0x3e4  (996)
+.init.delay32                0x7d0                0x1c            0x2a  (42)
+.dinit                       0x7ec                 0x2             0x3  (3)
 
-                     Total program memory used (bytes):          0x8f4  (2292) 14%
+                     Total program memory used (bytes):          0x8e5  (2277) 14%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
@@ -123,12 +123,12 @@ External Symbols in Program Memory (by address):
                   0x000728                  _lcd_puts
                   0x00074e                  _delay_us
                   0x000770                  _main
-                  0x0007da                  ___delay32
+                  0x0007d0                  ___delay32
 
 External Symbols in Program Memory (by name):
 
                   0x00029a                  __DefaultInterrupt
-                  0x0007da                  ___delay32
+                  0x0007d0                  ___delay32
                   0x0003e6                  ___divdi3
                   0x000446                  ___moddi3
                   0x0004a2                  ___muldi3
@@ -289,11 +289,11 @@ __FICD
  .debug_abbrev    0x000155          0x1 build/default/production/delays.o
  .debug_abbrev    0x000156         0xa1 build/default/production/main.o
 
-.debug_line       0x000000        0x64d
+.debug_line       0x000000        0x63d
  *(.debug_line)
  .debug_line      0x000000        0x4dc build/default/production/glcd.o
  .debug_line      0x0004dc         0x24 build/default/production/delays.o
- .debug_line      0x000500        0x14d build/default/production/main.o
+ .debug_line      0x000500        0x13d build/default/production/main.o
 
 .debug_frame      0x000000        0x138
  *(.debug_frame)
@@ -1397,7 +1397,7 @@ __c30_signature
 .config_BSS       0xf80000          0x2
  .config_BSS      0xf80000          0x2 build/default/production/main.o
 
-.text             0x000538        0x2a2
+.text             0x000538        0x298
  .text            0x000538        0x238 build/default/production/glcd.o
                   0x000538                  __lcd_enable
                   0x00054e                  __lcd_status
@@ -1415,12 +1415,12 @@ __c30_signature
                   0x000702                  _lcd_putrs
                   0x000728                  _lcd_puts
                   0x00074e                  _delay_us
- .text            0x000770         0x6a build/default/production/main.o
+ .text            0x000770         0x60 build/default/production/main.o
                   0x000770                  _main
 
-.init.delay32     0x0007da         0x1c
- .init.delay32    0x0007da         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x0007da                  ___delay32
+.init.delay32     0x0007d0         0x1c
+ .init.delay32    0x0007d0         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x0007d0                  ___delay32
 
-.dinit            0x0007f6          0x2
- .dinit           0x0007f6          0x2 data_init
+.dinit            0x0007ec          0x2
+ .dinit           0x0007ec          0x2 data_init

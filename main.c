@@ -90,8 +90,8 @@ int main(void)
     
     TRISA = 0;
     __delay_ms(100);
-    lcd_screenon(1);
-    __delay_ms(500);
+   // lcd_screenon(1);
+  //  __delay_ms(500);
      //lcd_cls();
      _lcd_reset();
      lcd_screenon(0);
