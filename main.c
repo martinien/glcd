@@ -94,6 +94,8 @@ int main(void)
   //  __delay_ms(500);
      //lcd_cls();
      _lcd_reset();
+     __delay_ms(100);
+     RESET=0;
      lcd_screenon(0);
      int i=0;
      int j=0;
