@@ -4,12 +4,12 @@
 
 #define LCD_TRIS      TRISB
 #define LCD_DATA      PORTB
-#define ENABLE        PORTAbits.RA4
-#define RW            PORTAbits.RA3
-#define DI            PORTAbits.RA2
-#define RESET         PORTAbits.RA7
-#define CS1           PORTAbits.RA0
-#define CS2           PORTAbits.RA1
+#define ENABLE        LATAbits.LATA4
+#define RW            LATAbits.LATA3
+#define DI            LATAbits.LATA2
+#define RESET         LATAbits.LATA7
+#define CS1           LATAbits.LATA0
+#define CS2           LATAbits.LATA1
 
 /*#define GLCD_EN       PORTAbits.RA1 
 #define GLCD_Data     PORTB

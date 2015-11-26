@@ -27,6 +27,8 @@
 
 
 
+
+
 // PIC24FV16KM202 Configuration Bit Settings
 
 // 'C' source line config statements
@@ -42,10 +44,10 @@
 #pragma config GCP = OFF                // General Segment Code Protect (No Protection)
 
 // FOSCSEL
-#pragma config FNOSC = FRC           // Oscillator Select (8MHz FRC oscillator With Postscaler (FRCDIV))
-#pragma config SOSCSRC = ANA            // SOSC Source Type (Analog Mode for use with crystal)
+#pragma config FNOSC = FRC              // Oscillator Select (Fast RC Oscillator (FRC))
+#pragma config SOSCSRC = DIG            // SOSC Source Type (Digital Mode for use with external source)
 #pragma config LPRCSEL = HP             // LPRC Oscillator Power and Accuracy (High Power, High Accuracy Mode)
-#pragma config IESO = ON                // Internal External Switch Over bit (Internal External Switchover mode enabled (Two-speed Start-up enabled))
+#pragma config IESO = OFF               // Internal External Switch Over bit (Internal External Switchover mode disabled (Two-speed Start-up disabled))
 
 // FOSC
 #pragma config POSCMOD = NONE           // Primary Oscillator Configuration bits (Primary oscillator disabled)
@@ -57,69 +59,118 @@
 // FWDT
 #pragma config WDTPS = PS32768          // Watchdog Timer Postscale Select bits (1:32768)
 #pragma config FWPSA = PR128            // WDT Prescaler bit (WDT prescaler ratio of 1:128)
-#pragma config FWDTEN = OFF             // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
+#pragma config FWDTEN = ON              // Watchdog Timer Enable bits (WDT enabled in hardware)
 #pragma config WINDIS = OFF             // Windowed Watchdog Timer Disable bit (Standard WDT selected(windowed WDT disabled))
 
 // FPOR
 #pragma config BOREN = BOR3             // Brown-out Reset Enable bits (Brown-out Reset enabled in hardware, SBOREN bit disabled)
 #pragma config RETCFG = OFF             //  (Retention regulator is not available)
-#pragma config PWRTEN = ON              // Power-up Timer Enable bit (PWRT enabled)
+#pragma config PWRTEN = OFF             // Power-up Timer Enable bit (PWRT disabled)
 #pragma config I2C1SEL = PRI            // Alternate I2C1 Pin Mapping bit (Use Default SCL1/SDA1 Pins For I2C1)
 #pragma config BORV = V18               // Brown-out Reset Voltage bits (Brown-out Reset set to lowest voltage (1.8V))
 #pragma config MCLRE = ON               // MCLR Pin Enable bit (RA5 input pin disabled, MCLR pin enabled)
 
 // FICD
-#pragma config ICS = PGx1               // ICD Pin Placement Select bits (EMUC/EMUD share PGC1/PGD1)
+#pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
+
+
+
+
 
 
 
 
 int main(void)
 {
-    
-    
-    // Set up output pin for LED
-    TRISAbits.TRISA0 = 0;
-    TRISAbits.TRISA1 = 0;
-    TRISAbits.TRISA2 = 0;
-    TRISAbits.TRISA3 = 0;
-    TRISAbits.TRISA4 = 0;
-    TRISAbits.TRISA7 = 0;
-    
+            // Set up output pin for LED
+//    TRISAbits.TRISA0 = 0;
+//    TRISAbits.TRISA1 = 0;
+//    TRISAbits.TRISA2 = 0;
+//    TRISAbits.TRISA3 = 0;
+   /* OSCCON =0b
+    CLKDIV = 
+    OSCTUN = */
+    U2MODE = 0b0010000000000000;
     
     
     TRISA = 0;
-    __delay_ms(100);
-   // lcd_screenon(1);
-  //  __delay_ms(500);
-     //lcd_cls();
-     _lcd_reset();
-     __delay_ms(100);
-     RESET=0;
-     lcd_screenon(0);
-     int i=0;
-     int j=0;
-
+    TRISB = 0;
+   // ODCA = 0b00010000;
+    unsigned int i;
+//    TRISAbits.TRISA7 = 0;
     while(1)
-    {       
+    {   
+      //  LATA = 0b11111000;
+      //  PORTB = 0b11111111;
         
+      
+       // Nop();         
+      
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        LATAbits.LATA0 = 0;
+        LATAbits.LATA1 = 1; 
+        LATAbits.LATA2 = 0;
+       LATAbits.LATA3 = 1;
+       LATAbits.LATA4 = 1;    
+       LATAbits.LATA7=1;       
        
-       
-        for(i = 0; i < 128; i++)
+       LATB=0b01010101;
+
+     //  PORTAbits.RA4 = 1;
+       // PORTAbits.RA4 = 1;
+
         
-            for(j=0;j<60;j++){
-            lcd_plotpixel(i,j); 
-            __delay_ms(200);
-          
-        
+        for(i = 0; i < 65535; i++)
+        {
+            Nop();
+            Nop();
+            Nop();
+            Nop();
+            Nop();
+            Nop();
         }
+        LATAbits.LATA0 = 1;
+        LATAbits.LATA1 = 0; 
+        LATAbits.LATA2 = 1;
+       LATAbits.LATA3 = 0;  
+       LATAbits.LATA4 = 0;    
+       LATAbits.LATA7 = 0;
+       LATB= 0b10101010;
+
+       //PORTAbits.RA4 = 0;
+
+       // PORTB = 0;
+         // LATA = 0b00000111;
+        // LATAbits.LATA1 = 1;
+      //  PORTAbits.RA3 = 0;
+       // PORTAbits.RA4 = 0;
         
-                
-       
-        __delay_ms(20000);
+
+     /*   PORTAbits.RA0 = 0;
+        Nop();
+        PORTAbits.RA2 = 1;
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        Nop();
+        PORTAbits.RA1 = 1;*/
         
-        
-        
-    }
+        for(i = 0; i < 65535; i++)
+        {
+            Nop();
+            Nop();            
+            Nop();
+            Nop();
+            
+        }
+    } 
+    
+
+   
 }
 

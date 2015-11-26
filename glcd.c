@@ -20,11 +20,11 @@ void _lcd_enable(void)
   
     ENABLE=1;
 
-    __delay_us(5);
+    __delay_us(.6);
 
     ENABLE=0;
 
-    __delay_us(5);
+    __delay_us(.6);
 
 }
 
