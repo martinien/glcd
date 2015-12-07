@@ -51,12 +51,6 @@ d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.
                               d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o) (__data_init_standard)
 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
                               build/default/production/glcd.o (___delay32)
-d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                              build/default/production/glcd.o (___udivdi3)
-d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(muldi3.eo)
-                              build/default/production/glcd.o (___muldi3)
-d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(umuldi3.eo)
-                              d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(muldi3.eo) (___umuldi3)
 
 
 xc16-ld 1.25 (A)
@@ -65,12 +59,12 @@ Program Memory  [Origin = 0x200, Length = 0x2a00]
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x338           0x4d4  (1236)
-.text                        0x538               0x29a           0x3e7  (999)
-.init.delay32                0x7d2                0x1c            0x2a  (42)
-.dinit                       0x7ee                 0x2             0x3  (3)
+.text                        0x200                0x9e            0xed  (237)
+.text                        0x29e               0x352           0x4fb  (1275)
+.init.delay32                0x5f0                0x1c            0x2a  (42)
+.dinit                       0x60c                 0x2             0x3  (3)
 
-                     Total program memory used (bytes):          0x8e8  (2280) 14%
+                     Total program memory used (bytes):          0x615  (1557) 9%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
@@ -96,68 +90,58 @@ External Symbols in Program Memory (by address):
                   0x000000                  _font
                   0x000200                  __resetPRI
                   0x00022c                  __psv_init
-                  0x00023c                  __data_init
                   0x00023c                  __data_init_standard
+                  0x00023c                  __data_init
                   0x00029a                  __DefaultInterrupt
-                  0x0002ea                  ___udivmoddi3
-                  0x0003d0                  ___udivdi3
-                  0x0003de                  ___umoddi3
-                  0x0003e6                  ___divdi3
-                  0x000446                  ___moddi3
-                  0x0004a2                  ___muldi3
-                  0x0004f4                  ___umuldi3
-                  0x000538                  __lcd_enable
-                  0x00054a                  __lcd_status
-                  0x000568                  __lcd_reset
-                  0x00058c                  _lcd_screenon
-                  0x0005a6                  _lcd_cls
-                  0x0005de                  _lcd_setpage
-                  0x0005f6                  _lcd_setyaddr
-                  0x000612                  __lcd_waitbusy
-                  0x000624                  _lcd_write
-                  0x00063a                  _lcd_selectside
-                  0x000660                  _lcd_read
-                  0x000678                  _lcd_plotpixel
-                  0x0006ca                  _lcd_putchar
-                  0x0006fe                  _lcd_putrs
-                  0x000724                  _lcd_puts
-                  0x00074a                  _delay_us
-                  0x00076c                  _main
-                  0x0007d2                  ___delay32
+                  0x00029e                  __lcd_enable
+                  0x0002b6                  __lcd_status
+                  0x0002e4                  __lcd_reset
+                  0x000308                  _lcd_on
+                  0x000336                  _lcd_off
+                  0x000360                  _lcd_screenon
+                  0x00037e                  _lcd_cls
+                  0x0003b6                  _lcd_setpage
+                  0x0003d2                  _lcd_setyaddr
+                  0x0003ee                  __lcd_waitbusy
+                  0x000400                  _lcd_write
+                  0x000416                  _lcd_selectside
+                  0x00043c                  _lcd_read
+                  0x000454                  _lcd_plotpixel
+                  0x0004a6                  _lcd_putchar
+                  0x0004da                  _lcd_putrs
+                  0x000500                  _lcd_puts
+                  0x000526                  _is_busy
+                  0x00056a                  _main
+                  0x0005f0                  ___delay32
 
 External Symbols in Program Memory (by name):
 
                   0x00029a                  __DefaultInterrupt
-                  0x0007d2                  ___delay32
-                  0x0003e6                  ___divdi3
-                  0x000446                  ___moddi3
-                  0x0004a2                  ___muldi3
-                  0x0003d0                  ___udivdi3
-                  0x0002ea                  ___udivmoddi3
-                  0x0003de                  ___umoddi3
-                  0x0004f4                  ___umuldi3
+                  0x0005f0                  ___delay32
                   0x00023c                  __data_init
                   0x00023c                  __data_init_standard
-                  0x000538                  __lcd_enable
-                  0x000568                  __lcd_reset
-                  0x00054a                  __lcd_status
-                  0x000612                  __lcd_waitbusy
+                  0x00029e                  __lcd_enable
+                  0x0002e4                  __lcd_reset
+                  0x0002b6                  __lcd_status
+                  0x0003ee                  __lcd_waitbusy
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x00074a                  _delay_us
                   0x000000                  _font
-                  0x0005a6                  _lcd_cls
-                  0x000678                  _lcd_plotpixel
-                  0x0006ca                  _lcd_putchar
-                  0x0006fe                  _lcd_putrs
-                  0x000724                  _lcd_puts
-                  0x000660                  _lcd_read
-                  0x00058c                  _lcd_screenon
-                  0x00063a                  _lcd_selectside
-                  0x0005de                  _lcd_setpage
-                  0x0005f6                  _lcd_setyaddr
-                  0x000624                  _lcd_write
-                  0x00076c                  _main
+                  0x000526                  _is_busy
+                  0x00037e                  _lcd_cls
+                  0x000336                  _lcd_off
+                  0x000308                  _lcd_on
+                  0x000454                  _lcd_plotpixel
+                  0x0004a6                  _lcd_putchar
+                  0x0004da                  _lcd_putrs
+                  0x000500                  _lcd_puts
+                  0x00043c                  _lcd_read
+                  0x000360                  _lcd_screenon
+                  0x000416                  _lcd_selectside
+                  0x0003b6                  _lcd_setpage
+                  0x0003d2                  _lcd_setyaddr
+                  0x000400                  _lcd_write
+                  0x00056a                  _main
 
 Memory Configuration
 
@@ -207,7 +191,7 @@ LOAD d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x338
+.text             0x000200         0x9e
  *(.init)
  .init            0x000200         0x3c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -225,30 +209,6 @@ LOAD d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libfx-elf.a
  *(.libm)
  *(.libdsp)
  *(.lib*)
- .libm.__PplusBdi
-                  0x00029e         0x26 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
- .libm.__PminusBdi
-                  0x0002c4         0x26 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
- .libm.__udivmoddi3
-                  0x0002ea         0xe6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                  0x0002ea                  ___udivmoddi3
- .libm.__udivdi3
-                  0x0003d0          0xe d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                  0x0003d0                  ___udivdi3
- .libm.__umoddi3
-                  0x0003de          0x8 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                  0x0003de                  ___umoddi3
- .libm.__divdi3
-                  0x0003e6         0x60 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                  0x0003e6                  ___divdi3
- .libm.__moddi3
-                  0x000446         0x5c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
-                  0x000446                  ___moddi3
- .libm.__muldi3
-                  0x0004a2         0x52 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(muldi3.eo)
-                  0x0004a2                  ___muldi3
- .libm.umuldi3    0x0004f4         0x44 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(umuldi3.eo)
-                  0x0004f4                  ___umuldi3
 
 usercode
  *(usercode)
@@ -277,28 +237,28 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000        0x7d2
+.debug_info       0x000000        0x7fe
  *(.debug_info)
- .debug_info      0x000000        0x53e build/default/production/glcd.o
- .debug_info      0x00053e        0x294 build/default/production/main.o
+ .debug_info      0x000000        0x59e build/default/production/glcd.o
+ .debug_info      0x00059e        0x260 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1f7
+.debug_abbrev     0x000000        0x23c
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x155 build/default/production/glcd.o
- .debug_abbrev    0x000155          0x1 build/default/production/delays.o
- .debug_abbrev    0x000156         0xa1 build/default/production/main.o
+ .debug_abbrev    0x000000        0x19a build/default/production/glcd.o
+ .debug_abbrev    0x00019a          0x1 build/default/production/delays.o
+ .debug_abbrev    0x00019b         0xa1 build/default/production/main.o
 
-.debug_line       0x000000        0x6c5
+.debug_line       0x000000        0x87a
  *(.debug_line)
- .debug_line      0x000000        0x4dc build/default/production/glcd.o
- .debug_line      0x0004dc         0x24 build/default/production/delays.o
- .debug_line      0x000500        0x1c5 build/default/production/main.o
+ .debug_line      0x000000        0x6c1 build/default/production/glcd.o
+ .debug_line      0x0006c1         0x24 build/default/production/delays.o
+ .debug_line      0x0006e5        0x195 build/default/production/main.o
 
-.debug_frame      0x000000        0x138
+.debug_frame      0x000000        0x158
  *(.debug_frame)
- .debug_frame     0x000000        0x114 build/default/production/glcd.o
- .debug_frame     0x000114         0x24 build/default/production/main.o
+ .debug_frame     0x000000        0x134 build/default/production/glcd.o
+ .debug_frame     0x000134         0x24 build/default/production/main.o
 
 .debug_str        0x000000         0x12
  *(.debug_str)
@@ -312,12 +272,12 @@ __FICD
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x12d
+                  0x000000        0x143
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000        0x112 build/default/production/glcd.o
+                  0x000000        0x128 build/default/production/glcd.o
  .debug_pubnames
-                  0x000112         0x1b build/default/production/main.o
+                  0x000128         0x1b build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1355,7 +1315,7 @@ LOAD data_init
                   0x00005f         0x2f build/default/production/main.o
 
 __c30_signature
-                  0x00008e         0x36
+                  0x00008e         0x24
  __c30_signature
                   0x00008e          0x6 build/default/production/glcd.o
  __c30_signature
@@ -1368,12 +1328,6 @@ __c30_signature
                   0x0000a6          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
                   0x0000ac          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
- __c30_signature
-                  0x0000b2          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(divmoddi3.eo)
- __c30_signature
-                  0x0000b8          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(muldi3.eo)
- __c30_signature
-                  0x0000be          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(umuldi3.eo)
 
 .config_ICS       0xf8000e          0x2
  .config_ICS      0xf8000e          0x2 build/default/production/main.o
@@ -1397,30 +1351,32 @@ __c30_signature
 .config_BSS       0xf80000          0x2
  .config_BSS      0xf80000          0x2 build/default/production/main.o
 
-.text             0x000538        0x29a
- .text            0x000538        0x234 build/default/production/glcd.o
-                  0x000538                  __lcd_enable
-                  0x00054a                  __lcd_status
-                  0x000568                  __lcd_reset
-                  0x00058c                  _lcd_screenon
-                  0x0005a6                  _lcd_cls
-                  0x0005de                  _lcd_setpage
-                  0x0005f6                  _lcd_setyaddr
-                  0x000612                  __lcd_waitbusy
-                  0x000624                  _lcd_write
-                  0x00063a                  _lcd_selectside
-                  0x000660                  _lcd_read
-                  0x000678                  _lcd_plotpixel
-                  0x0006ca                  _lcd_putchar
-                  0x0006fe                  _lcd_putrs
-                  0x000724                  _lcd_puts
-                  0x00074a                  _delay_us
- .text            0x00076c         0x66 build/default/production/main.o
-                  0x00076c                  _main
+.text             0x00029e        0x352
+ .text            0x00029e        0x2cc build/default/production/glcd.o
+                  0x00029e                  __lcd_enable
+                  0x0002b6                  __lcd_status
+                  0x0002e4                  __lcd_reset
+                  0x000308                  _lcd_on
+                  0x000336                  _lcd_off
+                  0x000360                  _lcd_screenon
+                  0x00037e                  _lcd_cls
+                  0x0003b6                  _lcd_setpage
+                  0x0003d2                  _lcd_setyaddr
+                  0x0003ee                  __lcd_waitbusy
+                  0x000400                  _lcd_write
+                  0x000416                  _lcd_selectside
+                  0x00043c                  _lcd_read
+                  0x000454                  _lcd_plotpixel
+                  0x0004a6                  _lcd_putchar
+                  0x0004da                  _lcd_putrs
+                  0x000500                  _lcd_puts
+                  0x000526                  _is_busy
+ .text            0x00056a         0x86 build/default/production/main.o
+                  0x00056a                  _main
 
-.init.delay32     0x0007d2         0x1c
- .init.delay32    0x0007d2         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x0007d2                  ___delay32
+.init.delay32     0x0005f0         0x1c
+ .init.delay32    0x0005f0         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x0005f0                  ___delay32
 
-.dinit            0x0007ee          0x2
- .dinit           0x0007ee          0x2 data_init
+.dinit            0x00060c          0x2
+ .dinit           0x00060c          0x2 data_init

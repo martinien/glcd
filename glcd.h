@@ -63,7 +63,11 @@ void _lcd_waitbusy(void);
 
 // call these all you want !
 
-void lcd_screenon(unsigned char on);
+void lcd_screenon(int on);
+
+void lcd_on();
+
+void lcd_off();
 
 void lcd_cls(void);
 

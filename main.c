@@ -73,7 +73,8 @@
 // FICD
 #pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
 
-
+#define delay_ms __delay_ms
+#define delay_us __delay_us
 
 
 
@@ -82,95 +83,132 @@
 
 int main(void)
 {
-            // Set up output pin for LED
-//    TRISAbits.TRISA0 = 0;
-//    TRISAbits.TRISA1 = 0;
-//    TRISAbits.TRISA2 = 0;
-//    TRISAbits.TRISA3 = 0;
-   /* OSCCON =0b
-    CLKDIV = 
-    OSCTUN = */
-    U2MODE = 0b0010000000000000;
-    
-    
+    int i = 0;  
+    int j=0;
     TRISA = 0;
     TRISB = 0;
-   // ODCA = 0b00010000;
-    unsigned int i;
-//    TRISAbits.TRISA7 = 0;
+    RESET = 1 ;
+    ENABLE = 1;
+    CS1 = 0;
+    CS2 = 0 ;         
+    lcd_on();
+    
+    while(1)
+    {
+        
+        /*if(i>3){
+            RESET = 1;
+            i=0;
+        }
+        else{
+        i++;
+        RESET=0;
+        }*/
+      lcd_on();
+       lcd_cls();
+        for(i = 64; i < 128; i++)
+       {
+            for(j=0;j<10;j++){
+            lcd_plotpixel(i,j); 
+            __delay_ms(500);                       
+            }
+            delay_ms(1000);
+    }
+        
+      //  delay_ms(1000);
+        
+        
+       // lcd_cls();       
+        delay_us(10);
+        LCD_TRIS=0xFF;
+        _lcd_status();
+        //is_busy();
+        delay_us(5);
+        LCD_TRIS=0;
+        delay_us(1);
+        lcd_off();
+        //lcd_screenon(0);
+        delay_us(5);
+        LCD_TRIS=0xFF;
+        //is_busy();
+        _lcd_status();
+        delay_us(15);
+        LCD_TRIS=0;
+       // LATA = 0b01010101;
+       /* LATB = 0b11111111;
+        delay_ms(20);
+       // LATA = 0b10101010;
+        LATB = 0b00000000;
+        delay_ms(30);*/
+        /*ENABLE = 0;
+        RW = 0;*/
+        
+     /***ON ALLUME L'ECRAN*/
+    
+        
+       
+        
+        
+    }
+   
+   
+    
+   // unsigned int i,j;
+    /*_lcd_reset();
+    delay_ms(10);
+    RESET=1;
+    //int i,j;
+    delay_ms(1000);
+    lcd_cls();
+    
     while(1)
     {   
-      //  LATA = 0b11111000;
-      //  PORTB = 0b11111111;
-        
+        lcd_cls();
+
       
-       // Nop();         
-      
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        LATAbits.LATA0 = 0;
-        LATAbits.LATA1 = 1; 
-        LATAbits.LATA2 = 0;
-       LATAbits.LATA3 = 1;
-       LATAbits.LATA4 = 1;    
-       LATAbits.LATA7=1;       
+        lcd_screenon(0);
+        delay_us(2);
+        _lcd_status();
+        delay_us(2);
        
-       LATB=0b01010101;
-
-     //  PORTAbits.RA4 = 1;
-       // PORTAbits.RA4 = 1;
-
+        lcd_screenon(1);
+        delay_us(2);
+        _lcd_status();
         
-        for(i = 0; i < 65535; i++)
-        {
-            Nop();
-            Nop();
-            Nop();
-            Nop();
-            Nop();
-            Nop();
-        }
-        LATAbits.LATA0 = 1;
-        LATAbits.LATA1 = 0; 
-        LATAbits.LATA2 = 1;
-       LATAbits.LATA3 = 0;  
-       LATAbits.LATA4 = 0;    
-       LATAbits.LATA7 = 0;
-       LATB= 0b10101010;
-
-       //PORTAbits.RA4 = 0;
-
-       // PORTB = 0;
-         // LATA = 0b00000111;
-        // LATAbits.LATA1 = 1;
-      //  PORTAbits.RA3 = 0;
-       // PORTAbits.RA4 = 0;
+        delay_us(10);
         
-
-     /*   PORTAbits.RA0 = 0;
-        Nop();
-        PORTAbits.RA2 = 1;
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        Nop();
-        PORTAbits.RA1 = 1;*/
+    /*
         
-        for(i = 0; i < 65535; i++)
-        {
-            Nop();
-            Nop();            
-            Nop();
-            Nop();
+        lcd_screenon(0);
+        
+        for(i = 0; i < 128; i++)
+       {
+            for(j=0;j<60;j++){
+            lcd_plotpixel(i,j); 
+            __delay_ms(500);                       
+            }
+    }
+        
+        delay_ms(1000);
+        
+        lcd_screenon(1);
+       for(i = 0; i < 128; i++)
+       {
+            for(j=0;j<60;j++){
+            lcd_plotpixel(i,j); 
+            __delay_ms(500);
             
-        }
+            
+            }
+    }
+         
+       
+       
+        
+              }*/
     } 
     
 
    
-}
+
 

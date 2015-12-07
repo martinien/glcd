@@ -16,16 +16,16 @@ const char font[]= {
 void _lcd_enable(void)
 
 {
-
-  
-    ENABLE=1;
-
-    __delay_us(.6);
-
+ 
     ENABLE=0;
-
-    __delay_us(.6);
-
+    __delay_us(.2);
+    ENABLE=1;   
+    __delay_us(0.6);
+    ENABLE=0;
+    __delay_us(.5);
+ 
+  //  __delay_us(.6);
+    
 }
 
 unsigned char _lcd_status(void)
@@ -33,24 +33,27 @@ unsigned char _lcd_status(void)
 {
 
     // returns the lcd status & maintains the TRIS state of the
-
     // lcd data port
 
     unsigned char _lcd_tris, _status;
 
     // save the tris value
-
     _lcd_tris = LCD_TRIS;
 
     // read the status
     LCD_TRIS=0xFF; // all inputs
 
     DI=0; RW=1; // command/read
+    CS1 = 0;
+    CS2 = 0;
 
+    __delay_us(.2);
     _lcd_enable();
+    __delay_us(.2);
 
     _status = LCD_DATA;
-
+    __delay_us(.2);
+    
     // restore the tris value
     LCD_TRIS = _lcd_tris;
 
@@ -90,12 +93,56 @@ void _lcd_reset(void)
 
 }
 
-void lcd_screenon(unsigned char on)
+void lcd_on(){
+    int data;
+    ENABLE=0; 
+    __delay_us(.1);
+    CS1=0;
+    CS2=0;
+    RW = 0;
+    DI=0;
+    data = 0x3F;
+    LCD_TRIS = 0;
+    LCD_DATA = data;
+    __delay_us(.5); 
+    ENABLE=1;
+    __delay_us(.5);
+    ENABLE=0;
+    __delay_us(.1);
+    
+
+    
+    
+    
+    
+    
+}
+
+void lcd_off(){
+    
+    int data;
+    ENABLE=0;    
+    CS1=0;
+    CS2=0;
+    RW = 0;
+    DI=0;
+    data = 0x3E;
+    LCD_TRIS = 0;
+    LCD_DATA = data;
+    __delay_us(.5); 
+    ENABLE=1;
+    __delay_us(.5);
+    ENABLE=0;
+    __delay_us(.1);
+}
+
+void lcd_screenon(int on)
 
 {
 
     // turn the display on or off
-
+    CS1 = 0;
+    CS2 = 0;
     LCD_TRIS=0; // all outputs
 
     RW=0; DI=0;
@@ -108,7 +155,7 @@ void lcd_screenon(unsigned char on)
 void lcd_cls(void)
 
 {
-
+    
     unsigned char x,y;
 
     for (x=0; x<8; x++)
@@ -147,11 +194,14 @@ void lcd_setpage(unsigned char page)
 
 {
 
+    
     _lcd_waitbusy();
 
-    DI=0; RW=0; 
-
+    DI=0; RW=0;         
+    CS1= 0;
+    CS2=0;
     LCD_DATA = 0b10111000 | page;
+    
 
     _lcd_enable();
 
@@ -327,6 +377,36 @@ void lcd_puts(char *string)
 
 
 
+int is_busy()
+{
+    int status = 0;        //Read data here
+    
+    ENABLE = 0;                 //Low Enable
+    __delay_us(1);            //tf
+    RW = 1;                 //Read
+    DI = 0;                 //Status         
+    __delay_us(1);            //tasu
+    ENABLE = 1;                 //High Enable
+    __delay_us(5);            //tr + max(td,twh)->twh
+    
+    //Dummy read
+    ENABLE = 0;                 //Low Enable
+    __delay_us(5);            //tf + twl + chineese error    
+    
+    ENABLE = 1;                 //High Enable
+    __delay_us(1);            //tr + td        
+                                  
+    status = LCD_DATA;    //Input data
+    ENABLE = 0;                 //Low Enable
+    __delay_us(1);            //tdhr
+    #ifdef DEBUG_READ
+        printf("S:%x\n\r",status);
+    #endif
+    return (status & 0x80);           
+}
+
+
+
 /**************************/
 /*
  * Project name: Testing GLCD with PIC16F887
@@ -348,9 +428,9 @@ void lcd_puts(char *string)
 
 
 
-void delay_us(int t){
+/*void delay_us(int t){
     __delay_us(t);
-}
+}*/
 
 /*
 void Enable_Pulse()
