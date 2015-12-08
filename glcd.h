@@ -89,6 +89,8 @@ void lcd_puts(char *string);
 
 void lcd_putrs(const char *string);
 
+
+void lcd_bmp(const char *bmp);
  
 
  

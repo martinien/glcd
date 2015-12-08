@@ -37,6 +37,8 @@ unsigned char _lcd_status(void)
 
     unsigned char _lcd_tris, _status;
 
+   int cs1 = CS1;
+   int cs2 = CS2;
     // save the tris value
     _lcd_tris = LCD_TRIS;
 
@@ -57,7 +59,8 @@ unsigned char _lcd_status(void)
     // restore the tris value
     LCD_TRIS = _lcd_tris;
 
-    
+    CS1 = cs1;
+    CS2 = cs2;
 
     return _status;
 
@@ -330,6 +333,32 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry)
 }
 
  
+
+void lcd_bmp(const char *bmp){
+
+    int y = 0;
+    int page =0;
+    while(y<128){
+        while(page<8){
+            lcd_setpage(page);
+            lcd_setyaddr(y & 0b00111111);     
+            lcd_write(bmp[page + y]);
+        }
+        
+            
+        page=0;
+        };
+    
+      
+    
+    }
+    
+    
+
+
+
+
+
 
 void lcd_putchar(char c)
 
