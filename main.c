@@ -20,6 +20,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include "glcd.h"
+#include "twinmax_logo.h"
 //#include "lcdTest.c"
 
 
@@ -106,6 +107,12 @@ int main(void)
         }*/
       lcd_on();
        lcd_cls();
+       
+       lcd_bmp(twinmax_logo);
+       
+       delay_ms(5000);
+       
+       
         for(i = 64; i < 128; i++)
        {
             for(j=0;j<10;j++){
