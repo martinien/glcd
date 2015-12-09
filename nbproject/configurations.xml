@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>delays.h</itemPath>
       <itemPath>glcd.h</itemPath>
+      <itemPath>twinmax_logo.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

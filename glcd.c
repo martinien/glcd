@@ -34,7 +34,8 @@ unsigned char _lcd_status(void)
 
     // returns the lcd status & maintains the TRIS state of the
     // lcd data port
-
+    int cs1 = CS1;
+    int cs2 = CS2;
     unsigned char _lcd_tris, _status;
 
     // save the tris value
@@ -57,7 +58,8 @@ unsigned char _lcd_status(void)
     // restore the tris value
     LCD_TRIS = _lcd_tris;
 
-    
+    CS1 = cs1;
+    CS2= cs2;
 
     return _status;
 
@@ -306,6 +308,8 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry)
 
     // select the correct side
 
+    lcd_setpage( ry >> 3);
+    
     if (rx & 64)
 
         lcd_selectside(RIGHT);
@@ -316,7 +320,7 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry)
 
  
 
-    lcd_setpage( ry >> 3);
+    
     lcd_setyaddr( rx & 0b00111111);
 
     data = lcd_read(); // dummy read needed here

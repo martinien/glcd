@@ -83,8 +83,8 @@
 
 int main(void)
 {
-    int i = 0;  
-    int j=0;
+    int x = 0;  
+    int y = 0;
     TRISA = 0;
     TRISB = 0;
     RESET = 1 ;
@@ -92,123 +92,15 @@ int main(void)
     CS1 = 0;
     CS2 = 0 ;         
     lcd_on();
-    
+    lcd_cls();
     while(1)
     {
-        
-        /*if(i>3){
-            RESET = 1;
-            i=0;
+        for(x = 40; x < 120; x++){
+            for(y = 0; y < 10; y++){
+            lcd_plotpixel(x,y); 
+            delay_ms(5);                       
+            }
+            delay_ms(100);
         }
-        else{
-        i++;
-        RESET=0;
-        }*/
-      lcd_on();
-       lcd_cls();
-        for(i = 64; i < 128; i++)
-       {
-            for(j=0;j<10;j++){
-            lcd_plotpixel(i,j); 
-            __delay_ms(500);                       
-            }
-            delay_ms(1000);
-    }
-        
-      //  delay_ms(1000);
-        
-        
-       // lcd_cls();       
-        delay_us(10);
-        LCD_TRIS=0xFF;
-        _lcd_status();
-        //is_busy();
-        delay_us(5);
-        LCD_TRIS=0;
-        delay_us(1);
-        lcd_off();
-        //lcd_screenon(0);
-        delay_us(5);
-        LCD_TRIS=0xFF;
-        //is_busy();
-        _lcd_status();
-        delay_us(15);
-        LCD_TRIS=0;
-       // LATA = 0b01010101;
-       /* LATB = 0b11111111;
-        delay_ms(20);
-       // LATA = 0b10101010;
-        LATB = 0b00000000;
-        delay_ms(30);*/
-        /*ENABLE = 0;
-        RW = 0;*/
-        
-     /***ON ALLUME L'ECRAN*/
-    
-        
-       
-        
-        
-    }
-   
-   
-    
-   // unsigned int i,j;
-    /*_lcd_reset();
-    delay_ms(10);
-    RESET=1;
-    //int i,j;
-    delay_ms(1000);
-    lcd_cls();
-    
-    while(1)
-    {   
-        lcd_cls();
-
-      
-        lcd_screenon(0);
-        delay_us(2);
-        _lcd_status();
-        delay_us(2);
-       
-        lcd_screenon(1);
-        delay_us(2);
-        _lcd_status();
-        
-        delay_us(10);
-        
-    /*
-        
-        lcd_screenon(0);
-        
-        for(i = 0; i < 128; i++)
-       {
-            for(j=0;j<60;j++){
-            lcd_plotpixel(i,j); 
-            __delay_ms(500);                       
-            }
-    }
-        
-        delay_ms(1000);
-        
-        lcd_screenon(1);
-       for(i = 0; i < 128; i++)
-       {
-            for(j=0;j<60;j++){
-            lcd_plotpixel(i,j); 
-            __delay_ms(500);
-            
-            
-            }
-    }
-         
-       
-       
-        
-              }*/
-    } 
-    
-
-   
-
-
+    }  
+ }
