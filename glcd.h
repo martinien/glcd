@@ -2,6 +2,7 @@
 #include <p24FV16KM202.h>
 #include <libpic30.h>
 
+
 #define LCD_TRIS      TRISB
 #define LCD_DATA      PORTB
 #define ENABLE        LATAbits.LATA4
@@ -89,6 +90,11 @@ void lcd_puts(char *string);
 
 void lcd_putrs(const char *string);
 
+void lcd_bitmap(const char *bmp);
  
 
- 
+void lcd_char(char c);
+
+void lcd_testChar(char c);
+
+void lcd_longString(const char *string);

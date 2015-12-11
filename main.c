@@ -19,7 +19,10 @@
 #include <p24FV16KM202.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include "glcd.h"
+#include "logo.h"
+
 //#include "lcdTest.c"
 
 
@@ -81,8 +84,9 @@
 
 
 
-int main(void)
-{
+int main(void){
+
+  //  stdout = _H_USART;
     int x = 0;  
     int y = 0;
     TRISA = 0;
@@ -92,15 +96,35 @@ int main(void)
     CS1 = 0;
     CS2 = 0 ;         
     lcd_on();
+    
+    delay_us(1000);
+    lcd_bitmap(xkcd);
+    delay_ms(3000);
     lcd_cls();
+    delay_us(1000);
+    lcd_setpage(3);
+    lcd_setyaddr(0 & 0b00111111);
+    lcd_putrs("Hello world");
+    
+    delay_ms(10000);
+    lcd_off();
     while(1)
     {
+        
+        
+       delay_us(1000);
+       /* lcd_on();
+        lcd_bitmap(isen);
+        delay_ms(5000);
+        lcd_cls();
+        delay_ms(500);
+        
         for(x = 40; x < 120; x++){
             for(y = 0; y < 10; y++){
             lcd_plotpixel(x,y); 
             delay_ms(5);                       
             }
             delay_ms(100);
-        }
+        }*/
     }  
  }

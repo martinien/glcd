@@ -1,3 +1,4 @@
 build/default/production/main.o:  \
 main.c  \
-glcd.h 
+glcd.h  \
+logo.h 
