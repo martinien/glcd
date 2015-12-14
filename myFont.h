@@ -1,4 +1,4 @@
-#define FONTWIDTH 6
+#define FONT_WIDTH 6
 
 const unsigned char myfont[][6] = {
 {0x00,0x00,0x00,0x00,0x00,0x00},   //   0x 0 0

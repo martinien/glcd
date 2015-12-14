@@ -98,3 +98,9 @@ void lcd_char(char c);
 void lcd_testChar(char c);
 
 void lcd_longString(const char *string);
+
+void lcd_charAt(char c, int x,int y);
+
+void lcd_startLine(unsigned int z);
+
+void lcd_horizontalBar(unsigned char index,unsigned char val);

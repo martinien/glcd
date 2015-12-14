@@ -87,7 +87,7 @@
 int main(void){
 
   //  stdout = _H_USART;
-    int x = 0;  
+    unsigned int x = 0;  
     int y = 0;
     TRISA = 0;
     TRISB = 0;
@@ -98,16 +98,51 @@ int main(void){
     lcd_on();
     
     delay_us(1000);
-    lcd_bitmap(xkcd);
-    delay_ms(3000);
+    lcd_bitmap(isen); 
+    delay_ms(2000);
     lcd_cls();
-    delay_us(1000);
-    lcd_setpage(3);
-    lcd_setyaddr(0 & 0b00111111);
-    lcd_putrs("Hello world");
+    lcd_horizontalBar(1,25);
+    delay_ms(200);    
+    lcd_horizontalBar(2,35);
+    delay_ms(200);  
+    lcd_horizontalMainBar(3,45);
+    delay_ms(200);  
+    lcd_horizontalBar(4,55);
+    delay_ms(200);  
+    lcd_horizontalBar(5,65);
     
-    delay_ms(10000);
-    lcd_off();
+    
+    
+    
+    delay_ms(100000);
+    
+    
+    
+    
+    
+    delay_ms(2000);
+    lcd_setpage(0);
+    lcd_setyaddr(0 & 0b00111111);
+    lcd_putrs("Lorem ipsum dolor sit amet`\n consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum");
+    lcd_cls();
+    
+ 
+    lcd_bitmap(road); 
+    
+    
+    while(1){
+    while(x<63){
+        lcd_startLine(x);
+        delay_ms(100);
+        x++; 
+    }
+    x=0;
+    
+    }
+    
+    
+    delay_ms(1000000);
+    //lcd_off();
     while(1)
     {
         

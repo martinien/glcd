@@ -11,6 +11,10 @@
 
 };*/
 
+int currentX;
+int currentY;
+int currentPage;
+
 void _lcd_enable(void)
 
 {
@@ -246,19 +250,90 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry){
 
 
 
+void lcd_horizontalBar(unsigned char index,unsigned char val){
+
+    unsigned char y = 0;
+    currentY = 0;
+    lcd_setpage(index);    
+    lcd_selectside(LEFT);    
+    lcd_setyaddr(0);
+    while(y<val && y<64){
+        lcd_write(0b01111110);  
+        y++;
+    }
+    lcd_selectside(RIGHT); 
+    lcd_setyaddr(0);
+    
+    while(y<val && y<124){    
+        lcd_write(0b01111110);
+        y++;
+    
+    }
+    
+    
+    
+}
+
+
+void lcd_horizontalMainBar(unsigned char index,unsigned char val){
+
+    unsigned char y = 0;
+    currentY = 0;
+    lcd_setpage(index);    
+    lcd_selectside(LEFT);    
+    lcd_setyaddr(0);
+    while(y<val && y<64){
+        lcd_write(0b10111101);
+        y++;
+    }
+    lcd_selectside(RIGHT); 
+    lcd_setyaddr(0);
+    
+    while(y<val && y<124){    
+        lcd_write(0b101111101);
+        y++;
+    
+    }
+    
+    
+    
+}
+
+
 void lcd_char(char c)
 {
     unsigned char page, y;
-    int i,charIndex;
-      
-    lcd_selectside(LEFT);    
+    int i,charIndex;   
+    
+   // lcd_selectside(LEFT);    
     charIndex = c;
-    //charIndex -= 32; 
+    //charIndex -= 32;     
+    if(currentY + FONT_WIDTH >127){
+        lcd_selectside(LEFT); 
+        currentY=0;
+        currentPage++;
+        lcd_setpage(currentPage);
+        lcd_setyaddr(0);
+        
+        
+    
+    }
     for(i = 0; i < 6; i++){
+        
+        if(currentY==64){
+            lcd_selectside(RIGHT);
+            lcd_setyaddr( currentY & 0b00111111);
+        }       
         lcd_write(myfont[charIndex][i]);
+        
+        currentY+=1;
     //printf('%c',myfont[base][i]);    }
     }
 }
+
+
+
+
  
 
 /*void lcd_putchar(char c)
@@ -285,8 +360,10 @@ void lcd_putrs(const char *string)
 
 {
 
+    lcd_selectside(LEFT); 
     char i=0;
-
+    currentY = 0;
+    currentPage=0;
     while (string[i] != 0)
 
         lcd_char(string[i++]);
@@ -304,6 +381,32 @@ void lcd_puts(char *string)
         lcd_putchar(string[i++]);
 
 } */
+
+void lcd_startLine(unsigned int z){
+    int cs1,cs2;
+    cs1 = CS1;
+    cs2 = CS2;
+    CS1 = 0;
+    CS2 = 0;
+    LCD_TRIS = 0;
+    _lcd_waitbusy();
+    DI=0; RW=0;
+    LCD_DATA = 0b11000000 | (z & 0b00111111);
+    _lcd_enable();    
+
+    
+    
+    
+    
+ 
+    CS1 = cs1;
+    CS2 = cs2;
+}
+    
+    
+    
+    
+
 
 
 void lcd_bitmap(const char * bmp)
@@ -328,27 +431,17 @@ void lcd_bitmap(const char * bmp)
     }
 }
 
+void lcd_longString(const char *string){
 
-/*void lcd_longString(const char *string){
-
-    unsigned char i, j;    
-    for(i = 0; i < 8; i++){   
-       lcd_selectside(LEFT);  
-       
-       for(j = 0; j < 64 ; j++){
-         lcd_setpage(i);  
-         lcd_setyaddr(j & 0b00111111);
-         lcd_write(bmp[(i*128)+j]);
-       }
-       
-       lcd_selectside(RIGHT);    
-       for(j = 64 ; j < 128 ; j++){
-          lcd_setpage(i);  
-          lcd_setyaddr(j & 0b00111111);
-          lcd_write(bmp[(i*128)+j]);
-       }  
+    unsigned char i, j,x,y,page;    
+    i=0;
+    page =0;
+    y = 0;
+     while (string[i] != 0){
+     
+     }
     }
-    */
+    
     
     
 
