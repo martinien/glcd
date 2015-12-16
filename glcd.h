@@ -72,9 +72,7 @@ void lcd_off();
 
 void lcd_cls(void);
 
-//void lcd_setpage(unsigned char page);
 
-void lcd_setyaddr(unsigned char y);
 
 void lcd_selectside(unsigned char sides);
 

@@ -117,7 +117,7 @@ int main(void) {
     status = _lcd_status();
     lcd_on();
     lcd_set_page(0);
-    lcd_setyaddr(0);
+    lcd_set_address(0);
     ;
     lcd_testByte(status);
     delay_ms(5000);

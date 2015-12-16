@@ -132,13 +132,15 @@ void lcd_cls(void){
     //lcd clear screen
     unsigned char x,y;
 
+    lcd_set_address(0);
+    lcd_set_address(64);
     CS1 = 0;
     CS2 = 0;
     for (x=0; x<8; x++){
         // set the page (x)
         lcd_set_page(x);
         // set the y address to 0
-        lcd_setyaddr(0);
+        
         // setup for data
         LCD_DATA=0; RW=0; DI=1;
         // clear the row
@@ -166,12 +168,7 @@ void lcd_set_page(unsigned char page){
     CS2 = cs2;
 }
 
-void lcd_setyaddr(unsigned char y){
-    _lcd_waitbusy();
-    DI=0; RW=0;
-    LCD_DATA = 0b01000000 | (y & 0b00111111);
-    _lcd_enable();
-}
+
 
 void _lcd_waitbusy(void){
     while (_lcd_status() & 0b10000000){
@@ -221,18 +218,11 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry){
     unsigned char data;
 
     _lcd_waitbusy();
-    
-    // select the correct side
-    lcd_set_page( ry >> 3);    
-    if (rx & 64)
-        lcd_selectside(RIGHT);
-    else
-        lcd_selectside(LEFT);
-
-    lcd_setyaddr( rx & 0b00111111);
+    lcd_set_page(rx>>3);
+    lcd_set_address(ry);
     data = lcd_read();
-    lcd_setyaddr( rx & 0b00111111); 
-    lcd_write (data | (1 << (ry & 0b111)));
+    
+    lcd_write (data | (1 << (rx & 0b111)));
 }
 
 void lcd_set_address(unsigned char y){
@@ -243,7 +233,11 @@ void lcd_set_address(unsigned char y){
         lcd_selectside(RIGHT);
         currentY = y - 64;
     }
-    lcd_setyaddr(currentY);
+    
+    _lcd_waitbusy();
+    DI=0; RW=0;
+    LCD_DATA = 0b01000000 | (y & 0b00111111);
+    _lcd_enable();
 }
 
 void lcd_draw(unsigned char x, unsigned char y, unsigned char symbol){
@@ -287,7 +281,7 @@ void lcd_putrs(const char *string){
     char i=0;
     unsigned char x=0;
     unsigned char y=0;
-    while (string[i] != 0)
+    while (string[i] != 0){
         //start new line if address is at the end of the screen
         if(y + FONT_WIDTH > 127){
             y = 0;
@@ -296,17 +290,17 @@ void lcd_putrs(const char *string){
         lcd_draw_char(x,y,string[i++]);
         y++;
     }
-} 
+}
 
 void lcd_testByte(unsigned char b){
     unsigned char mask= 0b10000000;
     int i = 0;
     while(i<8){
         if(b&mask){
-            lcd_char('1');
+            lcd_draw_char(currentX,currentY,'1');
         }
         else{
-            (lcd_char('0'));
+            (lcd_draw_char(currentX,currentY,'0'));
         }
         i++;
         mask>>=1;
@@ -333,19 +327,10 @@ void lcd_bitmap(const char * bmp){
     unsigned char i, j;
     
     for(i = 0; i < 8; i++){   
-       lcd_selectside(LEFT);  
-       
-       for(j = 0; j < 64 ; j++){
-         lcd_set_page(i);  
-         lcd_setyaddr(j & 0b00111111);
-         lcd_write(bmp[(i*128)+j]);
-       }
-       
-       lcd_selectside(RIGHT);    
-       for(j = 64 ; j < 128 ; j++){
-          lcd_set_page(i);  
-          lcd_setyaddr(j & 0b00111111);
-          lcd_write(bmp[(i*128)+j]);
+      
+       for(j = 0; j < 124 ; j++){
+        
+          lcd_draw(i,j,bmp[(i*128)+j]);
        }  
     }
 }
