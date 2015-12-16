@@ -179,7 +179,7 @@ void _lcd_waitbusy(void){
     }
 }
 
-void lcd_write (unsigned char data){
+void lcd_write(unsigned char data){
     _lcd_waitbusy();
     DI=1; RW=0;
     LCD_TRIS=0; 
@@ -253,18 +253,25 @@ void lcd_draw(unsigned char y, unsigned char symbol){
 
 void lcd_draw_n_times(unsigned char page, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
-    
     //set address
     lcd_setpage(page);
-    lcd_set_address(y);;
-    unsigned char address = 0
+    lcd_set_address(y);
+    unsigned char address = 0;
 
     //draw the sybmbole nb_repeat times
     for (int i = 0; i < nb_repeat; ++i)
     {
-        address = y + i
+        address = y + i;
         lcd_draw(address, symbol);
     }
+}
+
+void lcd_darw_bar(unsigned char index, unsigned char value, bool main){
+    //0b01111110 for plain bars or 0b10111101
+    unsigned char symbol = 0b01111110;
+    if main
+        symbol = 0b10111101;
+    lcd_draw_n_times(index,0,value,symbol)
 }
 
 void lcd_testByte(unsigned char b){
