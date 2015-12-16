@@ -267,12 +267,12 @@ void lcd_draw_n_times(unsigned char page, unsigned char y, unsigned char nb_repe
     }
 }
 
-void lcd_darw_bar(unsigned char index, unsigned char value, bool main){
+void lcd_draw_bar(unsigned char index, unsigned char value, int main){
     //0b01111110 for plain bars or 0b10111101
     unsigned char symbol = 0b01111110;
-    if main
+    if(main)
         symbol = 0b10111101;
-    lcd_draw_n_times(index,0,value,symbol)
+    lcd_draw_n_times(index,0,value,symbol);
 }
 
 void lcd_testByte(unsigned char b){
