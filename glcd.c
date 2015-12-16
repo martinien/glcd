@@ -283,6 +283,21 @@ void lcd_draw_char(unsigned char x, unsigned char y, char c){
     }
 }
 
+void lcd_putrs(const char *string){
+    char i=0;
+    unsigned char x=0;
+    unsigned char y=0;
+    while (string[i] != 0)
+        //start new line if address is at the end of the screen
+        if(y + FONT_WIDTH > 127){
+            y = 0;
+            x++;
+        }
+        lcd_draw_char(x,y,string[i++]);
+        y++;
+    }
+} 
+
 void lcd_testByte(unsigned char b){
     unsigned char mask= 0b10000000;
     int i = 0;
@@ -298,19 +313,6 @@ void lcd_testByte(unsigned char b){
     }
 }
 
-void lcd_putrs(const char *string){
-    char i=0;
-    unsigned char x=0;
-    unsigned char y=0;
-    while (string[i] != 0)
-        //start new line if address is at the end of the screen
-        if(y + FONT_WIDTH > 127){
-            y = 0;
-            x++;
-        }
-        lcd_draw_char(x,y,string[i++]);
-        y++;
-} 
 
 void lcd_startLine(unsigned int z){
     int cs1,cs2;
