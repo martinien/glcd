@@ -185,6 +185,7 @@ void lcd_write (unsigned char data){
     LCD_TRIS=0; 
     LCD_DATA = data;
     _lcd_enable();
+    currentY++;
 }
 
 void lcd_selectside(unsigned char sides){
@@ -212,6 +213,7 @@ unsigned char lcd_read(void){
     
     // restore the tris value
     LCD_TRIS = _lcd_tris;
+    currentY++;
     return _data;
 }
 
@@ -233,43 +235,36 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry){
     lcd_write (data | (1 << (ry & 0b111)));
 }
 
-void lcd_horizontalBar(unsigned char index,unsigned char val){
-    unsigned char y = 0;
-    currentY = 0;
-    lcd_setpage(index);    
-    lcd_selectside(LEFT);    
-    lcd_setyaddr(0);
-    while(y<val && y<64){
-        lcd_write(0b01111110);  
-        y++;
+void lcd_set_address(unsigned char y){
+    if (y < 64){
+        lcd_selectside(LEFT);
+        currentY = y;
+    }else{
+        lcd_selectside(RIGHT);
+        currentY = y - 64;
     }
-    lcd_selectside(RIGHT); 
-    lcd_setyaddr(0);
-    
-    while(y<val && y<124){    
-        lcd_write(0b01111110);
-        y++;
-    }
+    lcd_setyaddr(currentY);
 }
 
+void lcd_draw(unsigned char y, unsigned char symbol){
+    lcd_set_address(y);
+    lcd_write(symbol);
+}
 
-void lcd_horizontalMainBar(unsigned char index,unsigned char val){
-    unsigned char y = 0;
-    currentY = 0;
-    lcd_setpage(index);    
-    lcd_selectside(LEFT);    
-    lcd_setyaddr(0);
-    while(y<val && y<64){
-        lcd_write(0b10111101);
-        y++;
-    }
-    lcd_selectside(RIGHT); 
-    lcd_setyaddr(0);
+void lcd_draw_n_times(unsigned char page, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
+    // draw the symbol passed in argumet nb_repeat times at the selected page and y
     
-    while(y<val && y<124){    
-        lcd_write(0b101111101);
-        y++;
-    }    
+    //set address
+    lcd_setpage(page);
+    lcd_set_address(y);;
+    unsigned char address = 0
+
+    //draw the sybmbole nb_repeat times
+    for (int i = 0; i < nb_repeat; ++i)
+    {
+        address = y + i
+        lcd_draw(address, symbol);
+    }
 }
 
 void lcd_testByte(unsigned char b){
