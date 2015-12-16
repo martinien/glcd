@@ -2,36 +2,21 @@
 #include "glcd.h"
 #include <libpic30.h>
 #include "myFont.h"
-//#define FCY 8000000UL
-
-/*const char font[]= { 
-
-
- 
-
-};*/
 
 int currentX;
 int currentY;
 int currentPage;
 
-void _lcd_enable(void)
-
-{
- 
+void _lcd_enable(void){
     ENABLE=0;
     __delay_us(.2);
     ENABLE=1;   
     __delay_us(0.6);
     ENABLE=0;
     __delay_us(.5);
- 
-  //  __delay_us(.6);
-    
-}
+ }
 
-unsigned char _lcd_status(void)
-{
+unsigned char _lcd_status(void){
     unsigned char status,_lcd_tris;
     _lcd_tris = LCD_TRIS;
     int cs1 = CS1;
@@ -97,34 +82,15 @@ unsigned char _lcd_status(void)
     return _status;*/
 }
 
-void _lcd_reset(void)
-
-{
-
-    // reset the lcd module
-    // datasheet says reset must be low for minimum of 1us
-
-    // after Vdd clears 4.5v. 
-
-    // from experimentation, this is bullshit. this seems to
-    // work though.
-
+void _lcd_reset(void){
     __delay_ms(.5); // actually .5 ms
-
     RESET=1;
     __delay_ms(.5); // actually .5 ms
-
     RESET=0;
-
     // check status, and wait if necessary
-
-    while (_lcd_status() & 0b00010000)
-
-    {
+    while (_lcd_status() & 0b00010000){
         __delay_us(5); // .5 ms
-
     }
-
 }
 
 void lcd_on(){
@@ -146,7 +112,6 @@ void lcd_on(){
 }
 
 void lcd_off(){
-    
     int data;
     ENABLE=0;    
     CS1=0;
@@ -164,6 +129,7 @@ void lcd_off(){
 }
 
 void lcd_cls(void){
+    //lcd clear screen
     unsigned char x,y;
 
     CS1 = 0;
@@ -232,22 +198,7 @@ void lcd_selectside(unsigned char sides){
         CS2 = 1;
 }
 
-/*unsigned char lcd_read (void){
-    unsigned char _data;
-    LCD_TRIS=0xFF;
-
-    RW = 1;
-    DI=1;
-
-    _lcd_enable();
-    _data = LCD_DATA;
-    LCD_TRIS=0x00;
-
-    return _data;
-}*/
-
-unsigned char lcd_read(void)
-{
+unsigned char lcd_read(void){
     unsigned char _lcd_tris, _data;
     _lcd_tris = LCD_TRIS;
     LCD_TRIS=0xFF; // all inputs
@@ -282,10 +233,7 @@ void lcd_plotpixel(unsigned char rx, unsigned char ry){
     lcd_write (data | (1 << (ry & 0b111)));
 }
 
-
-
 void lcd_horizontalBar(unsigned char index,unsigned char val){
-
     unsigned char y = 0;
     currentY = 0;
     lcd_setpage(index);    
@@ -301,16 +249,11 @@ void lcd_horizontalBar(unsigned char index,unsigned char val){
     while(y<val && y<124){    
         lcd_write(0b01111110);
         y++;
-    
     }
-    
-    
-    
 }
 
 
 void lcd_horizontalMainBar(unsigned char index,unsigned char val){
-
     unsigned char y = 0;
     currentY = 0;
     lcd_setpage(index);    
@@ -326,15 +269,10 @@ void lcd_horizontalMainBar(unsigned char index,unsigned char val){
     while(y<val && y<124){    
         lcd_write(0b101111101);
         y++;
-    
-    }
-    
-    
-    
+    }    
 }
 
 void lcd_testByte(unsigned char b){
-
     unsigned char mask= 0b10000000;
     int i = 0;
     while(i<8){
@@ -346,17 +284,10 @@ void lcd_testByte(unsigned char b){
         }
         i++;
         mask>>=1;
-    
-    
     }
-
-
-
 }
 
-
-void lcd_char(char c)
-{
+void lcd_char(char c){
     unsigned char page, y;
     int i,charIndex;   
     
@@ -369,9 +300,6 @@ void lcd_char(char c)
         currentPage++;
         lcd_setpage(currentPage);
         lcd_setyaddr(0);
-        
-        
-    
     }
     for(i = 0; i < 6; i++){
         
@@ -386,56 +314,14 @@ void lcd_char(char c)
     }
 }
 
-
-
-
- 
-
-/*void lcd_putchar(char c)
-
-{
-
-    int base;
-
-    base = c - 32;
-
-    base *= 3;
-
-    lcd_write(font[base]);
-
-    lcd_write(font[base + 1]);
-
-    lcd_write(font[base + 2]);
-
-    lcd_write(0);
-
-}*/
-
-void lcd_putrs(const char *string)
-
-{
-
+void lcd_putrs(const char *string){
     lcd_selectside(LEFT); 
     char i=0;
     currentY = 0;
     currentPage=0;
     while (string[i] != 0)
-
         lcd_char(string[i++]);
-
 } 
-/*
-void lcd_puts(char *string)
-
-{
-
-    char i=0;
-
-    while (string[i] != 0)
-
-        lcd_putchar(string[i++]);
-
-} */
 
 void lcd_startLine(unsigned int z){
     int cs1,cs2;
@@ -448,24 +334,11 @@ void lcd_startLine(unsigned int z){
     DI=0; RW=0;
     LCD_DATA = 0b11000000 | (z & 0b00111111);
     _lcd_enable();    
-
-    
-    
-    
-    
- 
     CS1 = cs1;
     CS2 = cs2;
 }
     
-    
-    
-    
-
-
-
-void lcd_bitmap(const char * bmp)
-{
+void lcd_bitmap(const char * bmp){
     unsigned char i, j;
     
     for(i = 0; i < 8; i++){   
@@ -486,30 +359,7 @@ void lcd_bitmap(const char * bmp)
     }
 }
 
-void lcd_longString(const char *string){
-
-    unsigned char i, j,x,y,page;    
-    i=0;
-    page =0;
-    y = 0;
-     while (string[i] != 0){
-     
-     }
-    }
-    
-    
-    
-
-
-
-
-
-
-
-
-
-int is_busy()
-{
+int is_busy(){
     int status = 0;        //Read data here
     
     ENABLE = 0;                 //Low Enable
@@ -535,7 +385,3 @@ int is_busy()
     #endif*/
     return (status & 0x80);           
 }
-
-
-
-
