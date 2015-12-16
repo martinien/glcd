@@ -198,15 +198,20 @@ void lcd_selectside(unsigned char sides){
 
 unsigned char lcd_read(void){
     unsigned char _lcd_tris, _data;
+    ENABLE = 0;
     _lcd_tris = LCD_TRIS;
     LCD_TRIS=0xFF; // all inputs
-    DI=1; RW=1;
-    
-    __delay_us(.2);
-    _lcd_enable();
-    __delay_us(.2);
+    DI=1; RW=1;    
+    __delay_us(.5);
+    ENABLE=1;
+    __delay_us(.5);
+    ENABLE=0; 
+    __delay_us(.5);
+    ENABLE=1;
+    __delay_us(.3);
     _data = LCD_DATA;
-    __delay_us(.2);
+    __delay_us(.3);
+    ENABLE = 0;       
     
     // restore the tris value
     LCD_TRIS = _lcd_tris;
@@ -214,15 +219,16 @@ unsigned char lcd_read(void){
     return _data;
 }
 
-void lcd_plotpixel(unsigned char rx, unsigned char ry){
+void lcd_plotpixel(unsigned char x, unsigned char y){
     unsigned char data;
 
     _lcd_waitbusy();
-    lcd_set_page(rx>>3);
-    lcd_set_address(ry);
+    lcd_set_page(x>>3);
+    lcd_set_address(y);
     data = lcd_read();
-    
-    lcd_write (data | (1 << (rx & 0b111)));
+    lcd_set_address(y);
+    lcd_write(data | (1<<(x%8)));
+    //lcd_write (data | (1 << (rx)));
 }
 
 void lcd_set_address(unsigned char y){
@@ -265,6 +271,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int main){
     if(main)
         symbol = 0b10111101;
     lcd_draw_n_times(index,0,value,symbol);
+    lcd_draw_n_times(index,value+1,127,0b00000000);
 }
 
 void lcd_draw_char(unsigned char x, unsigned char y, char c){

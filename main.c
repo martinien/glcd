@@ -81,7 +81,7 @@
 
 int main(void) {
 
-    unsigned char status;
+    unsigned char status,data;
     int i,j;
     TRISA = 0;
     TRISB = 0;
@@ -97,20 +97,39 @@ int main(void) {
     lcd_on();
 
     while(1){
+        lcd_startLine(0);
+        lcd_cls();
+        lcd_bitmap(logo);
+        delay_ms(1000);
+        lcd_cls();
+        
+        lcd_draw(0,100,0b11001010);
+        lcd_set_address(100);
+        data=lcd_read();
+        lcd_set_address(0);
+        lcd_testByte(data);
+        
+        
+        for (i = 0; i < 10; i++) {
+        for (j = 10; j < 20; j++) {
+            lcd_plotpixel(i, j);
+            delay_ms(50);
+        }
+        delay_ms(1000);
+
+    }
+    delay_ms(20000);
+    }
+    
+    while(1){
     lcd_cls();
     lcd_bitmap(logo);
     delay_ms(3000);
-
-   // lcd_startLine(0);
-    // int i,j;
-
-
-
+    
     lcd_draw_bar(0, 45, 0);
     lcd_draw_bar(1, 35, 0);
     lcd_draw_bar(2, 69, 0);
     lcd_draw_bar(3, 90, 1);
-
     delay_ms(3000);
     lcd_cls();
     lcd_off();
@@ -118,24 +137,17 @@ int main(void) {
     lcd_on();
     lcd_set_page(0);
     lcd_set_address(0);
-    ;
+    lcd_cls();
     lcd_testByte(status);
     delay_ms(5000);
 
     lcd_cls();
 
-    for (i = 0; i < 64; i++) {
-        for (j = 0; j < 64; j++) {
-            lcd_plotpixel(i, j);
-            delay_ms(20);
-        }
 
-        
-    delay_ms(2000);
         
     lcd_bitmap(road);
     delay_ms(2000);
-    }
+    
     }
 
 }
