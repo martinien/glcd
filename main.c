@@ -82,6 +82,7 @@
 int main(void) {
 
     unsigned char status;
+    int i,j;
     TRISA = 0;
     TRISB = 0;
     ANSB = 0;
@@ -115,28 +116,26 @@ int main(void) {
     lcd_off();
     status = _lcd_status();
     lcd_on();
-    lcd_setpage(0);
+    lcd_set_page(0);
     lcd_setyaddr(0);
     ;
     lcd_testByte(status);
     delay_ms(5000);
 
+    lcd_cls();
 
-//    for (i = 0; i < 64; i++) {
-//        for (j = 0; j < 64; j++) {
-//            lcd_plotpixel(i, j);
-//            delay_ms(20);
-//        }
-//    }
-    
+    for (i = 0; i < 64; i++) {
+        for (j = 0; j < 64; j++) {
+            lcd_plotpixel(i, j);
+            delay_ms(20);
+        }
 
+        
+    delay_ms(2000);
+        
     lcd_bitmap(road);
-
-
-
-
-
-    delay_ms(10000);
+    delay_ms(2000);
+    }
     }
 
 }
