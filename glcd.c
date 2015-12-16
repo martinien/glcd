@@ -51,36 +51,7 @@ unsigned char _lcd_status(void){
     CS2= cs2;
     
     return (status);           
-    /*unsigned char _lcd_tris, _status;    
-    // save values
-    _lcd_tris = LCD_TRIS;
-    int cs1 = CS1;
-    int cs2 = CS2;    
-    // read the status
-    LCD_TRIS=0b0000000011111111; // all inputs    
-    __delay_us(.2);
-    ENABLE=0;
-    DI=0; RW=1; // command/read
-    CS1 = 0;
-    CS2 = 0;
-    __delay_us(.5);
-    ENABLE=1;   
-    __delay_us(0.4);
-    _status = PORTB ;
-    __delay_us(.3);
-    ENABLE=0;
-    
-    
-    //_status = 0b00101011; //TODO REMOVE
-    __delay_us(.1);
-    
-    // restore values
-    LCD_TRIS = _lcd_tris;
-    CS1 = cs1;
-    CS2= cs2;
-
-    return _status;*/
-}
+  }
 
 void _lcd_reset(void){
     __delay_ms(.5); // actually .5 ms
@@ -200,21 +171,36 @@ void lcd_selectside(unsigned char sides){
 }
 
 unsigned char lcd_read(void){
-    unsigned char _lcd_tris, _data;
+    unsigned char data,_lcd_tris;
     _lcd_tris = LCD_TRIS;
-    LCD_TRIS=0xFF; // all inputs
-    DI=1; RW=1;
+    ENABLE = 0;                 //Low Enable
+    __delay_us(1);            //tf
+    RW = 1;                 //Read
+    DI = 1;                 //Data  
+    LCD_TRIS=0b11111111;
+    __delay_us(1);            //tasu
+    ENABLE = 1;                 //High Enable
+    __delay_us(5);            //tr + max(td,twh)->twh
     
-    __delay_us(.2);
-    _lcd_enable();
-    __delay_us(.2);
-    _data = LCD_DATA;
-    __delay_us(.2);
+    //Dummy read
+    ENABLE = 0;                 //Low Enable
+    __delay_us(5);            //tf + twl + chineese error    
     
-    // restore the tris value
+    ENABLE = 1;                 //High Enable
+    __delay_us(1);            //tr + td        
+                                  
+    data = LCD_DATA;    //Input data
+    ENABLE = 0;                 //Low Enable
+    __delay_us(1);            //tdhr
+    /*#ifdef DEBUG_READ
+        printf("S:%x\n\r",status);
+    #endif*/
+    
     LCD_TRIS = _lcd_tris;
-    currentY++;
-    return _data;
+  
+    
+    return (data);           
+
 }
 
 void lcd_plotpixel(unsigned char rx, unsigned char ry){
