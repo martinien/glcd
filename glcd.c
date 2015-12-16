@@ -273,11 +273,15 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int main){
     lcd_draw_n_times(index,0,value,symbol);
 }
 
-// void lcd_draw_char(unsigned char page, unsigned char y, char c){
-//     unsigned char page, y;
-//     int i,charIndex;   
-//     charIndex = c;
-// }
+void lcd_draw_char(unsigned char x, unsigned char y, char c){
+    int i,charIndex;    
+    charIndex = c;
+
+    for(i = 0; i <= FONT_WIDTH; i++){ 
+        lcd_draw(x,y,myfont[charIndex][i]);
+        y++;
+    }
+}
 
 void lcd_testByte(unsigned char b){
     unsigned char mask= 0b10000000;
@@ -294,39 +298,18 @@ void lcd_testByte(unsigned char b){
     }
 }
 
-void lcd_char(char c){
-    unsigned char page, y;
-    int i,charIndex;   
-     
-    charIndex = c;
-
-    if(currentY + FONT_WIDTH >127){
-        lcd_selectside(LEFT); 
-        currentY=0;
-        currentPage++;
-        lcd_set_page(currentPage);
-        lcd_setyaddr(0);
-    }
-    for(i = 0; i < 6; i++){
-        
-        if(currentY==64){
-            lcd_selectside(RIGHT);
-            lcd_setyaddr( currentY & 0b00111111);
-        }       
-        lcd_write(myfont[charIndex][i]);
-        
-        currentY+=1;
-    //printf('%c',myfont[base][i]);    }
-    }
-}
-
 void lcd_putrs(const char *string){
-    lcd_selectside(LEFT); 
     char i=0;
-    currentY = 0;
-    currentPage=0;
+    unsigned char x=0;
+    unsigned char y=0;
     while (string[i] != 0)
-        lcd_char(string[i++]);
+        //start new line if address is at the end of the screen
+        if(y + FONT_WIDTH > 127){
+            y = 0;
+            x++;
+        }
+        lcd_draw_char(x,y,string[i++]);
+        y++;
 } 
 
 void lcd_startLine(unsigned int z){
