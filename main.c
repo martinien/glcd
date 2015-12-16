@@ -1,19 +1,19 @@
 /********************************************************************
-* FileName:     main.c
-* Dependencies:    
-* Processor:    PIC24FV16KM202
-* Hardware:     Microstick for 5V PIC24 K Series
-* Compiler:     XC16 v1.1 or later
-* Company:      Microchip Technology, Inc.
+ * FileName:     main.c
+ * Dependencies:    
+ * Processor:    PIC24FV16KM202
+ * Hardware:     Microstick for 5V PIC24 K Series
+ * Compiler:     XC16 v1.1 or later
+ * Company:      Microchip Technology, Inc.
 
-*
-* 
-* Change History:
-*
-* Author        Revision #      Date        Comment
-*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* B. Ivey       1.00            01-15-2013  Initial code
-********************************************************************/
+ *
+ * 
+ * Change History:
+ *
+ * Author        Revision #      Date        Comment
+ *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * B. Ivey       1.00            01-15-2013  Initial code
+ ********************************************************************/
 
 //#include <p24fxxxx.h>
 #include <p24FV16KM202.h>
@@ -79,54 +79,64 @@
 #define delay_ms __delay_ms
 #define delay_us __delay_us
 
+int main(void) {
 
-
-
-
-
-int main(void){
-
-  
+    unsigned char status;
     TRISA = 0;
     TRISB = 0;
-    ANSB=0;
-    RESET = 1 ;   
-             
-    lcd_on();    
-    delay_us(1000);
-    lcd_bitmap(logo);     
-    delay_ms(1000);
-   
-    lcd_startLine(0);
-   // int i,j;
+    ANSB = 0;
+    RESET = 1;
     
-    /*for(i=0;i<64;i++){
-        for(j=0;j<64;j++){
-            lcd_plotpixel(i,j);
-            delay_ms(20);
+    status = 0;
+    while(status!=0b00100000){
+         lcd_off();
+         status = _lcd_status();
+         delay_ms(1000);
         }
-    }*/
-    
-    lcd_draw_bar(0,45,0);
-    lcd_draw_bar(1,35,0);
-    lcd_draw_bar(2,69,0);
-    lcd_draw_bar(3,90,1);
-    
-    delay_ms(3000);
-    
+    lcd_on();
 
-    
+    while(1){
+    lcd_cls();
+    lcd_bitmap(logo);
+    delay_ms(3000);
+
+   // lcd_startLine(0);
+    // int i,j;
+
+
+
+    lcd_draw_bar(0, 45, 0);
+    lcd_draw_bar(1, 35, 0);
+    lcd_draw_bar(2, 69, 0);
+    lcd_draw_bar(3, 90, 1);
+
+    delay_ms(3000);
+    lcd_cls();
+    lcd_off();
+    status = _lcd_status();
+    lcd_on();
     lcd_setpage(0);
     lcd_setyaddr(0);
-   
+    ;
+    lcd_testByte(status);
+    delay_ms(5000);
+
+
+//    for (i = 0; i < 64; i++) {
+//        for (j = 0; j < 64; j++) {
+//            lcd_plotpixel(i, j);
+//            delay_ms(20);
+//        }
+//    }
     
- 
-    lcd_bitmap(road); 
-    
-    
-   
-    
-    
-    delay_ms(1000000);
-    
- }
+
+    lcd_bitmap(road);
+
+
+
+
+
+    delay_ms(10000);
+    }
+
+}
