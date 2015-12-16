@@ -253,13 +253,14 @@ void lcd_draw(unsigned char y, unsigned char symbol){
 
 void lcd_draw_n_times(unsigned char page, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
+    int i;
     //set address
     lcd_setpage(page);
     lcd_set_address(y);
     unsigned char address = 0;
 
     //draw the sybmbole nb_repeat times
-    for (int i = 0; i < nb_repeat; ++i)
+    for ( i = 0; i < nb_repeat; ++i)
     {
         address = y + i;
         lcd_draw(address, symbol);
