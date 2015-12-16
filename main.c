@@ -89,30 +89,46 @@ int main(void){
   //  stdout = _H_USART;
     unsigned int x = 0;  
     int y = 0;
+    unsigned char s;
     TRISA = 0;
     TRISB = 0;
     RESET = 1 ;
     ENABLE = 1;
     CS1 = 0;
     CS2 = 0 ;         
-    lcd_on();
-    
+    lcd_on();    
     delay_us(1000);
-    lcd_bitmap(isen); 
-    delay_ms(2000);
-    lcd_cls();
-    lcd_horizontalBar(1,25);
-    delay_ms(200);    
-    lcd_horizontalBar(2,35);
-    delay_ms(200);  
-    lcd_horizontalMainBar(3,45);
-    delay_ms(200);  
-    lcd_horizontalBar(4,55);
-    delay_ms(200);  
-    lcd_horizontalBar(5,65);
+    lcd_bitmap(isen);     
+    delay_ms(1000);
+    lcd_off();    
+    delay_ms(1000);
+    lcd_on();
+    delay_ms(1000);
     
     
     
+    
+    
+//    lcd_horizontalBar(1,25);
+//    delay_ms(200);    
+//    lcd_horizontalBar(2,35);
+//    delay_ms(200);  
+//    lcd_horizontalMainBar(3,45);
+//    delay_ms(200);  
+//    lcd_horizontalBar(4,55);
+//    delay_ms(200);  
+//    lcd_horizontalBar(5,65);
+    
+    lcd_setpage(0);
+    lcd_setyaddr(0);
+    lcd_off();
+    delay_ms(100);
+    s = (_lcd_status());    
+    delay_ms(100);    
+    lcd_on();
+    delay_ms(1000);
+    lcd_putrs("status:");
+    lcd_testByte(s);
     
     delay_ms(100000);
     
