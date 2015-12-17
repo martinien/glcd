@@ -7,6 +7,12 @@ int currentX;
 int currentY;
 int currentPage;
 
+int BAR_WIDTH=14;
+int BAR_SPAWN=16;
+int MENU_WIDHT=64;
+unsigned char BLANK_BIT=0b00000000;
+unsigned char FULL_BIT=0b11111111;
+
 void _lcd_enable(void){
     ENABLE=0;
     __delay_us(.2);
@@ -265,13 +271,45 @@ void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat,
     }
 }
 
-void lcd_draw_bar(unsigned char index, unsigned char value, int main){
-    //0b01111110 for plain bars or 0b10111101
-    unsigned char symbol = 0b01111110;
-    if(main)
-        symbol = 0b10111101;
-    lcd_draw_n_times(index,0,value,symbol);
-    lcd_draw_n_times(index,value+1,127,0b00000000);
+void lcd_draw_bar(unsigned char index, unsigned char value, int handeling){
+    //TODO (julien 17/12/2015) add reference bar handeling
+    int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
+    int x,y,y_start;
+    int i;
+    unsigned char transition_page_bit;
+    
+    nb_full_pages = value/8;
+    nb_blank_pages = 8 - nb_full_pages - 1;
+    nb_blank_pixel_in_transition_page = 8 - (value % 8);
+    transition_page_bit = FULL_BIT >> nb_blank_pixel_in_transition_page;
+
+    y_start = MENU_WIDHT + index * BAR_WIDTH;
+    y = y_start;
+
+    for (i = 0; i < nb_blank_pages; ++i){
+        lcd_draw_n_times(x, y, BAR_SPAWN, BLANK_BIT);
+        x++;
+    }
+
+    y = y_start;
+    lcd_draw_char(x, y++, BLANK_BIT);
+    lcd_draw_n_times(x, y, BAR_WIDTH, transition_page_bit);
+    y += BAR_WIDTH;
+    lcd_draw_char(x, y, BLANK_BIT);
+
+    y = y_start;
+    x++;
+
+    for (i = 0; i < nb_full_pages; ++i){
+        y = y_start;
+        lcd_draw_char(x, y++, BLANK_BIT);
+        lcd_draw_n_times(x, y, BAR_WIDTH, FULL_BIT);
+        y += BAR_WIDTH;
+        lcd_draw_char(x, y++, BLANK_BIT);
+        x++;
+    }
+
+
 }
 
 void lcd_draw_char(unsigned char x, unsigned char y, char c){
@@ -332,11 +370,8 @@ void lcd_startLine(unsigned int z){
     
 void lcd_bitmap(const char * bmp){
     unsigned char i, j;
-    
     for(i = 0; i < 8; i++){   
-      
        for(j = 0; j < 124 ; j++){
-        
           lcd_draw(i,j,bmp[(i*128)+j]);
        }  
     }
