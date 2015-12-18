@@ -36,16 +36,13 @@ unsigned char _lcd_status(void){
     LCD_TRIS=0b11111111;
     __delay_us(1);            //tasu
     ENABLE = 1;                 //High Enable
-    __delay_us(5);            //tr + max(td,twh)->twh
-    
+    __delay_us(5);            //tr + max(td,twh)->twh    
     //Dummy read
     ENABLE = 0;                 //Low Enable
-    __delay_us(5);            //tf + twl + chineese error    
-    
+    __delay_us(5);            //tf + twl + chineese error        
     ENABLE = 1;                 //High Enable
-    __delay_us(1);            //tr + td        
-                                  
-    status = LCD_DATA;    //Input data
+    __delay_us(1);            //tr + td                                          
+    status = LCD_DATA & 0b11111111;    //Input data
     ENABLE = 0;                 //Low Enable
     __delay_us(1);            //tdhr
     /*#ifdef DEBUG_READ
@@ -57,35 +54,8 @@ unsigned char _lcd_status(void){
     CS2= cs2;
     
     return (status);           
-    /*unsigned char _lcd_tris, _status;    
-    // save values
-    _lcd_tris = LCD_TRIS;
-    int cs1 = CS1;
-    int cs2 = CS2;    
-    // read the status
-    LCD_TRIS=0b0000000011111111; // all inputs    
-    __delay_us(.2);
-    ENABLE=0;
-    DI=0; RW=1; // command/read
-    CS1 = 0;
-    CS2 = 0;
-    __delay_us(.5);
-    ENABLE=1;   
-    __delay_us(0.4);
-    _status = PORTB ;
-    __delay_us(.3);
-    ENABLE=0;
-    
-    
-    //_status = 0b00101011; //TODO REMOVE
-    __delay_us(.1);
-    
-    // restore values
-    LCD_TRIS = _lcd_tris;
-    CS1 = cs1;
-    CS2= cs2;
-
-    return _status;*/
+  
+   
 }
 
 void _lcd_reset(void){
@@ -215,7 +185,7 @@ unsigned char lcd_read(void){
     __delay_us(.5);
     ENABLE=1;
     __delay_us(.3);
-    _data = LCD_DATA;
+    _data = LCD_DATA & 0b11111111;
     __delay_us(.3);
     ENABLE = 0;       
     
@@ -233,7 +203,7 @@ void lcd_plotpixel(unsigned char x, unsigned char y){
     lcd_set_address(y);
     data = lcd_read();
     lcd_set_address(y);
-    lcd_write(data | (1<<(x%8)));
+    lcd_write(data); //| (1<<(x%8))
     //lcd_write (data | (1 << (rx)));
 }
 

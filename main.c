@@ -89,35 +89,39 @@ int main(void) {
     RESET = 1;
     
     status = 0;
-    while(status!=0b00100000){
-         lcd_off();
-         status = _lcd_status();
-         delay_ms(1000);
-        }
+    
     lcd_on();
 
     while(1){
-        lcd_startLine(0);
         lcd_cls();
         lcd_bitmap(logo);
         delay_ms(1000);
         lcd_cls();
+        lcd_off();
+        status = _lcd_status();
+        lcd_on();
+        lcd_testByte(status);
+        delay_ms(2000);
+        status = _lcd_status();   
+        lcd_set_address(0);
+        lcd_testByte(status);
+        delay_ms(2000);
+        lcd_cls();
+        lcd_startLine(0);      
         
-        lcd_draw(0,100,0b11001010);
-        lcd_set_address(100);
+        lcd_draw(1,10,0b10101010);
+        lcd_set_address(10);
         data=lcd_read();
         lcd_set_address(0);
         lcd_testByte(data);
         
         
-        for (i = 0; i < 10; i++) {
-        for (j = 10; j < 20; j++) {
-            lcd_plotpixel(i, j);
-            delay_ms(50);
-        }
+      
+        i = 0;
+        
         delay_ms(1000);
 
-    }
+    
     delay_ms(20000);
     }
     
