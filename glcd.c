@@ -1,4 +1,5 @@
 
+
 #include "glcd.h"
 #include <libpic30.h>
 #include "myFont.h"
@@ -7,9 +8,9 @@ int currentX;
 int currentY;
 int currentPage;
 
-int BAR_WIDTH=14;
-int BAR_SPAWN=16;
-int MENU_WIDHT=64;
+int BAR_WIDTH=20;
+int BAR_SPAN=24;
+int MENU_WIDTH=30;
 unsigned char BLANK_BIT=0b00000000;
 unsigned char FULL_BIT=0b11111111;
 
@@ -228,6 +229,14 @@ void lcd_draw(unsigned char x, unsigned char y, unsigned char symbol){
     lcd_set_address(y);
     lcd_write(symbol);
 }
+void lcd_reversed_draw(unsigned char x, unsigned char y, unsigned char symbol){
+    //TODO (julien 16/12/2015) check if set address is necessary when y == currentY
+    lcd_set_page(x);
+    lcd_set_address(y);
+    lcd_write(~symbol);
+}
+
+
 
 void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
@@ -251,13 +260,13 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int handeling){
     nb_full_pages = value/8;
     nb_blank_pages = 8 - nb_full_pages - 1;
     nb_blank_pixel_in_transition_page = 8 - (value % 8);
-    transition_page_bit = FULL_BIT >> nb_blank_pixel_in_transition_page;
+    transition_page_bit = FULL_BIT << nb_blank_pixel_in_transition_page;
 
-    y_start = MENU_WIDHT + index * BAR_WIDTH;
+    y_start = MENU_WIDTH + index * BAR_SPAN;
     y = y_start;
 
     for (i = 0; i < nb_blank_pages; ++i){
-        lcd_draw_n_times(x, y, BAR_SPAWN, BLANK_BIT);
+        lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
         x++;
     }
 
@@ -291,6 +300,17 @@ void lcd_draw_char(unsigned char x, unsigned char y, char c){
         y++;
     }
 }
+
+void lcd_draw_reversed_char(unsigned char x, unsigned char y, char c){
+    int i,charIndex;    
+    charIndex = c;
+
+    for(i = 0; i <= FONT_WIDTH; i++){ 
+        lcd_draw(x,y,~myfont[charIndex][i]);
+        y++;
+    }
+}
+
 
 void lcd_putrs(const char *string){
     char i=0;
@@ -372,4 +392,23 @@ int is_busy(){
         printf("S:%x\n\r",status);
     #endif*/
     return (status & 0x80);           
+}
+
+void lcd_menuItem(int index,const char *string,int reversed){
+    char i=0;
+    unsigned char x=index;
+    unsigned char y=0;
+    while (string[i] != 0 && i<10){
+        //start new line if address is at the end of the screen
+        if(y +FONT_WIDTH > 64){
+            return;
+        }
+        if(reversed==1){
+           lcd_draw_reversed_char(x,y,string[i++]);
+        }
+        else{
+           lcd_draw_char(x,y,string[i++]);
+        }
+        y+= FONT_WIDTH;
+    }
 }

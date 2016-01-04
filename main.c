@@ -22,6 +22,7 @@
 #include <stdio.h>
 #include "glcd.h"
 #include "logo.h"
+#include "twinmaxUI.h"
 
 //#include "lcdTest.c"
 
@@ -92,65 +93,28 @@ int main(void) {
     
     lcd_on();
 
-    while(1){
-        lcd_cls();
-        lcd_bitmap(logo);
-        delay_ms(1000);
-        lcd_cls();
-        lcd_off();
-        status = _lcd_status();
-        lcd_on();
-        lcd_testByte(status);
-        delay_ms(2000);
-        status = _lcd_status();   
-        lcd_set_address(0);
-        lcd_testByte(status);
-        delay_ms(2000);
-        lcd_cls();
-        lcd_startLine(0);      
-        
-        lcd_draw(1,10,0b10101010);
-        lcd_set_address(10);
-        data=lcd_read();
-        lcd_set_address(0);
-        lcd_testByte(data);
-        
-        
-      
-        i = 0;
-        
-        delay_ms(1000);
-
     
-    delay_ms(20000);
-    }
     
     while(1){
     lcd_cls();
     lcd_bitmap(logo);
-    delay_ms(3000);
-    
+    delay_ms(1000);
+    lcd_cls();
     lcd_draw_bar(0, 45, 0);
     lcd_draw_bar(1, 35, 0);
     lcd_draw_bar(2, 69, 0);
     lcd_draw_bar(3, 90, 1);
-    delay_ms(3000);
-    lcd_cls();
-    lcd_off();
-    status = _lcd_status();
-    lcd_on();
-    lcd_set_page(0);
-    lcd_set_address(0);
-    lcd_cls();
-    lcd_testByte(status);
-    delay_ms(5000);
-
-    lcd_cls();
-
-
-        
-    lcd_bitmap(road);
-    delay_ms(2000);
+    delay_ms(100);
+    lcd_menuItem(0,"Menu",0);
+    lcd_menuItem(1,"Options",1);
+    lcd_menuItem(2,"Lorem",0);
+    lcd_menuItem(3,"Ipsum",0);
+    lcd_menuItem(4,"Dolor",0);
+    
+    
+    
+    delay_ms(7000);
+    
     
     }
 
