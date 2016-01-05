@@ -7,8 +7,9 @@
       <itemPath>delays.h</itemPath>
       <itemPath>glcd.h</itemPath>
       <itemPath>logo.h</itemPath>
-      <itemPath>font.h</itemPath>
       <itemPath>myFont.h</itemPath>
+      <itemPath>twinmaxUI.h</itemPath>
+      <itemPath>FRENCH.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -20,6 +21,7 @@
       <itemPath>glcd.c</itemPath>
       <itemPath>delays.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>twinmaxUI.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

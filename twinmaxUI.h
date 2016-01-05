@@ -9,4 +9,6 @@
 
 void tui_drawGraph(int* values);
 
-void tui_menuItem(int index,const char *string);
+void tui_menuItem(int index,const char *string,int highlighted);
+
+void tui_question(int index,const char *question,const char*A1,const char* A2,int highlighted);

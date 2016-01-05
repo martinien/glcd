@@ -394,21 +394,3 @@ int is_busy(){
     return (status & 0x80);           
 }
 
-void lcd_menuItem(int index,const char *string,int reversed){
-    char i=0;
-    unsigned char x=index;
-    unsigned char y=0;
-    while (string[i] != 0 && i<10){
-        //start new line if address is at the end of the screen
-        if(y +FONT_WIDTH > 64){
-            return;
-        }
-        if(reversed==1){
-           lcd_draw_reversed_char(x,y,string[i++]);
-        }
-        else{
-           lcd_draw_char(x,y,string[i++]);
-        }
-        y+= FONT_WIDTH;
-    }
-}
