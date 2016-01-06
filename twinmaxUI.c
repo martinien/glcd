@@ -1,7 +1,8 @@
 
 #define FONT_WIDTH 6
+//#include "twinmaxUI.h"
 
-void tui_drawGraph(int values[4] )
+void tui_drawGraph(unsigned char values[4] )
 {
     lcd_draw_bar(0, values[0], 0);
     lcd_draw_bar(1, values[1], 0);
@@ -13,7 +14,7 @@ void tui_drawGraph(int values[4] )
 
 
 
-void tui_menuItem(int index,const char *string,unsigned char reversed){
+void tui_menuItem(int index,const char *string,unsigned char highlighted){
     char i=0;
     unsigned char x=index;
     unsigned char y=0;
@@ -22,7 +23,7 @@ void tui_menuItem(int index,const char *string,unsigned char reversed){
         if(y +FONT_WIDTH > 64){
             return;
         }
-        if(reversed==1){
+        if(highlighted==1){
            lcd_draw_reversed_char(x,y,string[i++]);
         }
         else{
@@ -83,3 +84,17 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
         }
         y++;
     }}
+
+
+
+void tui_displayMesures(double measures[4],double sensitivity,int referenceIndex){
+    double referenceMeasure = measures[referenceIndex];
+    unsigned char values[4];
+    int i;
+    for(i=0;i<4;i++){
+        values[i]= (unsigned char) sensitivity*(measures[i]*referenceMeasure)+32;
+    }
+    
+    
+
+}

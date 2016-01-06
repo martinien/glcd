@@ -7,8 +7,10 @@
 
 
 
-void tui_drawGraph(int* values);
+void tui_drawGraph(unsigned char values[4]);
 
-void tui_menuItem(int index,const char *string,int highlighted);
+void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed,int width);
 
-void tui_question(int index,const char *question,const char*A1,const char* A2,int highlighted);
+void tui_menuItem(int index,const char *string,unsigned char highlighted);
+
+void tui_displayMesures(double measures[4],double sensitivity,int referenceIndex);

@@ -16,15 +16,17 @@
  ********************************************************************/
 
 //#include <p24fxxxx.h>
+#define FCY 4000000UL
 #include <p24FV16KM202.h>
+
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "glcd.h"
+//#include "glcd.h"
 #include "logo.h"
-#include "twinmaxUI.h"
+//#include "twinmaxUI.h"
 #include "FRENCH.h"
-
+#include <libpic30.h>
 //#include "lcdTest.c"
 
 
@@ -81,6 +83,7 @@
 #define delay_ms __delay_ms
 #define delay_us __delay_us
 
+
 int main(void) {
 
     unsigned char status,data;
@@ -88,15 +91,16 @@ int main(void) {
     TRISA = 0;
     TRISB = 0;
     ANSB = 0;
-    RESET = 1;
+    
     
     status = 0;
     
     lcd_on();
-    delay_ms(20);
+   // delay_ms(20);
     
     
     while(1){
+    lcd_startLine(0);
     lcd_cls();
     lcd_bitmap(twinmaxLogo);
     delay_ms(2000);
@@ -104,11 +108,11 @@ int main(void) {
     tui_writeAt(1,15,BLUETOOTH,0,0);
     tui_writeAt(5,10,YES,0,0);
     tui_writeAt(5,90,NO,1,0);
-    delay_ms(3000);
+    delay_ms(1000);
     tui_writeAt(5,10,YES,1,0);
     tui_writeAt(5,90,NO,0,0);
     
-    delay_ms(4000);    
+    delay_ms(700);    
     lcd_cls();
     
     tui_writeAt(1,15,REFERENCE,0,0);
@@ -116,10 +120,10 @@ int main(void) {
     tui_writeAt(5,35,"2",0,0);
     tui_writeAt(5,65,"3",0,0);
     tui_writeAt(5,95,"4",0,0);   
-    delay_ms(4000);    
+    delay_ms(1000);    
     tui_writeAt(5,5,"1",0,0);
     tui_writeAt(5,35,"2",1,0);
-    delay_ms(1000);    
+    delay_ms(300);    
     tui_writeAt(5,35,"2",0,0);
     tui_writeAt(5,65,"3",1,0);
     delay_ms(1000); 
@@ -127,21 +131,26 @@ int main(void) {
    
     
     
-    unsigned char values[4]={45,35,69,90};    
+    unsigned const char values[4]={45,35,48,27};    
     tui_drawGraph(values);
-////    lcd_draw_bar(0, 45, 0);
-////    lcd_draw_bar(1, 35, 0);
-////    lcd_draw_bar(2, 69, 0);
-////    lcd_draw_bar(3, 90, 1);
-//    //delay_ms(100);
+    delay_ms(4000);
+
+    lcd_cls();
+    lcd_draw_bar(0, 40, 0);
+    lcd_draw_bar(1, 55, 0);
+    lcd_draw_bar(2, 35, 0);
+    lcd_draw_bar(3, 45, 1);
+    tui_writeAt(0,0,"1000",0,0);
+    tui_writeAt(4,0,"0854",0,0);
+    tui_writeAt(7,0,"0621",0,0);
+    delay_ms(2100);
 //    tui_menuItem(0,"Retour",0);
 //    tui_menuItem(1,"Precision",1);
 //    tui_menuItem(2,"Backlight",0);
     
     
     
-    
-    delay_ms(4000);
+   // free(values);
     
     
     }

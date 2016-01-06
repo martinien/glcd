@@ -1,4 +1,8 @@
+#ifndef GLCD_H
+#define	GLCD_H
+
 #define FCY 4000000UL
+#include "myFont.h"
 #include <p24FV16KM202.h>
 #include <libpic30.h>
 
@@ -12,22 +16,7 @@
 #define CS1           LATAbits.LATA0
 #define CS2           LATAbits.LATA1
 
-/*#define GLCD_EN       PORTAbits.RA1 
-#define GLCD_Data     PORTB
-#define GLCD_Dir      TRISB
 
-#define GLCD_CS1      PORTAbits.RA7
-#define GLCD_CS2      PORTAbits.RA0
-#define GLCD_RS       PORTAbits.RA3
-#define GLCD_RW       PORTAbits.RA2
-#define GLCD_RST      PORTAbits.RA4
-
-#define GLCD_CS1_Direction  TRISABITS.TRISA7
-#define GLCD_CS2_Direction  TRISABITS.TRISA0
-#define GLCD_RS_Direction   TRISABITS.TRISA3
-#define GLCD_RW_Direction   TRISABITS.TRISA2
-#define GLCD_RST_Direction  TRISABITS.TRISA4
-#define GLCD_EN_Direction   TRISABITS.TRISA1*/
 
  
 
@@ -38,19 +27,9 @@
 #define BOTH          0b11
 
 #define NONE          0b00
-// Glcd module connections
 
-// End Glcd module connections
 
-// internal function prototypes
-
-// 
-
-// you would not normally call these directly. but you can 
-
-// if you like.
-
-void _lcd_enable(void);
+/*void _lcd_enable(void);
 
 unsigned char _lcd_status(void);
 
@@ -102,3 +81,12 @@ void lcd_charAt(char c, int x,int y);
 void lcd_startLine(unsigned int z);
 
 void lcd_horizontalBar(unsigned char index,unsigned char val);
+
+void lcd_draw_bar(unsigned char index, unsigned char value, int handling);
+
+void lcd_draw_reversed_char(unsigned char x, unsigned char y, char c);
+
+void lcd_draw_char(unsigned char x, unsigned char y, char c);
+*/
+
+#endif

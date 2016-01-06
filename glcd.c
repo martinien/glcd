@@ -2,7 +2,7 @@
 
 #include "glcd.h"
 #include <libpic30.h>
-#include "myFont.h"
+
 
 int currentX;
 int currentY;
@@ -10,7 +10,7 @@ int currentPage;
 
 int BAR_WIDTH=20;
 int BAR_SPAN=24;
-int MENU_WIDTH=30;
+int MENU_WIDTH=28;
 unsigned char BLANK_BIT=0b00000000;
 unsigned char FULL_BIT=0b11111111;
 
@@ -71,6 +71,7 @@ void _lcd_reset(void){
 }
 
 void lcd_on(){
+    RESET = 1;
     int data;
     ENABLE=0; 
     __delay_us(.1);
@@ -250,7 +251,7 @@ void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat,
     }
 }
 
-void lcd_draw_bar(unsigned char index, unsigned char value, int handeling){
+void lcd_draw_bar(unsigned char index, unsigned char value, int handling){
     //TODO (julien 17/12/2015) add reference bar handeling
     int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
     int x,y,y_start;

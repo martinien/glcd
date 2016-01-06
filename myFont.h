@@ -1,3 +1,5 @@
+#ifndef MYFONT_H
+#define	MYFONT_H
 #define FONT_WIDTH 6
 
 const unsigned char myfont[][6] = {
@@ -258,3 +260,6 @@ const unsigned char myfont[][6] = {
 {0x00,0x00,0x00,0x00,0x00,0x00},   // þ 0xfe 254
 {0x00,0x00,0x00,0x00,0x00,0x00}    // ÿ 0xff 255
 };
+
+
+#endif
