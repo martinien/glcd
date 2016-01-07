@@ -1,6 +1,8 @@
 #ifndef GLCD_H
 #define	GLCD_H
 
+#define CSLOW 1
+#define CSHIGH 0
 #define FCY 4000000UL
 #include "myFont.h"
 #include <p24FV16KM202.h>

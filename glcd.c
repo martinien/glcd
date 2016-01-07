@@ -28,8 +28,8 @@ unsigned char _lcd_status(void){
     _lcd_tris = LCD_TRIS;
     int cs1 = CS1;
     int cs2 = CS2; 
-    CS1 = 0;
-    CS2 = 0;
+    CS1 = CSHIGH;
+    CS2 = CSHIGH;
     ENABLE = 0;                 //Low Enable
     __delay_us(1);            //tf
     RW = 1;                 //Read
@@ -75,8 +75,8 @@ void lcd_on(){
     int data;
     ENABLE=0; 
     __delay_us(.1);
-    CS1=0;
-    CS2=0;
+    CS1=CSHIGH;
+    CS2=CSHIGH;
     RW = 0;
     DI=0;
     data = 0x3F;
@@ -92,8 +92,8 @@ void lcd_on(){
 void lcd_off(){
     int data;
     ENABLE=0;    
-    CS1=0;
-    CS2=0;
+    CS1=CSHIGH;
+    CS2=CSHIGH;
     RW = 0;
     DI=0;
     data = 0x3E;
@@ -112,8 +112,8 @@ void lcd_cls(void){
 
     lcd_set_address(0);
     lcd_set_address(64);
-    CS1 = 0;
-    CS2 = 0;
+    CS1 = CSHIGH;
+    CS2 = CSHIGH;
     for (x=0; x<8; x++){
         // set the page (x)
         lcd_set_page(x);
@@ -136,8 +136,8 @@ void lcd_set_page(unsigned char page){
     _lcd_waitbusy();
 
     DI=0; RW=0;         
-    CS1= 0;
-    CS2=0;
+    CS1= CSHIGH;
+    CS2=CSHIGH;
     LCD_DATA = 0b10111000 | page;
     
     _lcd_enable();
@@ -165,13 +165,13 @@ void lcd_write(unsigned char data){
 
 void lcd_selectside(unsigned char sides){
     if (sides & LEFT)
-        CS1 = 0;
+        CS1 = CSHIGH;
     else
-        CS1 = 1;
+        CS1 = CSLOW;
     if (sides & RIGHT)
-        CS2 = 0;
+        CS2 = CSHIGH;
     else
-        CS2 = 1;
+        CS2 = CSLOW;
 }
 
 unsigned char lcd_read(void){
@@ -348,8 +348,8 @@ void lcd_startLine(unsigned int z){
     int cs1,cs2;
     cs1 = CS1;
     cs2 = CS2;
-    CS1 = 0;
-    CS2 = 0;
+    CS1 = CSHIGH;
+    CS2 = CSHIGH;
     LCD_TRIS = 0;
     _lcd_waitbusy();
     DI=0; RW=0;
