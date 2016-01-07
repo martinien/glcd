@@ -29,13 +29,6 @@
 #include <libpic30.h>
 //#include "lcdTest.c"
 
-
-
-
-
-
-
-
 // PIC24FV16KM202 Configuration Bit Settings
 
 // 'C' source line config statements
