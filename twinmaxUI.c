@@ -1,13 +1,14 @@
 
 #define FONT_WIDTH 6
+#define NUMBER_WIDTH 4
 //#include "twinmaxUI.h"
 
-void tui_drawGraph(unsigned char values[4] )
+void tui_drawGraph(unsigned char * values[4] )
 {
     lcd_draw_bar(0, values[0], 0);
     lcd_draw_bar(1, values[1], 0);
     lcd_draw_bar(2, values[2], 0);
-    lcd_draw_bar(3, values[3], 0);    
+    lcd_draw_bar(3, values[3], 1);    
     
 }
 
@@ -84,6 +85,12 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
         }
         y++;
     }}
+
+
+tui_numberAt(){
+    
+}
+
 
 
 

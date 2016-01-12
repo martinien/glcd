@@ -343,6 +343,15 @@ void lcd_testByte(unsigned char b){
     }
 }
 
+void glcd_smallNumberAt(unsigned char x,unsigned char y,unsigned char value,int reversed){
+    int i;  
+    for(i = 0; i <= NUMBER_WIDTH; i++){ 
+        lcd_draw(x,y,SmallNumbers[value][i]);
+        y++;
+    }
+
+}
+
 
 void lcd_startLine(unsigned int z){
     int cs1,cs2;
