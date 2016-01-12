@@ -75,7 +75,6 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
         y++;
     }}
 
-<<<<<<< HEAD
 
 tui_numberAt(){
     
@@ -84,10 +83,9 @@ tui_numberAt(){
 
 
 
-void tui_displayMesures(double measures[4],double sensitivity,int referenceIndex){
-=======
+
 void tui_displayMesures(double measures[4], double sensitivity, int referenceIndex){
->>>>>>> new_draw_functions
+
     double referenceMeasure = measures[referenceIndex];
     unsigned char values[4];
     int i;

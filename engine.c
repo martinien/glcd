@@ -1,5 +1,10 @@
 
 #include "timer.h"
+#include "FRENCH.h"
+#define FCY 4000000UL
+#include <p24FV16KM202.h>
+#include <libpic30.h>
+#define delay_ms __delay_ms
 
 void button_left_interupt(){
   return;

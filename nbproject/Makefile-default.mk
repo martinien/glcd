@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=glcd.c delays.c main.c twinmaxUI.c
+SOURCEFILES_QUOTED_IF_SPACED=glcd.c delays.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c interupt.c timer.c twinmax_lcd.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/glcd.o ${OBJECTDIR}/delays.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/glcd.o.d ${OBJECTDIR}/delays.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/twinmaxUI.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/glcd.o ${OBJECTDIR}/delays.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/interupt.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/twinmax_lcd.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/glcd.o.d ${OBJECTDIR}/delays.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/twinmaxUI.o.d ${OBJECTDIR}/bluetooth.o.d ${OBJECTDIR}/can.o.d ${OBJECTDIR}/counter.o.d ${OBJECTDIR}/engine.o.d ${OBJECTDIR}/interupt.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/twinmax_lcd.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/glcd.o ${OBJECTDIR}/delays.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o
+OBJECTFILES=${OBJECTDIR}/glcd.o ${OBJECTDIR}/delays.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/interupt.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/twinmax_lcd.o
 
 # Source Files
-SOURCEFILES=glcd.c delays.c main.c twinmaxUI.c
+SOURCEFILES=glcd.c delays.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c interupt.c timer.c twinmax_lcd.c
 
 
 CFLAGS=
@@ -110,6 +110,55 @@ ${OBJECTDIR}/twinmaxUI.o: twinmaxUI.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  twinmaxUI.c  -o ${OBJECTDIR}/twinmaxUI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/twinmaxUI.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/twinmaxUI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/bluetooth.o: bluetooth.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/bluetooth.o.d 
+	@${RM} ${OBJECTDIR}/bluetooth.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  bluetooth.c  -o ${OBJECTDIR}/bluetooth.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/bluetooth.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/bluetooth.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/can.o: can.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/can.o.d 
+	@${RM} ${OBJECTDIR}/can.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  can.c  -o ${OBJECTDIR}/can.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/can.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/can.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/counter.o: counter.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/counter.o.d 
+	@${RM} ${OBJECTDIR}/counter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  counter.c  -o ${OBJECTDIR}/counter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/counter.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/counter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/engine.o: engine.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/engine.o.d 
+	@${RM} ${OBJECTDIR}/engine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  engine.c  -o ${OBJECTDIR}/engine.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/engine.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/engine.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/interupt.o: interupt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interupt.o.d 
+	@${RM} ${OBJECTDIR}/interupt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  interupt.c  -o ${OBJECTDIR}/interupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/interupt.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/interupt.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/timer.o: timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/timer.o.d 
+	@${RM} ${OBJECTDIR}/timer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  timer.c  -o ${OBJECTDIR}/timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/timer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/twinmax_lcd.o: twinmax_lcd.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/twinmax_lcd.o.d 
+	@${RM} ${OBJECTDIR}/twinmax_lcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  twinmax_lcd.c  -o ${OBJECTDIR}/twinmax_lcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/twinmax_lcd.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/twinmax_lcd.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/glcd.o: glcd.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -138,6 +187,55 @@ ${OBJECTDIR}/twinmaxUI.o: twinmaxUI.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/twinmaxUI.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  twinmaxUI.c  -o ${OBJECTDIR}/twinmaxUI.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/twinmaxUI.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/twinmaxUI.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/bluetooth.o: bluetooth.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/bluetooth.o.d 
+	@${RM} ${OBJECTDIR}/bluetooth.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  bluetooth.c  -o ${OBJECTDIR}/bluetooth.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/bluetooth.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/bluetooth.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/can.o: can.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/can.o.d 
+	@${RM} ${OBJECTDIR}/can.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  can.c  -o ${OBJECTDIR}/can.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/can.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/can.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/counter.o: counter.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/counter.o.d 
+	@${RM} ${OBJECTDIR}/counter.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  counter.c  -o ${OBJECTDIR}/counter.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/counter.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/counter.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/engine.o: engine.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/engine.o.d 
+	@${RM} ${OBJECTDIR}/engine.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  engine.c  -o ${OBJECTDIR}/engine.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/engine.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/engine.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/interupt.o: interupt.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/interupt.o.d 
+	@${RM} ${OBJECTDIR}/interupt.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  interupt.c  -o ${OBJECTDIR}/interupt.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/interupt.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/interupt.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/timer.o: timer.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/timer.o.d 
+	@${RM} ${OBJECTDIR}/timer.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  timer.c  -o ${OBJECTDIR}/timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/timer.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/twinmax_lcd.o: twinmax_lcd.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/twinmax_lcd.o.d 
+	@${RM} ${OBJECTDIR}/twinmax_lcd.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  twinmax_lcd.c  -o ${OBJECTDIR}/twinmax_lcd.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/twinmax_lcd.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/twinmax_lcd.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
