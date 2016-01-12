@@ -1,0 +1,2 @@
+
+void can_launch();

@@ -24,17 +24,11 @@
 #include <stdio.h>
 //#include "glcd.h"
 #include "logo.h"
+#include "engine.h"
 //#include "twinmaxUI.h"
 #include "FRENCH.h"
 #include <libpic30.h>
 //#include "lcdTest.c"
-
-
-
-
-
-
-
 
 // PIC24FV16KM202 Configuration Bit Settings
 
@@ -91,113 +85,15 @@ int main(void) {
     TRISA = 0;
     TRISB = 0;
     ANSB = 0;
-    
-    
     status = 0;
-    
+
     lcd_on();
-   // delay_ms(20);
-    int v;
-    
-    while(1){
-    lcd_cls(); 
-    lcd_on();
+
     lcd_bitmap(twinmaxLogo);
-    delay_ms(2000);
-    lcd_cls();  
-    lcd_draw_bar(0, 10, 0);
-    lcd_draw_bar(1, 55, 1);
-    lcd_draw_bar(2, 35, 0);
-    lcd_draw_bar(3, 45, 0);
-    delay_ms(4000);
-   
+
+    delay_ms(1000);
     
-    while(1){
-    lcd_cls();       
-    lcd_draw_bar(0, 40, 0);
-    lcd_draw_bar(1, 55, 1);
-    lcd_draw_bar(2, 35, 0);
-    lcd_draw_bar(3, 45, 0);
-//    tui_writeAt(0,0,"1000",0,0);
-//    tui_writeAt(4,0,"0854",0,0);
-//    tui_writeAt(7,0,"0621",0,0);
-        for(v=0;v<10;v++){
-           // lcd_startLine(0);
-            lcd_draw_bar(0,v,0);
-            glcd_smallNumberAt(0,0,v,0);
-            glcd_smallNumberAt(0,0,5,0);
-            delay_ms(500);
-        }
-        for(v=9;v>=0;v--){            
-            lcd_draw_bar(0,v, 0);
-            glcd_smallNumberAt(0,0,i,0);
-            glcd_smallNumberAt(0,4,i,0);
-            delay_ms(500);
-        }
-    delay_ms(100);
-    }
-    
-//    lcd_cls();
-//    lcd_bitmap(twinmaxLogo);
-//    delay_ms(2000);
-//    lcd_cls();
-//    tui_writeAt(1,15,BLUETOOTH,0,0);
-//    tui_writeAt(5,10,YES,0,0);
-//    tui_writeAt(5,90,NO,1,0);
-//    delay_ms(1000);
-//    tui_writeAt(5,10,YES,1,0);
-//    tui_writeAt(5,90,NO,0,0);
-//    
-//    delay_ms(700);    
-//    lcd_cls();
-//    lcd_startLine(0);
-//    tui_writeAt(1,15,REFERENCE,0,0);
-//    tui_writeAt(5,5,"1",1,0);
-//    tui_writeAt(5,35,"2",0,0);
-//    tui_writeAt(5,65,"3",0,0);
-//    tui_writeAt(5,95,"4",0,0);   
-//    delay_ms(1000);    
-//    tui_writeAt(5,5,"1",0,0);
-//    tui_writeAt(5,35,"2",1,0);
-//    delay_ms(300);    
-//    tui_writeAt(5,35,"2",0,0);
-//    tui_writeAt(5,65,"3",1,0);
-//    delay_ms(1000); 
-//    lcd_cls();
-//   
-//    unsigned char a,b,c,d;
-//    a=40;
-//    b=55;
-//    c=35;
-//    d=45;
-//    
-//    unsigned char values[4]={a,b,c,d};    
-//    tui_drawGraph(values);
-//    lcd_startLine(0);
-//    delay_ms(4000);
-//    lcd_cls();
-//    lcd_draw_bar(0, 40, 0);
-//    lcd_draw_bar(1, 55, 0);
-//    lcd_draw_bar(2, 35, 0);
-//    lcd_draw_bar(3, 45, 1);
-//    tui_writeAt(0,0,"1000",0,0);
-//    tui_writeAt(4,0,"0854",0,0);
-//    tui_writeAt(7,0,"0621",0,0);
-//    glcd_smallNumberAt(0,112,8,0);
-//    glcd_smallNumberAt(0,116,3,0);
-//    tui_writeAt(0,120,"%",0,0);
-//    
-//    delay_ms(5100);
-//    tui_menuItem(0,"Retour",0);
-//    tui_menuItem(1,"Precision",1);
-//    tui_menuItem(2,"Backlight",0);
-    
-    
-    
-   // free(values);
-    
-    lcd_cls();
-    lcd_off();
-    }
+    engine_initialization();
+    engine_start();
 
 }
