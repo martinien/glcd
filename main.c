@@ -24,6 +24,7 @@
 #include <stdio.h>
 //#include "glcd.h"
 #include "logo.h"
+#include "engine.h"
 //#include "twinmaxUI.h"
 #include "FRENCH.h"
 #include <libpic30.h>
@@ -88,62 +89,9 @@ int main(void) {
     
     status = 0;
     
-    lcd_on();
-   // delay_ms(20);
+    engine_initialization()
     
-    
-    while(1){
-    lcd_startLine(0);
-    lcd_cls();
-    lcd_bitmap(twinmaxLogo);
-    delay_ms(2000);
-    lcd_cls();
-    tui_writeAt(1,15,BLUETOOTH,0,0);
-    tui_writeAt(5,10,YES,0,0);
-    tui_writeAt(5,90,NO,1,0);
-    delay_ms(1000);
-    tui_writeAt(5,10,YES,1,0);
-    tui_writeAt(5,90,NO,0,0);
-    
-    delay_ms(700);    
-    lcd_cls();
-    
-    tui_writeAt(1,15,REFERENCE,0,0);
-    tui_writeAt(5,5,"1",1,0);
-    tui_writeAt(5,35,"2",0,0);
-    tui_writeAt(5,65,"3",0,0);
-    tui_writeAt(5,95,"4",0,0);   
-    delay_ms(1000);    
-    tui_writeAt(5,5,"1",0,0);
-    tui_writeAt(5,35,"2",1,0);
-    delay_ms(300);    
-    tui_writeAt(5,35,"2",0,0);
-    tui_writeAt(5,65,"3",1,0);
-    delay_ms(1000); 
-    lcd_cls();
-   
-    
-    
-    unsigned const char values[4]={45,35,48,27};    
-    tui_drawGraph(values);
-    delay_ms(4000);
-
-    lcd_cls();
-    lcd_draw_bar(0, 40, 0);
-    lcd_draw_bar(1, 55, 0);
-    lcd_draw_bar(2, 35, 0);
-    lcd_draw_bar(3, 45, 1);
-    tui_writeAt(0,0,"1000",0,0);
-    tui_writeAt(4,0,"0854",0,0);
-    tui_writeAt(7,0,"0621",0,0);
-    delay_ms(2100);
-//    tui_menuItem(0,"Retour",0);
-//    tui_menuItem(1,"Precision",1);
-//    tui_menuItem(2,"Backlight",0);
-    
-    
-    
-   // free(values);
+    engine_start();
     
     
     }

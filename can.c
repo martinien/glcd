@@ -1,4 +1,4 @@
-void launch(){
+void can_launch(){
   //convert values
   //call bluetooth
   //inc counter
