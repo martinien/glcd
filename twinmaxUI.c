@@ -1,13 +1,16 @@
-            
+           
+#include "headers.h"
 #define FONT_WIDTH 6
 #define NUMBER_WIDTH 4
 //#include "twinmaxUI.h"
 
 void tui_drawGraph(unsigned char values[4] ){
-    lcd_draw_bar(0, values[0], 0);
-    lcd_draw_bar(1, values[1], 0);
+    lcd_draw_bar(3, values[3], 0);      
     lcd_draw_bar(2, values[2], 0);
-    lcd_draw_bar(3, values[3], 0);    
+    lcd_draw_bar(1, values[1], 0);
+    lcd_draw_bar(0, values[0], 0);
+    
+      
 }
 
 void tui_menuItem(int index,const char *string,unsigned char highlighted){
@@ -76,12 +79,6 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
     }}
 
 
-tui_numberAt(){
-    
-}
-
-
-
 
 
 void tui_displayMesures(double measures[4], double sensitivity, int referenceIndex){
@@ -92,4 +89,32 @@ void tui_displayMesures(double measures[4], double sensitivity, int referenceInd
     for(i = 0; i < 4; i++){
         values[i]= (unsigned char) sensitivity * (measures[i] * referenceMeasure) + 32;
     }
+}
+
+
+void tui_numberAt(unsigned char x,unsigned char y,unsigned char val,int reversed,int width){
+    
+    char string[4] ;
+    tui_writeAt( x, y,string,reversed,width);   
+    
+    
+}
+
+void tui_test(){
+    
+    int i = 0;
+    unsigned char values[4]={37,25,14,54};
+    
+    while(1){
+        tui_drawGraph(values);
+        for(i=0;i<4;i++){
+            values[i]=(values[i] + 1)%64;
+        }
+            
+        delay_ms(10);
+        lcd_cls();
+    
+    }
+
+
 }

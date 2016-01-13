@@ -88,14 +88,14 @@ Program Memory  [Origin = 0x200, Length = 0x2a00]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x336           0x4d1  (1233)
-.const                       0x536              0x1a76          0x27b1  (10161)
-.text                       0x1fac               0x92c           0xdc2  (3522)
-.init.delay32               0x28d8                0x1c            0x2a  (42)
-.text                       0x28f4                0x18            0x24  (36)
-.dinit                      0x290c                0x14            0x1e  (30)
-.text                       0x2920                0x2e            0x45  (69)
+.const                       0x536              0x1a7a          0x27b7  (10167)
+.text                       0x1fb0               0x988           0xe4c  (3660)
+.init.delay32               0x2938                0x1c            0x2a  (42)
+.text                       0x2954                0x18            0x24  (36)
+.dinit                      0x296c                0x14            0x1e  (30)
+.text                       0x2980                0x2e            0x45  (69)
 
-                     Total program memory used (bytes):         0x3af5  (15093) 93%
+                     Total program memory used (bytes):         0x3b85  (15237) 94%
 
 
 Data Memory  [Origin = 0x800, Length = 0x800]
@@ -167,63 +167,64 @@ External Symbols in Program Memory (by address):
                   0x001536                  _twinmaxLogo
                   0x001936                  _SmallNumbers
                   0x001962                  _myfont
-                  0x001fac                  __lcd_enable
-                  0x001fc4                  __lcd_status
-                  0x002050                  __lcd_reset
-                  0x002074                  _lcd_on
-                  0x0020a4                  _lcd_off
-                  0x0020ce                  _lcd_cls
-                  0x002114                  _lcd_set_page
-                  0x002172                  __lcd_waitbusy
-                  0x002184                  _lcd_write
-                  0x0021a0                  _lcd_selectside
-                  0x0021c6                  _lcd_read
-                  0x002206                  _lcd_plotpixel
-                  0x002234                  _lcd_set_address
-                  0x00226c                  _lcd_draw
-                  0x002284                  _lcd_reversed_draw
-                  0x00229e                  _lcd_draw_n_times
-                  0x0022d2                  _lcd_draw_bar
-                  0x0023e6                  _lcd_draw_char
-                  0x002420                  _lcd_draw_reversed_char
-                  0x00245c                  _lcd_putrs
-                  0x0024ac                  _lcd_testByte
-                  0x0024f2                  _glcd_smallNumberAt
-                  0x002528                  _lcd_startLine
-                  0x002588                  _lcd_bitmap
-                  0x0025ca                  _is_busy
-                  0x00260e                  _tui_drawGraph
-                  0x002650                  _tui_menuItem
-                  0x0026c6                  _tui_writeAt
-                  0x002756                  _tui_numberAt
-                  0x00275c                  _tui_displayMesures
-                  0x0027c0                  _button_left_interupt
-                  0x0027c6                  _button_right_interupt
-                  0x0027cc                  _button_select_interupt
-                  0x0027d2                  _button_light_interupt
-                  0x0027d8                  _button_power_interupt
-                  0x0027de                  _engine_initialization
-                  0x0028b0                  _engine_start
-                  0x0028b8                  _main
-                  0x0028d8                  ___delay32
-                  0x0028f4                  _splash
-                  0x0028fa                  _ask_for_bluetooth
-                  0x002900                  _ask_for_reference_carburator
-                  0x002906                  _display_bars
-                  0x002920                  _get
-                  0x002926                  _set
-                  0x00292c                  _inc
-                  0x002932                  _timer_start
-                  0x00293c                  _timer_top
-                  0x002942                  _send
-                  0x002948                  _can_launch
+                  0x001fb0                  __lcd_enable
+                  0x001fc8                  __lcd_status
+                  0x002054                  __lcd_reset
+                  0x002078                  _lcd_on
+                  0x0020a8                  _lcd_off
+                  0x0020d2                  _lcd_cls
+                  0x002118                  _lcd_set_page
+                  0x002176                  __lcd_waitbusy
+                  0x002188                  _lcd_write
+                  0x0021a4                  _lcd_selectside
+                  0x0021ca                  _lcd_read
+                  0x00220a                  _lcd_plotpixel
+                  0x002238                  _lcd_set_address
+                  0x002270                  _lcd_draw
+                  0x002288                  _lcd_reversed_draw
+                  0x0022a2                  _lcd_draw_n_times
+                  0x0022d6                  _lcd_draw_bar
+                  0x0023ee                  _lcd_draw_char
+                  0x002428                  _lcd_draw_reversed_char
+                  0x002464                  _lcd_putrs
+                  0x0024b4                  _lcd_testByte
+                  0x0024fa                  _glcd_smallNumberAt
+                  0x002530                  _lcd_startLine
+                  0x002590                  _lcd_bitmap
+                  0x0025d2                  _is_busy
+                  0x002616                  _tui_drawGraph
+                  0x002658                  _tui_menuItem
+                  0x0026ce                  _tui_writeAt
+                  0x00275e                  _tui_displayMesures
+                  0x0027c2                  _tui_numberAt
+                  0x0027de                  _tui_test
+                  0x002824                  _button_left_interupt
+                  0x00282a                  _button_right_interupt
+                  0x002830                  _button_select_interupt
+                  0x002836                  _button_light_interupt
+                  0x00283c                  _button_power_interupt
+                  0x002842                  _engine_initialization
+                  0x002914                  _engine_start
+                  0x00291c                  _main
+                  0x002938                  ___delay32
+                  0x002954                  _splash
+                  0x00295a                  _ask_for_bluetooth
+                  0x002960                  _ask_for_reference_carburator
+                  0x002966                  _display_bars
+                  0x002980                  _get
+                  0x002986                  _set
+                  0x00298c                  _inc
+                  0x002992                  _timer_start
+                  0x00299c                  _timer_top
+                  0x0029a2                  _send
+                  0x0029a8                  _can_launch
 
 External Symbols in Program Memory (by name):
 
                   0x001936                  _SmallNumbers
                   0x0002ae                  __DefaultInterrupt
                   0x0002b4                  ___addsf3
-                  0x0028d8                  ___delay32
+                  0x002938                  ___delay32
                   0x00036e                  ___fixunssfsi
                   0x0004b8                  ___floatdisf
                   0x0003a4                  ___floatsisf
@@ -238,62 +239,63 @@ External Symbols in Program Memory (by name):
                   0x0003aa                  __fpack
                   0x0003f6                  __funpack
                   0x000420                  __funpack2
-                  0x001fac                  __lcd_enable
-                  0x002050                  __lcd_reset
-                  0x001fc4                  __lcd_status
-                  0x002172                  __lcd_waitbusy
+                  0x001fb0                  __lcd_enable
+                  0x002054                  __lcd_reset
+                  0x001fc8                  __lcd_status
+                  0x002176                  __lcd_waitbusy
                   0x00022c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0028fa                  _ask_for_bluetooth
-                  0x002900                  _ask_for_reference_carburator
-                  0x0027c0                  _button_left_interupt
-                  0x0027d2                  _button_light_interupt
-                  0x0027d8                  _button_power_interupt
-                  0x0027c6                  _button_right_interupt
-                  0x0027cc                  _button_select_interupt
-                  0x002948                  _can_launch
+                  0x00295a                  _ask_for_bluetooth
+                  0x002960                  _ask_for_reference_carburator
+                  0x002824                  _button_left_interupt
+                  0x002836                  _button_light_interupt
+                  0x00283c                  _button_power_interupt
+                  0x00282a                  _button_right_interupt
+                  0x002830                  _button_select_interupt
+                  0x0029a8                  _can_launch
                   0x000936                  _chirac
-                  0x002906                  _display_bars
-                  0x0027de                  _engine_initialization
-                  0x0028b0                  _engine_start
-                  0x002920                  _get
-                  0x0024f2                  _glcd_smallNumberAt
-                  0x00292c                  _inc
-                  0x0025ca                  _is_busy
+                  0x002966                  _display_bars
+                  0x002842                  _engine_initialization
+                  0x002914                  _engine_start
+                  0x002980                  _get
+                  0x0024fa                  _glcd_smallNumberAt
+                  0x00298c                  _inc
+                  0x0025d2                  _is_busy
                   0x000d36                  _isen
-                  0x002588                  _lcd_bitmap
-                  0x0020ce                  _lcd_cls
-                  0x00226c                  _lcd_draw
-                  0x0022d2                  _lcd_draw_bar
-                  0x0023e6                  _lcd_draw_char
-                  0x00229e                  _lcd_draw_n_times
-                  0x002420                  _lcd_draw_reversed_char
-                  0x0020a4                  _lcd_off
-                  0x002074                  _lcd_on
-                  0x002206                  _lcd_plotpixel
-                  0x00245c                  _lcd_putrs
-                  0x0021c6                  _lcd_read
-                  0x002284                  _lcd_reversed_draw
-                  0x0021a0                  _lcd_selectside
-                  0x002234                  _lcd_set_address
-                  0x002114                  _lcd_set_page
-                  0x002528                  _lcd_startLine
-                  0x0024ac                  _lcd_testByte
-                  0x002184                  _lcd_write
+                  0x002590                  _lcd_bitmap
+                  0x0020d2                  _lcd_cls
+                  0x002270                  _lcd_draw
+                  0x0022d6                  _lcd_draw_bar
+                  0x0023ee                  _lcd_draw_char
+                  0x0022a2                  _lcd_draw_n_times
+                  0x002428                  _lcd_draw_reversed_char
+                  0x0020a8                  _lcd_off
+                  0x002078                  _lcd_on
+                  0x00220a                  _lcd_plotpixel
+                  0x002464                  _lcd_putrs
+                  0x0021ca                  _lcd_read
+                  0x002288                  _lcd_reversed_draw
+                  0x0021a4                  _lcd_selectside
+                  0x002238                  _lcd_set_address
+                  0x002118                  _lcd_set_page
+                  0x002530                  _lcd_startLine
+                  0x0024b4                  _lcd_testByte
+                  0x002188                  _lcd_write
                   0x000536                  _logo
-                  0x0028b8                  _main
+                  0x00291c                  _main
                   0x001962                  _myfont
                   0x001136                  _road
-                  0x002942                  _send
-                  0x002926                  _set
-                  0x0028f4                  _splash
-                  0x002932                  _timer_start
-                  0x00293c                  _timer_top
-                  0x00275c                  _tui_displayMesures
-                  0x00260e                  _tui_drawGraph
-                  0x002650                  _tui_menuItem
-                  0x002756                  _tui_numberAt
-                  0x0026c6                  _tui_writeAt
+                  0x0029a2                  _send
+                  0x002986                  _set
+                  0x002954                  _splash
+                  0x002992                  _timer_start
+                  0x00299c                  _timer_top
+                  0x00275e                  _tui_displayMesures
+                  0x002616                  _tui_drawGraph
+                  0x002658                  _tui_menuItem
+                  0x0027c2                  _tui_numberAt
+                  0x0027de                  _tui_test
+                  0x0026ce                  _tui_writeAt
                   0x001536                  _twinmaxLogo
 
 Memory Configuration
@@ -431,65 +433,65 @@ __FICD
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x16e2
+.debug_info       0x000000       0x17be
  *(.debug_info)
- .debug_info      0x000000        0xaf5 build/default/production/glcd.o
- .debug_info      0x000af5        0x2a5 build/default/production/main.o
- .debug_info      0x000d9a        0x373 build/default/production/twinmaxUI.o
- .debug_info      0x00110d         0xa5 build/default/production/bluetooth.o
- .debug_info      0x0011b2         0xa5 build/default/production/can.o
- .debug_info      0x001257         0xc6 build/default/production/counter.o
- .debug_info      0x00131d        0x1e1 build/default/production/engine.o
- .debug_info      0x0014fe         0xd5 build/default/production/timer.o
- .debug_info      0x0015d3        0x10f build/default/production/twinmax_lcd.o
+ .debug_info      0x000000        0xaf8 build/default/production/glcd.o
+ .debug_info      0x000af8        0x2c7 build/default/production/main.o
+ .debug_info      0x000dbf        0x42a build/default/production/twinmaxUI.o
+ .debug_info      0x0011e9         0xa5 build/default/production/bluetooth.o
+ .debug_info      0x00128e         0xa5 build/default/production/can.o
+ .debug_info      0x001333         0xc6 build/default/production/counter.o
+ .debug_info      0x0013f9        0x1e1 build/default/production/engine.o
+ .debug_info      0x0015da         0xd5 build/default/production/timer.o
+ .debug_info      0x0016af        0x10f build/default/production/twinmax_lcd.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x568
+.debug_abbrev     0x000000        0x58d
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x256 build/default/production/glcd.o
  .debug_abbrev    0x000256          0x1 build/default/production/delays.o
- .debug_abbrev    0x000257         0xe1 build/default/production/main.o
- .debug_abbrev    0x000338         0xc6 build/default/production/twinmaxUI.o
- .debug_abbrev    0x0003fe         0x27 build/default/production/bluetooth.o
- .debug_abbrev    0x000425         0x27 build/default/production/can.o
- .debug_abbrev    0x00044c         0x27 build/default/production/counter.o
- .debug_abbrev    0x000473         0x70 build/default/production/engine.o
- .debug_abbrev    0x0004e3          0x1 build/default/production/interupt.o
- .debug_abbrev    0x0004e4         0x5d build/default/production/timer.o
- .debug_abbrev    0x000541         0x27 build/default/production/twinmax_lcd.o
+ .debug_abbrev    0x000257         0xea build/default/production/main.o
+ .debug_abbrev    0x000341         0xe2 build/default/production/twinmaxUI.o
+ .debug_abbrev    0x000423         0x27 build/default/production/bluetooth.o
+ .debug_abbrev    0x00044a         0x27 build/default/production/can.o
+ .debug_abbrev    0x000471         0x27 build/default/production/counter.o
+ .debug_abbrev    0x000498         0x70 build/default/production/engine.o
+ .debug_abbrev    0x000508          0x1 build/default/production/interupt.o
+ .debug_abbrev    0x000509         0x5d build/default/production/timer.o
+ .debug_abbrev    0x000566         0x27 build/default/production/twinmax_lcd.o
 
-.debug_line       0x000000       0x1150
+.debug_line       0x000000       0x11b2
  *(.debug_line)
- .debug_line      0x000000        0xa8f build/default/production/glcd.o
- .debug_line      0x000a8f         0x24 build/default/production/delays.o
- .debug_line      0x000ab3         0xf7 build/default/production/main.o
- .debug_line      0x000baa        0x1c9 build/default/production/twinmaxUI.o
- .debug_line      0x000d73         0x4d build/default/production/bluetooth.o
- .debug_line      0x000dc0         0x47 build/default/production/can.o
- .debug_line      0x000e07         0x7f build/default/production/counter.o
- .debug_line      0x000e86        0x19e build/default/production/engine.o
- .debug_line      0x001024         0x24 build/default/production/interupt.o
- .debug_line      0x001048         0x6b build/default/production/timer.o
- .debug_line      0x0010b3         0x9d build/default/production/twinmax_lcd.o
+ .debug_line      0x000000        0xa97 build/default/production/glcd.o
+ .debug_line      0x000a97         0x24 build/default/production/delays.o
+ .debug_line      0x000abb         0xef build/default/production/main.o
+ .debug_line      0x000baa        0x22b build/default/production/twinmaxUI.o
+ .debug_line      0x000dd5         0x4d build/default/production/bluetooth.o
+ .debug_line      0x000e22         0x47 build/default/production/can.o
+ .debug_line      0x000e69         0x7f build/default/production/counter.o
+ .debug_line      0x000ee8        0x19e build/default/production/engine.o
+ .debug_line      0x001086         0x24 build/default/production/interupt.o
+ .debug_line      0x0010aa         0x6b build/default/production/timer.o
+ .debug_line      0x001115         0x9d build/default/production/twinmax_lcd.o
 
-.debug_frame      0x000000        0x3c4
+.debug_frame      0x000000        0x3d4
  *(.debug_frame)
  .debug_frame     0x000000        0x1a4 build/default/production/glcd.o
  .debug_frame     0x0001a4         0x24 build/default/production/main.o
- .debug_frame     0x0001c8         0x64 build/default/production/twinmaxUI.o
- .debug_frame     0x00022c         0x24 build/default/production/bluetooth.o
- .debug_frame     0x000250         0x24 build/default/production/can.o
- .debug_frame     0x000274         0x44 build/default/production/counter.o
- .debug_frame     0x0002b8         0x84 build/default/production/engine.o
- .debug_frame     0x00033c         0x34 build/default/production/timer.o
- .debug_frame     0x000370         0x54 build/default/production/twinmax_lcd.o
+ .debug_frame     0x0001c8         0x74 build/default/production/twinmaxUI.o
+ .debug_frame     0x00023c         0x24 build/default/production/bluetooth.o
+ .debug_frame     0x000260         0x24 build/default/production/can.o
+ .debug_frame     0x000284         0x44 build/default/production/counter.o
+ .debug_frame     0x0002c8         0x84 build/default/production/engine.o
+ .debug_frame     0x00034c         0x34 build/default/production/timer.o
+ .debug_frame     0x000380         0x54 build/default/production/twinmax_lcd.o
 
-.debug_str        0x000000         0xe8
+.debug_str        0x000000         0xff
  *(.debug_str)
  .debug_str       0x000000         0xad build/default/production/glcd.o
  .debug_str       0x0000ad          0xc build/default/production/main.o
- .debug_str       0x0000b9         0x25 build/default/production/twinmaxUI.o
- .debug_str       0x0000de          0xa build/default/production/timer.o
+ .debug_str       0x0000b9         0x3c build/default/production/twinmaxUI.o
+ .debug_str       0x0000f5          0xa build/default/production/timer.o
 
 .debug_loc
  *(.debug_loc)
@@ -498,26 +500,26 @@ __FICD
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x4b7
+                  0x000000        0x4c4
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000        0x23f build/default/production/glcd.o
  .debug_pubnames
                   0x00023f         0x51 build/default/production/main.o
  .debug_pubnames
-                  0x000290         0x6d build/default/production/twinmaxUI.o
+                  0x000290         0x7a build/default/production/twinmaxUI.o
  .debug_pubnames
-                  0x0002fd         0x1b build/default/production/bluetooth.o
+                  0x00030a         0x1b build/default/production/bluetooth.o
  .debug_pubnames
-                  0x000318         0x21 build/default/production/can.o
+                  0x000325         0x21 build/default/production/can.o
  .debug_pubnames
-                  0x000339         0x2a build/default/production/counter.o
+                  0x000346         0x2a build/default/production/counter.o
  .debug_pubnames
-                  0x000363         0xbf build/default/production/engine.o
+                  0x000370         0xbf build/default/production/engine.o
  .debug_pubnames
-                  0x000422         0x30 build/default/production/timer.o
+                  0x00042f         0x30 build/default/production/timer.o
  .debug_pubnames
-                  0x000452         0x65 build/default/production/twinmax_lcd.o
+                  0x00045f         0x65 build/default/production/twinmax_lcd.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1563,64 +1565,66 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x0000d8         0x53
+                  0x0000d8         0x65
  .debug_pubtypes
                   0x0000d8         0x2f build/default/production/glcd.o
  .debug_pubtypes
                   0x000107         0x12 build/default/production/main.o
  .debug_pubtypes
-                  0x000119         0x12 build/default/production/engine.o
+                  0x000119         0x12 build/default/production/twinmaxUI.o
+ .debug_pubtypes
+                  0x00012b         0x12 build/default/production/engine.o
 
 __c30_signature
-                  0x00012b         0x90
+                  0x00013d         0x90
  __c30_signature
-                  0x00012b          0x6 build/default/production/glcd.o
+                  0x00013d          0x6 build/default/production/glcd.o
  __c30_signature
-                  0x000131          0x6 build/default/production/delays.o
+                  0x000143          0x6 build/default/production/delays.o
  __c30_signature
-                  0x000137          0x6 build/default/production/main.o
+                  0x000149          0x6 build/default/production/main.o
  __c30_signature
-                  0x00013d          0x6 build/default/production/twinmaxUI.o
+                  0x00014f          0x6 build/default/production/twinmaxUI.o
  __c30_signature
-                  0x000143          0x6 build/default/production/bluetooth.o
+                  0x000155          0x6 build/default/production/bluetooth.o
  __c30_signature
-                  0x000149          0x6 build/default/production/can.o
+                  0x00015b          0x6 build/default/production/can.o
  __c30_signature
-                  0x00014f          0x6 build/default/production/counter.o
+                  0x000161          0x6 build/default/production/counter.o
  __c30_signature
-                  0x000155          0x6 build/default/production/engine.o
+                  0x000167          0x6 build/default/production/engine.o
  __c30_signature
-                  0x00015b          0x6 build/default/production/interupt.o
+                  0x00016d          0x6 build/default/production/interupt.o
  __c30_signature
-                  0x000161          0x6 build/default/production/timer.o
+                  0x000173          0x6 build/default/production/timer.o
  __c30_signature
-                  0x000167          0x6 build/default/production/twinmax_lcd.o
+                  0x000179          0x6 build/default/production/twinmax_lcd.o
  __c30_signature
-                  0x00016d          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
+                  0x00017f          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x000173          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
+                  0x000185          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(data_init_standard.o)
  __c30_signature
-                  0x000179          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x00018b          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
  __c30_signature
-                  0x00017f          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(addsf3.eo)
+                  0x000191          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(addsf3.eo)
  __c30_signature
-                  0x000185          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
+                  0x000197          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(fixunssfsi.eo)
  __c30_signature
-                  0x00018b          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
+                  0x00019d          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatsisf.eo)
  __c30_signature
-                  0x000191          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(fpack.eo)
+                  0x0001a3          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(fpack.eo)
  __c30_signature
-                  0x000197          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(funpack.eo)
+                  0x0001a9          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(funpack.eo)
  __c30_signature
-                  0x00019d          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(funpack2.eo)
+                  0x0001af          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(funpack2.eo)
  __c30_signature
-                  0x0001a3          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(futil.eo)
+                  0x0001b5          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(futil.eo)
  __c30_signature
-                  0x0001a9          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
+                  0x0001bb          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(mulsf3.eo)
  __c30_signature
-                  0x0001af          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
+                  0x0001c1          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatdisf.eo)
  __c30_signature
-                  0x0001b5          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
+                  0x0001c7          0x6 d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\libm-elf.a(floatundisf.eo)
 
 .nbss               0x0800          0x8
  .nbss              0x0800          0x8 build/default/production/glcd.o
@@ -1658,7 +1662,7 @@ __c30_signature
 .config_BSS       0xf80000          0x2
  .config_BSS      0xf80000          0x2 build/default/production/main.o
 
-.const              0x8536       0x1a76 load address 0x000536  
+.const              0x8536       0x1a7a load address 0x000536  
  .const             0x8536       0x1400 build/default/production/main.o
                     0x8536                  _logo
                     0x8936                  _chirac
@@ -1669,74 +1673,76 @@ __c30_signature
                     0x9936                  _SmallNumbers
                     0x9962                  _myfont
  .const             0x9f62         0x4a build/default/production/engine.o
+ .const             0x9fac          0x4 build/default/production/twinmaxUI.o
 
-.text             0x001fac        0x92c
- .text            0x001fac        0x662 build/default/production/glcd.o
-                  0x001fac                  __lcd_enable
-                  0x001fc4                  __lcd_status
-                  0x002050                  __lcd_reset
-                  0x002074                  _lcd_on
-                  0x0020a4                  _lcd_off
-                  0x0020ce                  _lcd_cls
-                  0x002114                  _lcd_set_page
-                  0x002172                  __lcd_waitbusy
-                  0x002184                  _lcd_write
-                  0x0021a0                  _lcd_selectside
-                  0x0021c6                  _lcd_read
-                  0x002206                  _lcd_plotpixel
-                  0x002234                  _lcd_set_address
-                  0x00226c                  _lcd_draw
-                  0x002284                  _lcd_reversed_draw
-                  0x00229e                  _lcd_draw_n_times
-                  0x0022d2                  _lcd_draw_bar
-                  0x0023e6                  _lcd_draw_char
-                  0x002420                  _lcd_draw_reversed_char
-                  0x00245c                  _lcd_putrs
-                  0x0024ac                  _lcd_testByte
-                  0x0024f2                  _glcd_smallNumberAt
-                  0x002528                  _lcd_startLine
-                  0x002588                  _lcd_bitmap
-                  0x0025ca                  _is_busy
- .text            0x00260e        0x1b2 build/default/production/twinmaxUI.o
-                  0x00260e                  _tui_drawGraph
-                  0x002650                  _tui_menuItem
-                  0x0026c6                  _tui_writeAt
-                  0x002756                  _tui_numberAt
-                  0x00275c                  _tui_displayMesures
- .text            0x0027c0         0xf8 build/default/production/engine.o
-                  0x0027c0                  _button_left_interupt
-                  0x0027c6                  _button_right_interupt
-                  0x0027cc                  _button_select_interupt
-                  0x0027d2                  _button_light_interupt
-                  0x0027d8                  _button_power_interupt
-                  0x0027de                  _engine_initialization
-                  0x0028b0                  _engine_start
- .text            0x0028b8         0x20 build/default/production/main.o
-                  0x0028b8                  _main
+.text             0x001fb0        0x988
+ .text            0x001fb0        0x666 build/default/production/glcd.o
+                  0x001fb0                  __lcd_enable
+                  0x001fc8                  __lcd_status
+                  0x002054                  __lcd_reset
+                  0x002078                  _lcd_on
+                  0x0020a8                  _lcd_off
+                  0x0020d2                  _lcd_cls
+                  0x002118                  _lcd_set_page
+                  0x002176                  __lcd_waitbusy
+                  0x002188                  _lcd_write
+                  0x0021a4                  _lcd_selectside
+                  0x0021ca                  _lcd_read
+                  0x00220a                  _lcd_plotpixel
+                  0x002238                  _lcd_set_address
+                  0x002270                  _lcd_draw
+                  0x002288                  _lcd_reversed_draw
+                  0x0022a2                  _lcd_draw_n_times
+                  0x0022d6                  _lcd_draw_bar
+                  0x0023ee                  _lcd_draw_char
+                  0x002428                  _lcd_draw_reversed_char
+                  0x002464                  _lcd_putrs
+                  0x0024b4                  _lcd_testByte
+                  0x0024fa                  _glcd_smallNumberAt
+                  0x002530                  _lcd_startLine
+                  0x002590                  _lcd_bitmap
+                  0x0025d2                  _is_busy
+ .text            0x002616        0x20e build/default/production/twinmaxUI.o
+                  0x002616                  _tui_drawGraph
+                  0x002658                  _tui_menuItem
+                  0x0026ce                  _tui_writeAt
+                  0x00275e                  _tui_displayMesures
+                  0x0027c2                  _tui_numberAt
+                  0x0027de                  _tui_test
+ .text            0x002824         0xf8 build/default/production/engine.o
+                  0x002824                  _button_left_interupt
+                  0x00282a                  _button_right_interupt
+                  0x002830                  _button_select_interupt
+                  0x002836                  _button_light_interupt
+                  0x00283c                  _button_power_interupt
+                  0x002842                  _engine_initialization
+                  0x002914                  _engine_start
+ .text            0x00291c         0x1c build/default/production/main.o
+                  0x00291c                  _main
 
-.init.delay32     0x0028d8         0x1c
- .init.delay32    0x0028d8         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
-                  0x0028d8                  ___delay32
+.init.delay32     0x002938         0x1c
+ .init.delay32    0x002938         0x1c d:/program files (x86)/microchip/xc16/v1.25/bin/bin/../../lib\liblega-pic30-elf.a(delay32.Leo)
+                  0x002938                  ___delay32
 
-.text             0x0028f4         0x18
- .text            0x0028f4         0x18 build/default/production/twinmax_lcd.o
-                  0x0028f4                  _splash
-                  0x0028fa                  _ask_for_bluetooth
-                  0x002900                  _ask_for_reference_carburator
-                  0x002906                  _display_bars
+.text             0x002954         0x18
+ .text            0x002954         0x18 build/default/production/twinmax_lcd.o
+                  0x002954                  _splash
+                  0x00295a                  _ask_for_bluetooth
+                  0x002960                  _ask_for_reference_carburator
+                  0x002966                  _display_bars
 
-.dinit            0x00290c         0x14
- .dinit           0x00290c         0x14 data_init
+.dinit            0x00296c         0x14
+ .dinit           0x00296c         0x14 data_init
 
-.text             0x002920         0x2e
- .text            0x002920         0x12 build/default/production/counter.o
-                  0x002920                  _get
-                  0x002926                  _set
-                  0x00292c                  _inc
- .text            0x002932         0x10 build/default/production/timer.o
-                  0x002932                  _timer_start
-                  0x00293c                  _timer_top
- .text            0x002942          0x6 build/default/production/bluetooth.o
-                  0x002942                  _send
- .text            0x002948          0x6 build/default/production/can.o
-                  0x002948                  _can_launch
+.text             0x002980         0x2e
+ .text            0x002980         0x12 build/default/production/counter.o
+                  0x002980                  _get
+                  0x002986                  _set
+                  0x00298c                  _inc
+ .text            0x002992         0x10 build/default/production/timer.o
+                  0x002992                  _timer_start
+                  0x00299c                  _timer_top
+ .text            0x0029a2          0x6 build/default/production/bluetooth.o
+                  0x0029a2                  _send
+ .text            0x0029a8          0x6 build/default/production/can.o
+                  0x0029a8                  _can_launch

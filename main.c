@@ -16,8 +16,7 @@
  ********************************************************************/
 
 //#include <p24fxxxx.h>
-#define FCY 4000000UL
-#include <p24FV16KM202.h>
+#include "headers.h"
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -26,8 +25,7 @@
 #include "logo.h"
 #include "engine.h"
 //#include "twinmaxUI.h"
-#include "FRENCH.h"
-#include <libpic30.h>
+
 //#include "lcdTest.c"
 
 // PIC24FV16KM202 Configuration Bit Settings
@@ -74,8 +72,7 @@
 // FICD
 #pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
 
-#define delay_ms __delay_ms
-#define delay_us __delay_us
+
 
 
 int main(void) {
@@ -92,6 +89,25 @@ int main(void) {
     lcd_bitmap(twinmaxLogo);
 
     delay_ms(1000);
+    /*****TESTS ECRAN*/
+    
+    
+    while(1){
+        tui_test();
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    /*****END TESTS ECRAN*/
+    
+    
+    
+    
     
     engine_initialization();
     engine_start();

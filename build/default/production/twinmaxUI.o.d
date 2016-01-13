@@ -1,2 +1,3 @@
 build/default/production/twinmaxUI.o:  \
-twinmaxUI.c 
+twinmaxUI.c  \
+headers.h 

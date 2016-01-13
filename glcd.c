@@ -251,7 +251,7 @@ void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat,
     }
 }
 
-void lcd_draw_bar(unsigned char index, unsigned char value, int handling){
+void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     //TODO (julien 17/12/2015) add reference bar handeling
     int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
     int x,y,y_start;
@@ -265,6 +265,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int handling){
 
     y_start = MENU_WIDTH + index * BAR_SPAN;
     y = y_start;
+    x=0;
 
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);

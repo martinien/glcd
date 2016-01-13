@@ -13,6 +13,7 @@
       <itemPath>can.h</itemPath>
       <itemPath>engine.h</itemPath>
       <itemPath>timer.h</itemPath>
+      <itemPath>headers.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
