@@ -83,20 +83,21 @@ int main(void) {
     TRISB = 0;
     ANSB = 0;
     status = 0;
-
+    
+    delay_ms(200);
     lcd_on();
-
+    lcd_cls();
     lcd_bitmap(twinmaxLogo);
 
-    delay_ms(1000);
+    delay_ms(2000);
     /*****TESTS ECRAN*/
     
     
-    while(1){
+   
         tui_test();
         
         
-    }
+    
     
     
     

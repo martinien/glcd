@@ -150,7 +150,7 @@ void lcd_set_page(unsigned char page){
 
 void _lcd_waitbusy(void){
     while (_lcd_status() & 0b10000000){
-        __delay_ms(.5); // .5 ms
+        __delay_us(.5); // .5 us
     }
 }
 
@@ -161,7 +161,20 @@ void lcd_write(unsigned char data){
     LCD_DATA = data;
     _lcd_enable();
     currentY++;
+    
 }
+
+void lcd_continuous_write(unsigned char data){
+    if(currentY==64){
+        lcd_sideEnd();
+        currentY=0;    
+    }
+    lcd_write(data);
+
+}
+
+
+
 
 void lcd_selectside(unsigned char sides){
     if (sides & LEFT)
@@ -172,6 +185,16 @@ void lcd_selectside(unsigned char sides){
         CS2 = CSHIGH;
     else
         CS2 = CSLOW;
+}
+
+lcd_sideEnd(void){
+    unsigned tmp = CS1;
+    CS1 = CS2 ;
+    CS2 = tmp ;
+    
+    if(CS1==CSHIGH){
+        lcd_set_page((currentY+1)%8);
+    }
 }
 
 unsigned char lcd_read(void){
@@ -217,7 +240,6 @@ void lcd_set_address(unsigned char y){
         lcd_selectside(RIGHT);
         currentY = y - 64;
     }
-    
     _lcd_waitbusy();
     DI=0; RW=0;
     LCD_DATA = 0b01000000 | (y & 0b00111111);
@@ -239,15 +261,17 @@ void lcd_reversed_draw(unsigned char x, unsigned char y, unsigned char symbol){
 
 
 
+//optimized with navie y incrementation
 void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
     int i;
-    unsigned char address = 0;
-
+//    unsigned char limit =  y +nb_repeat()
+    if(nb_repeat>0){
+        lcd_draw(x, y, symbol);        
+    }           
     //draw the sybmbole nb_repeat times
-    for ( i = 0; i < nb_repeat; ++i){
-        address = y + i;
-        lcd_draw(x, address, symbol);
+    for ( i = 1; i < nb_repeat; ++i){
+        lcd_continuous_write(symbol);
     }
 }
 
@@ -256,6 +280,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
     int x,y,y_start;
     int i;
+    int arrow_drawn = 0;
     unsigned char transition_page_bit;
     
     nb_full_pages = value/8;
@@ -265,40 +290,45 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
 
     y_start = MENU_WIDTH + index * BAR_SPAN;
     y = y_start;
-    x=0;
+    x = 0;
 
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
+        if(i==nb_blank_pages - 1 && isReference==1){ //Reference bar
+         lcd_draw_char(x,12+y,0);   
+         arrow_drawn = 1;
+        }
         x++;
     }
 
     y = y_start;
-    lcd_draw_char(x, y++, BLANK_BIT);
+    lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
+    y += BAR_SPAN - BAR_WIDTH;
     lcd_draw_n_times(x, y, BAR_WIDTH, transition_page_bit);
-    y += BAR_WIDTH;
-    lcd_draw_char(x, y, BLANK_BIT);
 
     y = y_start;
     x++;
 
     for (i = 0; i < nb_full_pages; ++i){
         y = y_start;
-        lcd_draw_char(x, y++, BLANK_BIT);
+        lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
+        y += BAR_SPAN - BAR_WIDTH;
         lcd_draw_n_times(x, y, BAR_WIDTH, FULL_BIT);
-        y += BAR_WIDTH;
-        lcd_draw_char(x, y++, BLANK_BIT);
+
+        y = y_start;
         x++;
     }
 
 
 }
 
+//optimized 
 void lcd_draw_char(unsigned char x, unsigned char y, char c){
     int i,charIndex;    
     charIndex = c;
-
-    for(i = 0; i <= FONT_WIDTH; i++){ 
-        lcd_draw(x,y,myfont[charIndex][i]);
+    lcd_draw(x,y,myfont[charIndex][1]);
+    for(i = 1; i <= FONT_WIDTH; i++){ 
+        lcd_write(myfont[charIndex][i]);
         y++;
     }
 }
