@@ -170,11 +170,7 @@ void lcd_continuous_write(unsigned char data){
         currentY=0;    
     }
     lcd_write(data);
-
 }
-
-
-
 
 void lcd_selectside(unsigned char sides){
     if (sides & LEFT)
@@ -187,7 +183,7 @@ void lcd_selectside(unsigned char sides){
         CS2 = CSLOW;
 }
 
-lcd_sideEnd(void){
+void lcd_sideEnd(){
     unsigned tmp = CS1;
     CS1 = CS2 ;
     CS2 = tmp ;
@@ -265,7 +261,7 @@ void lcd_reversed_draw(unsigned char x, unsigned char y, unsigned char symbol){
 void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
     int i;
-//    unsigned char limit =  y +nb_repeat()
+    // unsigned char limit =  y +nb_repeat()
     if(nb_repeat>0){
         lcd_draw(x, y, symbol);        
     }           
@@ -275,8 +271,14 @@ void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat,
     }
 }
 
+void lcd_prepare_bars(){
+    lcd_draw_bar(0, 30, 0);
+    lcd_draw_bar(1, 30, 0);
+    lcd_draw_bar(2, 30, 0);
+    lcd_draw_bar(3, 30, 0);
+}
+
 void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
-    //TODO (julien 17/12/2015) add reference bar handeling
     int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
     int x,y,y_start;
     int i;
@@ -302,7 +304,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     }
 
     y = y_start;
-    lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
+    // lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
     y += BAR_SPAN - BAR_WIDTH;
     lcd_draw_n_times(x, y, BAR_WIDTH, transition_page_bit);
 
@@ -311,15 +313,13 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
 
     for (i = 0; i < nb_full_pages; ++i){
         y = y_start;
-        lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
+        // lcd_draw_n_times(x, y, BAR_SPAN - BAR_WIDTH, BLANK_BIT);
         y += BAR_SPAN - BAR_WIDTH;
         lcd_draw_n_times(x, y, BAR_WIDTH, FULL_BIT);
 
         y = y_start;
         x++;
     }
-
-
 }
 
 //optimized 
