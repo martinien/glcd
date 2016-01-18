@@ -274,6 +274,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     int arrow_drawn = 0;
     unsigned char transition_page_bit;
     
+    
     nb_full_pages = value/8;
     nb_blank_pages = 8 - nb_full_pages - 1;
     nb_blank_pixel_in_transition_page = 8 - (value % 8);
