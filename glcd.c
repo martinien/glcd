@@ -156,8 +156,8 @@ void _lcd_waitbusy(void){
 
 void lcd_write(unsigned char data){
     _lcd_waitbusy();
-    DI=1; RW=0;
-    LCD_TRIS=0; 
+    DI=1; RW = 0;
+    LCD_TRIS = 0;
     LCD_DATA = data;
     _lcd_enable();
     currentY++;
@@ -165,10 +165,8 @@ void lcd_write(unsigned char data){
 }
 
 void lcd_continuous_write(unsigned char data){
-    if(currentY==64){
-        lcd_sideEnd();
-        currentY=0;    
-    }
+    if(currentY == 64)
+        lcd_set_address(64);
     lcd_write(data);
 }
 
@@ -183,15 +181,6 @@ void lcd_selectside(unsigned char sides){
         CS2 = CSLOW;
 }
 
-void lcd_sideEnd(){
-    unsigned tmp = CS1;
-    CS1 = CS2 ;
-    CS2 = tmp ;
-    
-    if(CS1==CSHIGH){
-        lcd_set_page((currentY+1)%8);
-    }
-}
 
 unsigned char lcd_read(void){
     unsigned char _lcd_tris, _data;

@@ -75,148 +75,171 @@ void tui_numberAt(unsigned char x,unsigned char y,unsigned char val){
 
 void tui_test(){
     int i = 0;
-    unsigned char values[4]={37,25,14,54};
+    unsigned char values[4]={37,0,14,54};
     lcd_cls();
     while(1){
         values[0] = 37;
-        values[1] = 25;
+        values[1] = 42;
         values[2] = 14;
         values[3] = 54;
   
         tui_drawGraph(values);
         values[0] = values[0] + 4 ;
+        values[1] = values[1] + 4 ;
         values[2] = values[2] + 4 ;
         values[3] = values[3] + 4 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 2 ;
+        values[1] = values[1] - 2 ;
         values[2] = values[2] - 2 ;
         values[3] = values[3] - 2 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 2 ;
+        values[1] = values[1] + 2 ;
         values[2] = values[2] + 2 ;
         values[3] = values[3] + 2 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 20 ;
+        values[1] = values[1] - 20 ;
         values[2] = values[2] - 20 ;
         values[3] = values[3] - 20 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 12 ;
+        values[1] = values[1] + 12 ;
         values[2] = values[2] + 12 ;
         values[3] = values[3] + 12 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 1 ;
+        values[1] = values[1] - 1 ;
         values[2] = values[2] - 1 ;
         values[3] = values[3] - 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 1 ;
+        values[1] = values[1] - 1 ;
         values[2] = values[2] - 1 ;
         values[3] = values[3] - 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 2 ;
+        values[1] = values[1] - 2 ;
         values[2] = values[2] - 2 ;
         values[3] = values[3] - 2 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 3 ;
+        values[1] = values[1] - 3 ;
         values[2] = values[2] - 3 ;
         values[3] = values[3] - 3 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 2 ;
+        values[1] = values[1] - 2 ;
         values[2] = values[2] - 2 ;
         values[3] = values[3] - 2 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 0 ;
+        values[1] = values[1] - 0 ;
         values[2] = values[2] - 0 ;
         values[3] = values[3] - 0 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 0 ;
+        values[1] = values[1] - 0 ;
         values[2] = values[2] - 0 ;
         values[3] = values[3] - 0 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] - 5 ;
+        values[1] = values[1] - 5 ;
         values[2] = values[2] - 5 ;
         values[3] = values[3] - 5 ;
 
         
         tui_drawGraph(values);
         values[0] = values[0] + 1 ;
+        values[1] = values[1] + 1 ;
         values[2] = values[2] + 1 ;
         values[3] = values[3] + 1 ;
 
