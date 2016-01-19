@@ -21,10 +21,10 @@ unsigned short average_get_average(unsigned short* values, int nb_values){
     return sum / nb_values;
 }
 
-bool average_is_average_ready(){
+int average_is_average_ready(){
     if(array[nb_values - 1] == 0xFFF){
-        return false;
+        return 0;
     }else{
-        return true;
+        return 1;
     }
 }

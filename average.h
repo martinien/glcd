@@ -12,8 +12,8 @@ int average_add_value(unsigned short values[], int nb_values, unsigned short val
 unsigned short average_get_average(unsigned short* values, int nb_values);
 
 
-// return true if all values as been set in the array at least once
+// return 1 if all values as been set in the array at least once
 // (ie check if the last value is different from init value (0xFFFF))
-// return false otherwise
-bool average_is_average_ready();
+// return 0 otherwise
+int average_is_average_ready();
 
