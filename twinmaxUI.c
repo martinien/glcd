@@ -103,14 +103,31 @@ void tui_test(){
     unsigned char i = 0;
     unsigned char values[4]={0,5,14,54};
     double sens = 1;
+    lcd_cls();       
+       
+    while(1){
+        values[0] = (values[0] - 1)%64 ;
+        values[1] = (values[1] - 1)%64 ;
+        values[2] = (values[2] - 1)%64 ;
+        values[3] = (values[3] - 1)%64 ;
+        tui_drawGraph(values,1);
+        i=(i-1)%63;
+        tui_battery(values[1]);
+           }
+
+}
+
+void tui_test(){
+    unsigned char i = 0;
+    unsigned char values[4]={0,5,14,54};
+    double sens = 1;
     lcd_cls();
        
     while(1){
-        
   
         
         
-        
+        /***BEGIN Code for M. Capron*/
         values[0] = (values[0] - 1)%64 ;
         values[1] = (values[1] - 1)%64 ;
         values[2] = (values[2] - 1)%64 ;
@@ -121,6 +138,11 @@ void tui_test(){
         tui_drawGraph(values,1);
         i=(i-1)%63;
         tui_battery(values[1]);
+        /****END code for M. Capron*/
+        
+        //tui_displayMeasures(values,sens,2);
+//        delay_ms(500);
+        
        // delay_ms(100);
 //
 //        
