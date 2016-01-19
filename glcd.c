@@ -287,7 +287,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
         if(i==nb_blank_pages - 1 && isReference==1){ //Reference bar
-         lcd_draw_char(x,12+y,0);   
+         lcd_draw_char(x,13+y,0);   
          arrow_drawn = 1;
         }
         x++;
@@ -316,7 +316,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
 void lcd_draw_char(unsigned char x, unsigned char y, char c){
     int i,charIndex;    
     charIndex = c;
-    lcd_draw(x,y,myfont[charIndex][1]);
+    lcd_draw(x,y,myfont[charIndex][0]);
     for(i = 1; i <= FONT_WIDTH; i++){ 
         lcd_write(myfont[charIndex][i]);
         y++;
@@ -365,7 +365,7 @@ void lcd_testByte(unsigned char b){
 }
 
 void glcd_smallNumberAt(unsigned char x,unsigned char y,unsigned char value,int reversed){
-    int i;  
+    int i=0;  
     for(i = 0; i <= NUMBER_WIDTH; i++){ 
         lcd_draw(x,y,SmallNumbers[value][i]);
         y++;

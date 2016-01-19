@@ -61,19 +61,19 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
 
 
 
-void tui_displayMeasures(double measures[4], double sensitivity, int referenceIndex){
-    double referenceMeasure = measures[referenceIndex];    
+void tui_displayMeasures(unsigned short measures[4], unsigned short sensitivity, int referenceIndex){
+    unsigned short referenceMeasure = measures[referenceIndex];    
     unsigned char values[4];
-    int i;
-    for(i = 0; i < 4; i++){
-        //values[i]= (unsigned char) sensitivity * (measures[i] - referenceMeasure) + 32;
-        values[i]= (unsigned char) measures[i];
-//        if(values[i]>63){
-//            values[i=63];
-//        }
-//        if(values[i<0]){
-//            values[i]=0;
-//        }
+    int ind=0;
+    for(ind = 0; ind < 4; ind++){
+        values[ind]= (unsigned char)(sensitivity*(measures[ind]-referenceMeasure) + 32);
+       // values[i]= (unsigned char) measures[i];
+        if(values[ind]>63){
+            values[ind]=64;
+        }
+        if(values[ind]<0){
+            values[ind]=0;
+        }
     }
             
     
@@ -85,9 +85,9 @@ void tui_displayMeasures(double measures[4], double sensitivity, int referenceIn
 }
 
 
-void tui_numberAt(unsigned char x,unsigned char y,unsigned char val){
+void tui_numberAt(unsigned char x,unsigned char y,unsigned short val){
     char string[4];
-    sprintf(string, "%d", val);
+    sprintf(string, "%u", val);
     tui_writeAt( x, y,"    ",0,0);
     tui_writeAt( x, y,string,0,0);
 }
@@ -118,8 +118,8 @@ void tui_m_capron(){
 }
 
 void tui_test(){
-    unsigned char i = 0;
-    unsigned char values[4]={0,5,14,54};
+    unsigned short i = 0;
+    unsigned short values[4]={1,5,14,54};
     double sens = 1;
     lcd_cls();
        
@@ -127,17 +127,16 @@ void tui_test(){
   
         
         
-        /***BEGIN Code for M. Capron*/
-        values[0] = (values[0] - 1)%64 ;
-        values[1] = (values[1] - 1)%64 ;
-        values[2] = (values[2] - 1)%64 ;
-        values[3] = (values[3] - 1)%64 ;
         
-        //tui_displayMeasures(values,sens,2);
-//        delay_ms(500);
-        tui_drawGraph(values,1);
-        i=(i-1)%63;
-        tui_battery(values[1]);
+        values[0] = i ;
+        values[1] = i ;
+        values[2] = 20; ;
+        values[3] = i;
+  
+        tui_displayMeasures(values,sens,2);
+       
+        i=(i+1)%64;
+        tui_battery(values[0]);
         /****END code for M. Capron*/
         
         //tui_displayMeasures(values,sens,2);
