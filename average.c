@@ -1,6 +1,6 @@
 unsigned short* average_init(int nb_values){
     unsigned short * array;
-    array = MALLOC(nb_values * sizeof(unsigned short));
+    array = malloc(nb_values * sizeof(unsigned short));
     array[nb_values - 1] = 0xFFFF;
 }
 
@@ -12,7 +12,7 @@ int average_add_value(unsigned short values[], int nb_values, unsigned short val
 unsigned short average_get_average(unsigned short* values, int nb_values){
     int i = 0;
     unsigned long sum = 0;
-    if(!is_average_ready()){
+    if(!average_is_average_ready()){
       return 0;
     }
     for(i = 0; i < nb_values; i++){
@@ -21,8 +21,8 @@ unsigned short average_get_average(unsigned short* values, int nb_values){
     return sum / nb_values;
 }
 
-int average_is_average_ready(){
-    if(array[nb_values - 1] == 0xFFF){
+int average_is_average_ready(unsigned short* values, int nb_values){
+    if(values[nb_values - 1] == 0xFFF){
         return 0;
     }else{
         return 1;

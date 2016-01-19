@@ -15,5 +15,5 @@ unsigned short average_get_average(unsigned short* values, int nb_values);
 // return 1 if all values as been set in the array at least once
 // (ie check if the last value is different from init value (0xFFFF))
 // return 0 otherwise
-int average_is_average_ready();
+int average_is_average_ready(unsigned short* values, int nb_values);
 
