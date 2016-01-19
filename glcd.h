@@ -51,7 +51,7 @@ void lcd_on();
 
 void lcd_off();
 
-void lcd_cls(void);
+void lcd_clear_screen(void);
 
 
 
