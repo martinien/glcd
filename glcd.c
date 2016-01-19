@@ -4,9 +4,9 @@
 #include <libpic30.h>
 
 
-int currentX;
-int currentY;
 int currentPage;
+int currentY;
+
 
 int BAR_WIDTH=20;
 int BAR_SPAN=24;
@@ -14,7 +14,8 @@ int MENU_WIDTH=28;
 unsigned char BLANK_BIT=0b00000000;
 unsigned char FULL_BIT=0b11111111;
 
-void _lcd_enable(void){
+/*Pulse to enable command/data on the display*/
+void _lcd_enable(void){  
     ENABLE=0;
     __delay_us(.2);
     ENABLE=1;   
@@ -23,9 +24,11 @@ void _lcd_enable(void){
     __delay_us(.5);
  }
 
+
+/*TODO time optimisation*/
 unsigned char _lcd_status(void){
     unsigned char status,_lcd_tris;
-    _lcd_tris = LCD_TRIS;
+    _lcd_tris = LCD_TRIS;           // stores the state of tris, CS1 and CS2
     int cs1 = CS1;
     int cs2 = CS2; 
     CS1 = CSHIGH;
@@ -45,17 +48,12 @@ unsigned char _lcd_status(void){
     __delay_us(1);            //tr + td                                          
     status = LCD_DATA & 0b11111111;    //Input data
     ENABLE = 0;                 //Low Enable
-    __delay_us(1);            //tdhr
-    /*#ifdef DEBUG_READ
-        printf("S:%x\n\r",status);
-    #endif*/
-    
-    LCD_TRIS = _lcd_tris;
+    __delay_us(1);            //tdhr    
+    LCD_TRIS = _lcd_tris;           // restores the initial state of tris, CS1 and CS2
     CS1 = cs1;
     CS2= cs2;
     
-    return (status);           
-  
+    return (status);        
    
 }
 
@@ -106,7 +104,8 @@ void lcd_off(){
     __delay_us(.1);
 }
 
-void lcd_cls(void){
+/*Clear scran*/
+void lcd_clear_screen(void){
     //lcd clear screen
     unsigned char x,y;
 
@@ -144,16 +143,17 @@ void lcd_set_page(unsigned char page){
 
     CS1=  cs1;
     CS2 = cs2;
+    currentPage=page;
 }
 
-
-
+/*Waits for busy flag to be low*/
 void _lcd_waitbusy(void){
     while (_lcd_status() & 0b10000000){
-        __delay_us(.5); // .5 us
+        __delay_us(.1); // .5 us
     }
 }
 
+/*write a byte to the display ram - data will be written at the active X and Y - the display increments its y register  */
 void lcd_write(unsigned char data){
     _lcd_waitbusy();
     DI=1; RW = 0;
@@ -164,12 +164,14 @@ void lcd_write(unsigned char data){
     
 }
 
+/*Handles the case when writing cause y register to reach midle of screen*/
 void lcd_continuous_write(unsigned char data){
     if(currentY == 64)
         lcd_set_address(64);
     lcd_write(data);
 }
 
+/*Select left or right side*/
 void lcd_selectside(unsigned char sides){
     if (sides & LEFT)
         CS1 = CSHIGH;
@@ -181,7 +183,7 @@ void lcd_selectside(unsigned char sides){
         CS2 = CSLOW;
 }
 
-
+/*Reads a byte from the display ram - data will be read from the active X and Y - the display increments its y register  */
 unsigned char lcd_read(void){
     unsigned char _lcd_tris, _data;
     ENABLE = 0;
@@ -205,6 +207,7 @@ unsigned char lcd_read(void){
     return _data;
 }
 
+/*Plot a unique pixel on the screen */
 void lcd_plotpixel(unsigned char x, unsigned char y){
     unsigned char data;
 
@@ -217,6 +220,7 @@ void lcd_plotpixel(unsigned char x, unsigned char y){
     //lcd_write (data | (1 << (rx)));
 }
 
+/*Selects a side of the screen and write the correct address*/
 void lcd_set_address(unsigned char y){
     if (y < 64){
         lcd_selectside(LEFT);
@@ -231,28 +235,28 @@ void lcd_set_address(unsigned char y){
     _lcd_enable();
 }
 
-void lcd_draw(unsigned char x, unsigned char y, unsigned char symbol){
+/*Write a byte iat the spe*/
+void lcd_draw(unsigned char page, unsigned char y, unsigned char symbol){
     //TODO (julien 16/12/2015) check if set address is necessary when y == currentY
-    lcd_set_page(x);
+    lcd_set_page(page);
     lcd_set_address(y);
     lcd_write(symbol);
 }
-void lcd_reversed_draw(unsigned char x, unsigned char y, unsigned char symbol){
+
+void lcd_reversed_draw(unsigned char page, unsigned char y, unsigned char symbol){
     //TODO (julien 16/12/2015) check if set address is necessary when y == currentY
-    lcd_set_page(x);
+    lcd_set_page(page);
     lcd_set_address(y);
     lcd_write(~symbol);
 }
 
-
-
 //optimized with navie y incrementation
-void lcd_draw_n_times(unsigned char x, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
+void lcd_draw_n_times(unsigned char page, unsigned char y, unsigned char nb_repeat, unsigned char symbol){
     // draw the symbol passed in argumet nb_repeat times at the selected page and y
     int i;
     // unsigned char limit =  y +nb_repeat()
     if(nb_repeat>0){
-        lcd_draw(x, y, symbol);        
+        lcd_draw(page, y, symbol);        
     }           
     //draw the sybmbole nb_repeat times
     for ( i = 1; i < nb_repeat; ++i){
@@ -287,7 +291,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
         if(i==nb_blank_pages - 1 && isReference==1){ //Reference bar
-         lcd_draw_char(x,13+y,0);   
+         lcd_draw_char(x,12+y,0);   
          arrow_drawn = 1;
         }
         x++;
@@ -313,38 +317,37 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
 }
 
 //optimized 
-void lcd_draw_char(unsigned char x, unsigned char y, char c){
+void lcd_draw_char(unsigned char page, unsigned char y, char c){
     int i,charIndex;    
     charIndex = c;
-    lcd_draw(x,y,myfont[charIndex][0]);
+    lcd_draw(page,y,myfont[charIndex][0]);
     for(i = 1; i <= FONT_WIDTH; i++){ 
         lcd_write(myfont[charIndex][i]);
         y++;
     }
 }
 
-void lcd_draw_reversed_char(unsigned char x, unsigned char y, char c){
+void lcd_draw_reversed_char(unsigned char page, unsigned char y, char c){
     int i,charIndex;    
     charIndex = c;
-
-    for(i = 0; i <= FONT_WIDTH; i++){ 
-        lcd_draw(x,y,~myfont[charIndex][i]);
+    lcd_draw(page,y,~myfont[charIndex][0]);
+    for(i = 1; i <= FONT_WIDTH; i++){ 
+        lcd_draw(page,y,~myfont[charIndex][i]);
         y++;
     }
 }
 
-
 void lcd_putrs(const char *string){
     char i=0;
-    unsigned char x=0;
+    unsigned char page=0;
     unsigned char y=0;
     while (string[i] != 0){
         //start new line if address is at the end of the screen
         if(y + FONT_WIDTH > 127){
             y = 0;
-            x++;
+            page++;
         }
-        lcd_draw_char(x,y,string[i++]);
+        lcd_draw_char(page,y,string[i++]);
         y++;
     }
 }
@@ -354,25 +357,25 @@ void lcd_testByte(unsigned char b){
     int i = 0;
     while(i<8){
         if(b&mask){
-            lcd_draw_char(currentX,currentY,'1');
+            lcd_draw_char(currentPage,currentY,'1');
         }
         else{
-            (lcd_draw_char(currentX,currentY,'0'));
+            (lcd_draw_char(currentPage,currentY,'0'));
         }
         i++;
         mask>>=1;
     }
 }
 
-void glcd_smallNumberAt(unsigned char x,unsigned char y,unsigned char value,int reversed){
+void glcd_smallNumberAt(unsigned char page,unsigned char y,unsigned char value,int reversed){
     int i=0;  
-    for(i = 0; i <= NUMBER_WIDTH; i++){ 
-        lcd_draw(x,y,SmallNumbers[value][i]);
-        y++;
+    lcd_draw(page,y,SmallNumbers[value][i]);
+    for(i = 1; i < NUMBER_WIDTH; i++){ 
+        lcd_write(SmallNumbers[value][i] );    
+        
     }
 
 }
-
 
 void lcd_startLine(unsigned int z){
     int cs1,cs2;
@@ -392,36 +395,21 @@ void lcd_startLine(unsigned int z){
 void lcd_bitmap(const char * bmp){
     unsigned char i, j;
     for(i = 0; i < 8; i++){   
-       for(j = 0; j < 124 ; j++){
-          lcd_draw(i,j,bmp[(i*128)+j]);
+        lcd_draw(i,0,bmp[(i*128)]);
+       for(j = 0; j < 128 ; j++){
+           lcd_write(bmp[(i*128)+j]);          
        }  
     }
 }
 
-int is_busy(){
-    int status = 0;        //Read data here
-    
-    ENABLE = 0;                 //Low Enable
-    __delay_us(1);            //tf
-    RW = 1;                 //Read
-    DI = 0;                 //Status         
-    __delay_us(1);            //tasu
-    ENABLE = 1;                 //High Enable
-    __delay_us(5);            //tr + max(td,twh)->twh
-    
-    //Dummy read
-    ENABLE = 0;                 //Low Enable
-    __delay_us(5);            //tf + twl + chineese error    
-    
-    ENABLE = 1;                 //High Enable
-    __delay_us(1);            //tr + td        
-                                  
-    status = LCD_DATA;    //Input data
-    ENABLE = 0;                 //Low Enable
-    __delay_us(1);            //tdhr
-    /*#ifdef DEBUG_READ
-        printf("S:%x\n\r",status);
-    #endif*/
-    return (status & 0x80);           
+void lcd_bitmap_plus(const char * bmp,unsigned char y,unsigned char width,unsigned char reversed){
+    unsigned char i, j;
+    for(i = 0; i < 8; i++){   
+        lcd_draw(i,0,bmp[(i*width)]);
+       for(j = y; j < width ; j++){
+           lcd_write(bmp[(i*width)+j]);          
+       }  
+    }
 }
+
 
