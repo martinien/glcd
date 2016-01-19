@@ -103,7 +103,7 @@ void tui_m_capron(){
     unsigned char i = 0;
     unsigned char values[4]={0,5,14,54};
     double sens = 1;
-    lcd_cls();       
+    lcd_clear_screen();       
        
     while(1){
         values[0] = (values[0] - 1)%64 ;
@@ -121,7 +121,7 @@ void tui_test(){
     unsigned short i = 0;
     unsigned short values[4]={1,5,14,54};
     double sens = 1;
-    lcd_cls();
+    lcd_clear_screen();
        
     while(1){
   
