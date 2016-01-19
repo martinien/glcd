@@ -99,7 +99,7 @@ void tui_battery(unsigned char val){
 }
 
 
-void tui_test(){
+void tui_m_capron(){
     unsigned char i = 0;
     unsigned char values[4]={0,5,14,54};
     double sens = 1;
