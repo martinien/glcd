@@ -7,7 +7,7 @@
 
 
 
-void tui_drawGraph(unsigned char * values[4]);
+void tui_drawGraph(unsigned char values[4]);
 
 void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed,int width);
 
