@@ -1,5 +1,3 @@
-
-
 #include "glcd.h"
 #include <libpic30.h>
 

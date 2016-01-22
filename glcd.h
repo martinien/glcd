@@ -1,9 +1,11 @@
 #ifndef GLCD_H
 #define	GLCD_H
+#endif
 
 #define CSLOW 0
 #define CSHIGH 1
 #define FCY 4000000UL
+
 #include "myFont.h"
 #include <p24FV16KM202.h>
 #include <libpic30.h>
@@ -31,7 +33,7 @@
 #define NONE          0b00
 
 
-/*void _lcd_enable(void);
+void _lcd_enable(void);
 
 unsigned char _lcd_status(void);
 
@@ -39,6 +41,11 @@ void _lcd_reset(void);
 
 void _lcd_waitbusy(void);
 
+void lcd_set_address(unsigned char y);
+
+void lcd_set_page(unsigned char page);
+
+void lcd_draw_bar(unsigned char index, unsigned char value, int isReference);
 // public function prototypes
 
 //
@@ -89,6 +96,3 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int handling);
 void lcd_draw_reversed_char(unsigned char x, unsigned char y, char c);
 
 void lcd_draw_char(unsigned char x, unsigned char y, char c);
-*/
-
-#endif

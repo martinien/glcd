@@ -1,9 +1,3 @@
-/* 
- * File:   FRENCH.h
- * Author: martinien
- *
- * Created on 5 janvier 2016, 14:45
- */
 
 #ifndef FRENCH_H
 #define	FRENCH_H

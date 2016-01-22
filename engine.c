@@ -1,4 +1,4 @@
-
+#include "engine.h"
 #include "timer.h"
 #include "FRENCH.h"
 #define FCY 4000000UL
@@ -6,6 +6,28 @@
 #include <libpic30.h>
 #define delay_ms __delay_ms
 
+
+void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
+
+    //todo : reset interruption flag
+    
+    // if(PORTAbits.RA6 == 1){
+    //     button_left_interupt
+    // }else if(PORTAbits.RA10 == 1){
+        
+    // }else if(PORTAbits.RA11 == 1){
+        
+    // }else if(PORTAbits.RA2 == 1){
+        
+    // }else if(PORTAbits.RA3 == 1){
+        
+    // }
+    
+}
+
+
+// TODO julien le 19/01
+// The CNEN1 and CNEN3 registers contain the interrupt enable control
 void button_left_interupt(){
   return;
 }

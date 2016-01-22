@@ -77,12 +77,9 @@
 
 int main(void) {
 
-    unsigned char status,data;
-    int i,j;
     TRISA = 0;
     TRISB = 0;
     ANSB = 0;
-    status = 0;
     
     delay_ms(200);
     lcd_on();

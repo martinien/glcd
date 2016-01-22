@@ -1,10 +1,3 @@
-/* 
- * File:   engine.h
- * Author: julien
- *
- * Created on 12 janvier 2016, 13:44
- */
-
 void button_left_interupt();
 
 void button_right_interupt();

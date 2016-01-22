@@ -17,3 +17,6 @@ unsigned short average_get_average(unsigned short* values, int nb_values);
 // return 0 otherwise
 int average_is_average_ready(unsigned short* values, int nb_values);
 
+//free used memory
+int average_free(unsigned short* values);
+

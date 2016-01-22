@@ -1,8 +1,5 @@
-           
-#include "headers.h"
-#define FONT_WIDTH 6
-#define NUMBER_WIDTH 4
-//#include "twinmaxUI.h"
+#include "twinmaxUI.h"           
+
 
 void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
