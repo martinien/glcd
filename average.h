@@ -1,3 +1,5 @@
+#ifndef AVERAGE_H
+#define	AVERAGE_H
 
 // initialize an average array
 unsigned short* average_init(int nb_values);
@@ -20,3 +22,4 @@ int average_is_average_ready(unsigned short* values, int nb_values);
 //free used memory
 int average_free(unsigned short* values);
 
+#endif

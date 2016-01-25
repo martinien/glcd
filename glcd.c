@@ -1,6 +1,6 @@
 #include "glcd.h"
-#include <libpic30.h>
 
+#include "myFont.h"
 
 int currentPage;
 int currentY;

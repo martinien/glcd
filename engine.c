@@ -1,11 +1,4 @@
 #include "engine.h"
-#include "timer.h"
-#include "FRENCH.h"
-#define FCY 4000000UL
-#include <p24FV16KM202.h>
-#include <libpic30.h>
-#define delay_ms __delay_ms
-
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
@@ -49,7 +42,7 @@ void button_power_interupt(){
 }
 
 void engine_initialization() {
-  lcd_cls();
+  lcd_clear_screen();
   tui_writeAt(1,15,BLUETOOTH,0,0);
   tui_writeAt(5,10,YES,0,0);
   tui_writeAt(5,90,NO,1,0);
@@ -58,7 +51,7 @@ void engine_initialization() {
   tui_writeAt(5,90,NO,0,0);    
   delay_ms(700);   
 
-  lcd_cls();
+  lcd_clear_screen();
   
   tui_writeAt(1,15,REFERENCE,0,0);
   tui_writeAt(5,5,"1",1,0);
@@ -72,7 +65,7 @@ void engine_initialization() {
   tui_writeAt(5,35,"2",0,0);
   tui_writeAt(5,65,"3",1,0);
   delay_ms(1000); 
-  lcd_cls();
+  lcd_clear_screen();
 }
 
 void engine_start() {

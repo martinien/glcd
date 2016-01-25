@@ -15,24 +15,11 @@
  * B. Ivey       1.00            01-15-2013  Initial code
  ********************************************************************/
 
-//#include <p24fxxxx.h>
 #include "headers.h"
-
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdio.h>
-//#include "glcd.h"
-#include "logo.h"
-#include "engine.h"
-//#include "twinmaxUI.h"
-
-//#include "lcdTest.c"
 
 // PIC24FV16KM202 Configuration Bit Settings
 
 // 'C' source line config statements
-
-#include <xc.h>
 
 // FBS
 #pragma config BWRP = OFF               // Boot Segment Write Protect (Disabled)
@@ -83,7 +70,7 @@ int main(void) {
     
     delay_ms(200);
     lcd_on();
-    lcd_cls();
+    lcd_clear_screen();
     lcd_bitmap(twinmaxLogo);
 
     delay_ms(2000);
@@ -109,5 +96,5 @@ int main(void) {
     
     engine_initialization();
     engine_start();
-
+    return 1;
 }

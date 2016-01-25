@@ -1,5 +1,4 @@
-#include "twinmaxUI.h"           
-
+#include "twinmaxUI.h"  
 
 void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
@@ -99,7 +98,6 @@ void tui_battery(unsigned char val){
 void tui_m_capron(){
     unsigned char i = 0;
     unsigned char values[4]={0,5,14,54};
-    double sens = 1;
     lcd_clear_screen();       
        
     while(1){

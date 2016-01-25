@@ -1,12 +1,10 @@
 #ifndef GLCD_H
 #define	GLCD_H
-#endif
 
 #define CSLOW 0
 #define CSHIGH 1
 #define FCY 4000000UL
 
-#include "myFont.h"
 #include <p24FV16KM202.h>
 #include <libpic30.h>
 
@@ -19,10 +17,6 @@
 #define RESET         LATAbits.LATA7
 #define CS1           LATAbits.LATA0
 #define CS2           LATAbits.LATA1
-
-
-
- 
 
 #define LEFT          0b01
 
@@ -46,11 +40,6 @@ void lcd_set_address(unsigned char y);
 void lcd_set_page(unsigned char page);
 
 void lcd_draw_bar(unsigned char index, unsigned char value, int isReference);
-// public function prototypes
-
-//
-
-// call these all you want !
 
 void lcd_screenon(int on);
 
@@ -59,8 +48,6 @@ void lcd_on();
 void lcd_off();
 
 void lcd_clear_screen(void);
-
-
 
 void lcd_selectside(unsigned char sides);
 
@@ -96,3 +83,5 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int handling);
 void lcd_draw_reversed_char(unsigned char x, unsigned char y, char c);
 
 void lcd_draw_char(unsigned char x, unsigned char y, char c);
+
+#endif

@@ -1,7 +1,7 @@
+#ifndef TIMER_H
+#define	TIMER_H
+
 #include "can.h"
-#include <libpic30.h>
-#include <xc.h>
-#include <p24FV16KM202.h>
 
 #define _ISR __attribute__((interrupt))
 
@@ -12,3 +12,5 @@ void timer_start();
 
 // Interrupt callback
 void timer_top();
+
+#endif
