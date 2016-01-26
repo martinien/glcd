@@ -38,7 +38,7 @@
 
 // FOSC
 #pragma config POSCMOD = NONE           // Primary Oscillator Configuration bits (Primary oscillator disabled)
-#pragma config OSCIOFNC = IO            // CLKO Enable Configuration bit (Port I/O enabled (CLKO disabled))
+#pragma config OSCIOFNC = CLKO          // CLKO Enable Configuration bit (Port I/O enabled (CLKO disabled))
 #pragma config POSCFREQ = HS            // Primary Oscillator Frequency Range Configuration bits (Primary oscillator/external clock input frequency greater than 8MHz)
 #pragma config SOSCSEL = SOSCHP         // SOSC Power Selection Configuration bits (Secondary Oscillator configured for high-power operation)
 #pragma config FCKSM = CSDCMD           // Clock Switching and Monitor Selection (Both Clock Switching and Fail-safe Clock Monitor are disabled)
@@ -64,6 +64,7 @@
 
 int main(void) {
 
+    CLKDIV = 0;
     TRISA = 0;
     TRISB = 0;
     TRISC = 0;
