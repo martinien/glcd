@@ -17,9 +17,10 @@
 
 #include "headers.h"
 
-// PIC24FV16KM202 Configuration Bit Settings
+// PIC24FV16KM204 Configuration Bit Settings
 
 // 'C' source line config statements
+
 
 // FBS
 #pragma config BWRP = OFF               // Boot Segment Write Protect (Disabled)
@@ -30,7 +31,7 @@
 #pragma config GCP = OFF                // General Segment Code Protect (No Protection)
 
 // FOSCSEL
-#pragma config FNOSC = FRC              // Oscillator Select (Fast RC Oscillator (FRC))
+#pragma config FNOSC = FRCPLL           // Oscillator Select (Fast RC Oscillator with Postscaler and PLL Module (FRCDIV+PLL))
 #pragma config SOSCSRC = DIG            // SOSC Source Type (Digital Mode for use with external source)
 #pragma config LPRCSEL = HP             // LPRC Oscillator Power and Accuracy (High Power, High Accuracy Mode)
 #pragma config IESO = OFF               // Internal External Switch Over bit (Internal External Switchover mode disabled (Two-speed Start-up disabled))
@@ -43,9 +44,9 @@
 #pragma config FCKSM = CSDCMD           // Clock Switching and Monitor Selection (Both Clock Switching and Fail-safe Clock Monitor are disabled)
 
 // FWDT
-#pragma config WDTPS = PS32768          // Watchdog Timer Postscale Select bits (1:32768)
+#pragma config WDTPS = PS1              // Watchdog Timer Postscale Select bits (1:1)
 #pragma config FWPSA = PR128            // WDT Prescaler bit (WDT prescaler ratio of 1:128)
-#pragma config FWDTEN = ON              // Watchdog Timer Enable bits (WDT enabled in hardware)
+#pragma config FWDTEN = OFF             // Watchdog Timer Enable bits (WDT disabled in hardware; SWDTEN bit disabled)
 #pragma config WINDIS = OFF             // Windowed Watchdog Timer Disable bit (Standard WDT selected(windowed WDT disabled))
 
 // FPOR
@@ -61,40 +62,45 @@
 
 
 
-
 int main(void) {
 
     TRISA = 0;
     TRISB = 0;
+    TRISC = 0;
+    ANSA = 0;
     ANSB = 0;
+    ANSC = 0;
     
-    delay_ms(200);
-    lcd_on();
-    lcd_clear_screen();
-    lcd_bitmap(twinmaxLogo);
+    timer_start();
+    
+    while(1){
+        delay_ms(100);
 
-    delay_ms(2000);
-    /*****TESTS ECRAN*/
+     
+    }
+
     
-    
-   
-    tui_test();
-        
-        
-    
-    
-    
-    
-    
-    
-    
-    /*****END TESTS ECRAN*/
-    
-    
-    
-    
-    
-    engine_initialization();
-    engine_start();
+//    
+//    delay_ms(200);
+//    lcd_on();
+//    lcd_clear_screen();
+//    
+//    lcd_on();
+//    
+//    lcd_clear_screen();
+//    lcd_bitmap(twinmaxLogo);
+//
+//    delay_ms(2000);
+//    /*****TESTS ECRAN*/
+//    
+//
+//   
+//    tui_test();
+//  
+//    
+//    /*****END TESTS ECRAN*/
+//   
+//    engine_initialization();
+//    engine_start();
     return 1;
 }
