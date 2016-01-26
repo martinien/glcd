@@ -5,7 +5,7 @@
 #define CSHIGH 1
 #define FCY 4000000UL
 
-#include <p24FV16KM202.h>
+#include <p24FV16KM204.h>
 #include <libpic30.h>
 
 

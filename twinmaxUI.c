@@ -120,9 +120,7 @@ void tui_test(){
        
     while(1){
   
-        
-        
-        
+      
         values[0] = i ;
         values[1] = i ;
         values[2] = 20; ;
