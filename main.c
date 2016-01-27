@@ -1,19 +1,9 @@
 /********************************************************************
  * FileName:     main.c
  * Dependencies:    
- * Processor:    PIC24FV16KM202
- * Hardware:     Microstick for 5V PIC24 K Series
- * Compiler:     XC16 v1.1 or later
- * Company:      Microchip Technology, Inc.
-
- *
+ * Processor:    PIC24FV16KM204
  * 
- * Change History:
- *
- * Author        Revision #      Date        Comment
- *~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- * B. Ivey       1.00            01-15-2013  Initial code
- ********************************************************************/
+ */
 
 #include "headers.h"
 

@@ -4,7 +4,7 @@
 #include "can.h"
 
 #include <p24FV16KM204.h>
-#define FCY 4000000UL
+#define FCY 16000000UL
 #include <libpic30.h>
 
 
