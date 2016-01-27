@@ -53,7 +53,7 @@
 
 
 int main(void) {
-
+    int i=0;
     CLKDIV = 0;
     TRISA = 0;
     TRISB = 0;
@@ -62,19 +62,16 @@ int main(void) {
     ANSB = 0;
     ANSC = 0;
     
-//    timer_start();
+   //timer_start();
 //    
     
-      PORTBbits.RB0 = 1;
-
-      while(1){
-        if(PORTBbits.RB0 == 1){
-            PORTBbits.RB0 = 0;
-        }else{
-            PORTBbits.RB0 = 1;
-        }
-        delay_us(10000);
-      }
+    lcd_on();
+    lcd_clear_screen();
+    lcd_bitmap(twinmaxLogo);
+    __delay_ms(2000);
+    lcd_clear_screen();
+    
+    tui_test();
     
 //    delay_ms(2000);
 //    lcd_on();

@@ -1,4 +1,5 @@
-#include "twinmaxUI.h"  
+#include "twinmaxUI.h" 
+
 
 void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
@@ -106,7 +107,7 @@ void tui_test(){
     unsigned short i = 0;
     unsigned short values[4]={1,5,14,54};
     double sens = 1;
-    lcd_clear_screen();
+    
        
     while(1){
         values[0] = i ;

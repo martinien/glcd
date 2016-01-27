@@ -17,9 +17,7 @@ void __attribute__((__interrupt__,__auto_psv__)) _T1Interrupt(void)
     //can_launch();
     // Clear timer interruption flag
     
-    unsigned short values[4]={1,5,14,54};
-    tui_drawGraph(values, 2);
-    delay_ms(200);
+//    LATBbits.LATB0 ^= 1;
     IFS0bits.T1IF = 0;
     return;
  }
