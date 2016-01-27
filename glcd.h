@@ -11,16 +11,16 @@
 
 #define LCD_TRIS      TRISB
 #define LCD_DATA      PORTB
-#define ENABLE        LATAbits.LATA4
-#define RW            LATAbits.LATA3
-#define DI            LATAbits.LATA2
-#define RESET         LATAbits.LATA7
-#define CS1           LATAbits.LATA0
-#define CS2           LATAbits.LATA1
+#define ENABLE        LATCbits.LATC5
+#define RW            LATCbits.LATC3
+#define DI            LATCbits.LATC4
+#define RESET         LATCbits.LATC2
+#define CS1           LATCbits.LATC8
+#define CS2           LATCbits.LATC9
 
-#define LEFT          0b01
+#define LEFT          0b10
 
-#define RIGHT         0b10
+#define RIGHT         0b01
 
 #define BOTH          0b11
 

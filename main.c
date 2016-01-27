@@ -72,17 +72,21 @@ int main(void) {
     ANSB = 0;
     ANSC = 0;
     
-    timer_start();
-    
-    while(1){
-        delay_ms(100);
-
-     
-    }
-
-    
+//    timer_start();
 //    
-//    delay_ms(200);
+    
+      PORTBbits.RB0 = 1;
+
+      while(1){
+        if(PORTBbits.RB0 == 1){
+            PORTBbits.RB0 = 0;
+        }else{
+            PORTBbits.RB0 = 1;
+        }
+        delay_us(10000);
+      }
+    
+//    delay_ms(2000);
 //    lcd_on();
 //    lcd_clear_screen();
 //    
@@ -90,8 +94,8 @@ int main(void) {
 //    
 //    lcd_clear_screen();
 //    lcd_bitmap(twinmaxLogo);
-//
 //    delay_ms(2000);
+//    tui_test();
 //    /*****TESTS ECRAN*/
 //    
 //

@@ -1,18 +1,25 @@
 #include "timer.h"
 
+#ifndef TWINMAX_UI_H
+#include "twinmaxUI.h"
+#endif
+
+#ifndef delay_ms
+#define delay_ms __delay_ms
+#endif
+
+//
+
+
 // interupt handler
 void __attribute__((__interrupt__,__auto_psv__)) _T1Interrupt(void)
  {   
     //can_launch();
     // Clear timer interruption flag
-    if(PORTBbits.RB0 == 1){
-     
-    PORTBbits.RB0 = 0;   
-    }else{
-     
-    PORTBbits.RB0 = 1;   
-    }
-     
+    
+    unsigned short values[4]={1,5,14,54};
+    tui_drawGraph(values, 2);
+    delay_ms(200);
     IFS0bits.T1IF = 0;
     return;
  }

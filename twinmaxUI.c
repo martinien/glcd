@@ -4,11 +4,7 @@ void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
     lcd_draw_bar(1, values[1], referenceIndex==1);
     lcd_draw_bar(2, values[2], referenceIndex==2);
-    lcd_draw_bar(3, values[3], referenceIndex==3);     
-    
-    
-    
-   
+    lcd_draw_bar(3, values[3], referenceIndex==3);
 }
 
 void tui_menuItem(int index,const char *string,unsigned char highlighted){
@@ -29,7 +25,6 @@ void tui_menuItem(int index,const char *string,unsigned char highlighted){
         y+= FONT_WIDTH;
     }
 }
-
 
 void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed,int width){
     char i = 0;
@@ -52,10 +47,8 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
             y += FONT_WIDTH;
         }
         y++;
-    }}
-
-
-
+    }
+}
 
 void tui_displayMeasures(unsigned short measures[4], unsigned short sensitivity, int referenceIndex){
     unsigned short referenceMeasure = measures[referenceIndex];    
@@ -80,7 +73,6 @@ void tui_displayMeasures(unsigned short measures[4], unsigned short sensitivity,
     
 }
 
-
 void tui_numberAt(unsigned char x,unsigned char y,unsigned short val){
     char string[4];
     sprintf(string, "%u", val);
@@ -93,7 +85,6 @@ void tui_battery(unsigned char val){
     glcd_smallNumberAt(0,124,val%10,1);
     
 }
-
 
 void tui_m_capron(){
     unsigned char i = 0;
@@ -108,8 +99,7 @@ void tui_m_capron(){
         tui_drawGraph(values,1);
         i=(i-1)%63;
         tui_battery(values[1]);
-           }
-
+    }
 }
 
 void tui_test(){
@@ -119,8 +109,6 @@ void tui_test(){
     lcd_clear_screen();
        
     while(1){
-  
-      
         values[0] = i ;
         values[1] = i ;
         values[2] = 20; ;
