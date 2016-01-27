@@ -17,7 +17,7 @@ void _lcd_enable(void){
     ENABLE=0;
     __delay_us(.2);
     ENABLE=1;   
-    __delay_us(0.6);
+    __delay_us(.5);
     ENABLE=0;
     __delay_us(.5);
  }
@@ -120,7 +120,7 @@ void lcd_clear_screen(void){
         LCD_DATA=0; RW=0; DI=1;
         // clear the row
         for (y=0; y<64; y++){
-            _lcd_enable(); 
+            lcd_write(0); 
             //Delay10TCYx(1);
         }
     }
@@ -394,7 +394,11 @@ void lcd_bitmap(const char * bmp){
     unsigned char i, j;
     for(i = 0; i < 8; i++){   
         lcd_draw(i,0,bmp[(i*128)]);
-       for(j = 0; j < 128 ; j++){
+       for(j = 0; j < 64 ; j++){
+           lcd_write(bmp[(i*128)+j]);          
+       }  
+        lcd_draw(i,64,bmp[(i*128)]);
+       for(j = 65; j < 124 ; j++){
            lcd_write(bmp[(i*128)+j]);          
        }  
     }

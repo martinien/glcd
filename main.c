@@ -64,14 +64,16 @@ int main(void) {
     
    //timer_start();
 //    
-    
-    lcd_on();
     lcd_clear_screen();
+    while(1){
+    lcd_on();
     lcd_bitmap(twinmaxLogo);
     __delay_ms(2000);
     lcd_clear_screen();
-    
+      delay_ms(1000);
+    delay_ms(1000);    
     tui_test();
+    }
     
 //    delay_ms(2000);
 //    lcd_on();

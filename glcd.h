@@ -18,9 +18,9 @@
 #define CS1           LATCbits.LATC8
 #define CS2           LATCbits.LATC9
 
-#define LEFT          0b10
+#define LEFT          0b01
 
-#define RIGHT         0b01
+#define RIGHT         0b10
 
 #define BOTH          0b11
 

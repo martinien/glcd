@@ -14,10 +14,9 @@
 // interupt handler
 void __attribute__((__interrupt__,__auto_psv__)) _T1Interrupt(void)
  {   
-    //can_launch();
+    adc_launch();
     // Clear timer interruption flag
     
-//    LATBbits.LATB0 ^= 1;
     IFS0bits.T1IF = 0;
     return;
  }

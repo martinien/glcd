@@ -3,10 +3,10 @@
 
 #include <p24FV16KM204.h>
 
-void can_init();
+void adc_init();
 
-void can_launch();
+void adc_launch();
 
-void can_top();
+
 
 #endif

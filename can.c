@@ -1,8 +1,8 @@
 #include "can.h"
 
-void can_init(){
+void adc_init(){
     
-    AD1CON1bits.ADON = 1; //Enbale CAN
+    AD1CON1bits.ADON = 1; //Enable CAN
     AD1CON1bits.ADSIDL = 1; //Stop when in idle mode
     AD1CON1bits.MODE12 = 1; // 12 BITS CAN
     AD1CON1bits.FORM = 0b00; //Absolute decimal, unsigned, right-justified
@@ -37,13 +37,16 @@ void can_init(){
     //  AD1CSSH = 
 }
 
-void can_launch(){
+void adc_launch(){
+    AD1CON1bits.ASAM = 1;
   // set assam to 1
 }
 
-// _ADC1Interrupt  _AltADC1Interrupt ADC 1 convert completed
-void can_top(){
+void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     
-    //set assam to 0
-    //send bluetooth
+        AD1CON1bits.ASAM = 0;
+        
 }
+
+
+// _ADC1Interrupt  _AltADC1Interrupt ADC 1 convert completed
