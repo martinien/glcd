@@ -24,7 +24,7 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
 
 void tui_menuItem(int index,const char *string,unsigned char highlighted);
 
-void tui_displayMesures(double measures[4],double sensitivity,int referenceIndex);
+void tui_displayMeasures(unsigned short measures[4],unsigned short referenceMeasure, unsigned short sensitivity, int referenceIndex);
 
 void tui_numberAt(unsigned char x,unsigned char y,unsigned short val);
 

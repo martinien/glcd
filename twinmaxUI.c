@@ -51,8 +51,8 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
     }
 }
 
-void tui_displayMeasures(unsigned short measures[4], unsigned short sensitivity, int referenceIndex){
-    unsigned short referenceMeasure = measures[referenceIndex];    
+void tui_displayMeasures(unsigned short measures[4],unsigned short referenceMeasure, unsigned short sensitivity, int referenceIndex){
+     
     unsigned char values[4];
     int ind=0;
     for(ind = 0; ind < 4; ind++){
@@ -87,6 +87,8 @@ void tui_battery(unsigned char val){
     
 }
 
+
+
 void tui_m_capron(){
     unsigned char i = 0;
     unsigned char values[4]={0,5,14,54};
@@ -115,7 +117,7 @@ void tui_test(){
         values[2] = 20; ;
         values[3] = i;
   
-        tui_displayMeasures(values,sens,2);
+        tui_displayMeasures(values,32,sens,2);
        
         i=(i+1)%64;
         tui_battery(values[0]);

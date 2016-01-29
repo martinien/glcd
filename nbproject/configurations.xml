@@ -13,6 +13,7 @@
       <itemPath>engine.h</itemPath>
       <itemPath>timer.h</itemPath>
       <itemPath>headers.h</itemPath>
+      <itemPath>average.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -29,6 +30,7 @@
       <itemPath>counter.c</itemPath>
       <itemPath>engine.c</itemPath>
       <itemPath>timer.c</itemPath>
+      <itemPath>average.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

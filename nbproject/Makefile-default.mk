@@ -45,17 +45,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=glcd.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c timer.c
+SOURCEFILES_QUOTED_IF_SPACED=glcd.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c timer.c average.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/glcd.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/timer.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/glcd.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/twinmaxUI.o.d ${OBJECTDIR}/bluetooth.o.d ${OBJECTDIR}/can.o.d ${OBJECTDIR}/counter.o.d ${OBJECTDIR}/engine.o.d ${OBJECTDIR}/timer.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/glcd.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/average.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/glcd.o.d ${OBJECTDIR}/main.o.d ${OBJECTDIR}/twinmaxUI.o.d ${OBJECTDIR}/bluetooth.o.d ${OBJECTDIR}/can.o.d ${OBJECTDIR}/counter.o.d ${OBJECTDIR}/engine.o.d ${OBJECTDIR}/timer.o.d ${OBJECTDIR}/average.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/glcd.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/timer.o
+OBJECTFILES=${OBJECTDIR}/glcd.o ${OBJECTDIR}/main.o ${OBJECTDIR}/twinmaxUI.o ${OBJECTDIR}/bluetooth.o ${OBJECTDIR}/can.o ${OBJECTDIR}/counter.o ${OBJECTDIR}/engine.o ${OBJECTDIR}/timer.o ${OBJECTDIR}/average.o
 
 # Source Files
-SOURCEFILES=glcd.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c timer.c
+SOURCEFILES=glcd.c main.c twinmaxUI.c bluetooth.c can.c counter.c engine.c timer.c average.c
 
 
 CFLAGS=
@@ -138,6 +138,13 @@ ${OBJECTDIR}/timer.o: timer.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} $(MP_EXTRA_CC_PRE)  timer.c  -o ${OBJECTDIR}/timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/timer.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
+${OBJECTDIR}/average.o: average.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/average.o.d 
+	@${RM} ${OBJECTDIR}/average.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  average.c  -o ${OBJECTDIR}/average.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/average.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1    -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/average.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
 else
 ${OBJECTDIR}/glcd.o: glcd.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}" 
@@ -194,6 +201,13 @@ ${OBJECTDIR}/timer.o: timer.c  nbproject/Makefile-${CND_CONF}.mk
 	@${RM} ${OBJECTDIR}/timer.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  timer.c  -o ${OBJECTDIR}/timer.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/timer.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
 	@${FIXDEPS} "${OBJECTDIR}/timer.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
+	
+${OBJECTDIR}/average.o: average.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/average.o.d 
+	@${RM} ${OBJECTDIR}/average.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  average.c  -o ${OBJECTDIR}/average.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MMD -MF "${OBJECTDIR}/average.o.d"        -g -omf=elf -O0 -msmart-io=1 -Wall -msfr-warn=off
+	@${FIXDEPS} "${OBJECTDIR}/average.o.d" $(SILENT)  -rsi ${MP_CC_DIR}../ 
 	
 endif
 
