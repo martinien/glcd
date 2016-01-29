@@ -335,35 +335,17 @@ void lcd_draw_reversed_char(unsigned char page, unsigned char y, char c){
     }
 }
 
-void lcd_putrs(const char *string){
-    char i=0;
-    unsigned char page=0;
-    unsigned char y=0;
-    while (string[i] != 0){
-        //start new line if address is at the end of the screen
-        if(y + FONT_WIDTH > 127){
-            y = 0;
-            page++;
-        }
-        lcd_draw_char(page,y,string[i++]);
-        y++;
-    }
-}
-
-void lcd_testByte(unsigned char b){
-    lcd_set_address(0);
-    unsigned char mask= 0b100000000000;
+unsigned char* lcd_testByte(unsigned char page, unsigned short b){
+    unsigned short mask = 0b1000000000000000;
     int i = 0;
-    while(i<12){
-        if(b&mask){
-            lcd_draw_char(currentPage,currentY,'1');
-        }
-        else{
-            (lcd_draw_char(currentPage,currentY,'0'));
-        }
-        i++;
-        mask>>=1;
+    unsigned char result[17];
+    
+    for(i = 0; i < 16; i++){
+        result[i] = "A";
     }
+    result[16] = 0;
+    return result;
+    
 }
 
 void glcd_smallNumberAt(unsigned char page,unsigned char y,unsigned char value,int reversed){

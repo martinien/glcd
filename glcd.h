@@ -61,8 +61,6 @@ void lcd_putchar(char c);
 
 void lcd_puts(char *string);
 
-void lcd_putrs(const char *string);
-
 void lcd_bitmap(const char *bmp);
  
 

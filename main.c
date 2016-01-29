@@ -59,33 +59,48 @@ int main(void) {
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
     
- 
     ANSA = 0;
     ANSB = 0;
     ANSC = 0;
+    unsigned char buf0 = 0;
+    unsigned char buf12 = 0;
     
- 
-    
+    lcd_on();
+    lcd_clear_screen();
+    lcd_bitmap(twinmaxLogo);    
+    delay_ms(500);
+    lcd_clear_screen();
 
-//    lcd_on();
-//    
-//    lcd_clear_screen();
-//    lcd_bitmap(twinmaxLogo);    
-//    delay_ms(2000);
     adc_init();
-    timer_start();
-    
-       
-    /*****TESTS ECRAN*/
-//    
-//
-//   
-//    tui_test();
-//  
-//    
-//    /*****END TESTS ECRAN*/
-//   
-//    engine_initialization();
-//    engine_start();
+
+    ADC1BUF0 = 0;
+    ADC1BUF1 = 0;
+    ADC1BUF2 = 0;
+    ADC1BUF3 = 0;
+    ADC1BUF4 = 0;
+    ADC1BUF5 = 0;
+    ADC1BUF6 = 0;
+    ADC1BUF7 = 0;
+    ADC1BUF8 = 0;
+    ADC1BUF9 = 0;
+    ADC1BUF10 = 0;
+    ADC1BUF11 = 0;
+    ADC1BUF12 = 0;
+    ADC1BUF13 = 0;
+    ADC1BUF14 = 0;
+    ADC1BUF15 = 0;
+    while(1){
+        adc_launch();
+        
+    ADC1BUF0 = 0;
+        lcd_draw_bar(0,10,0);
+        lcd_draw_bar(1,10,0);
+        lcd_draw_bar(2, (ADC1BUF0 / 64), 0);
+        lcd_draw_bar(3, (ADC1BUF12 / 64), 0);
+        
+        delay_ms(200);
+
+    }
+
     return 1;
 }

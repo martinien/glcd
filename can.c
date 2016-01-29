@@ -67,13 +67,11 @@ void adc_launch(){
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     
     
-    AD1CON1bits.ASAM = 0;
-        
+    AD1CON1bits.ASAM = 0;    
         
     IFS0bits.AD1IF = 0 ; //reset interrupt falg
     
-    return;
-        
+            
 }
 
 
