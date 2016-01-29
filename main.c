@@ -55,37 +55,28 @@
 int main(void) {
     int i=0;
     CLKDIV = 0;
-    TRISA = 0;
-    TRISB = 0;
-    TRISC = 0;
+    TRISA = 0b0000110001111111;
+    TRISB = 0b1111001000000000;
+    TRISC = 0b0000000001000011;
+    
+ 
     ANSA = 0;
     ANSB = 0;
     ANSC = 0;
     
-   //timer_start();
-//    
-    lcd_clear_screen();
-    while(1){
-    lcd_on();
-    lcd_bitmap(twinmaxLogo);
-    __delay_ms(2000);
-    lcd_clear_screen();
-      delay_ms(1000);
-    delay_ms(1000);    
-    tui_test();
-    }
+ 
     
-//    delay_ms(2000);
-//    lcd_on();
-//    lcd_clear_screen();
-//    
+
 //    lcd_on();
 //    
 //    lcd_clear_screen();
-//    lcd_bitmap(twinmaxLogo);
+//    lcd_bitmap(twinmaxLogo);    
 //    delay_ms(2000);
-//    tui_test();
-//    /*****TESTS ECRAN*/
+    adc_init();
+    timer_start();
+    
+       
+    /*****TESTS ECRAN*/
 //    
 //
 //   

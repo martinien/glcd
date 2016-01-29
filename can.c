@@ -1,5 +1,6 @@
 #include "can.h"
 
+
 void adc_init(){
     
     AD1CON1bits.ADON = 1; //Enable CAN
@@ -33,18 +34,45 @@ void adc_init(){
     
     AD1CHS = 0b0001111000011110; //Set Vss and AVdd as references
     
+    //select input pins
+    /*
+     * RB12 = capteur1 =         AN12
+     RB13 = capteur moyenne 1 = an11
+     RB14 = capteur 2 =         an10
+     RB15 = capteur 2 moyenne =  an9
+     RA0 = capteur 3  =          an0
+     RA1 = capteur 3 moyenne =   an1
+     RC0 = capteur 4  =          an6
+     RA4 = capteur 4 moyenne =   an16
+     */
+     
+    
+    AD1CSSL = 0b000111001000011;
+    AD1CSSH = 0b000000000000001;
+    
+    IFS0bits.AD1IF = 0 ; //reset interrupt falg
+    IEC0bits.AD1IE = 1; //enable interrupt
+    
+    IPC3bits.AD1IP = 0b100; //interrupt priority set to 4
     //TODO => add CNx to CAN 
-    //  AD1CSSH = 
+   
 }
 
 void adc_launch(){
     AD1CON1bits.ASAM = 1;
+    
   // set assam to 1
 }
 
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     
-        AD1CON1bits.ASAM = 0;
+    
+    AD1CON1bits.ASAM = 0;
+        
+        
+    IFS0bits.AD1IF = 0 ; //reset interrupt falg
+    
+    return;
         
 }
 

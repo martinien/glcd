@@ -351,9 +351,10 @@ void lcd_putrs(const char *string){
 }
 
 void lcd_testByte(unsigned char b){
-    unsigned char mask= 0b10000000;
+    lcd_set_address(0);
+    unsigned char mask= 0b100000000000;
     int i = 0;
-    while(i<8){
+    while(i<12){
         if(b&mask){
             lcd_draw_char(currentPage,currentY,'1');
         }
