@@ -10,16 +10,16 @@ typedef struct movingAverage {
 }mavg;
 
 // initialize an average array
-void average_init(mavg,unsigned short);
+void average_init(mavg *,unsigned short);
 
 
 // add a value to the average array at the specific index.
 // return next index to use
-void average_add_value(mavg , unsigned short );
+void average_add_value(mavg * , unsigned short );
 
 
 // return the average if the array is full
-unsigned short average_get_average(mavg);
+unsigned short average_get_average(mavg *);
 
 
 // return 1 if all values as been set in the array at least once
