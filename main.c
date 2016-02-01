@@ -59,9 +59,9 @@ int main(void) {
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
     
-    ANSA = 0;
-    ANSB = 0;
-    ANSC = 0;
+    ANSA = 0b0000000000010011;
+    ANSB = 0b1111000000000000;
+    ANSC = 0b0000000000000001;
     unsigned char buf0 = 0;
     unsigned char buf12 = 0;
     
@@ -71,7 +71,7 @@ int main(void) {
     delay_ms(500);
     lcd_clear_screen();
 
-    adc_init();
+   
 
     ADC1BUF0 = 0;
     ADC1BUF1 = 0;
@@ -89,6 +89,16 @@ int main(void) {
     ADC1BUF13 = 0;
     ADC1BUF14 = 0;
     ADC1BUF15 = 0;
+    ADC1BUF16 = 0;
+    ADC1BUF17 = 0;
+    ADC1BUF18 = 0;
+    ADC1BUF19 = 0;
+    ADC1BUF20 = 0;
+    ADC1BUF21 = 0;
+    ADC1BUF22 = 0;
+    ADC1BUF23 = 0;
+    
+     adc_init();
     while(1){
         adc_launch();
         
