@@ -102,7 +102,6 @@ int main(void) {
     while(1){
         adc_launch();
         
-    ADC1BUF0 = 0;
         lcd_draw_bar(0,10,0);
         lcd_draw_bar(1,10,0);
         lcd_draw_bar(2, (ADC1BUF0 / 64), 0);

@@ -3,7 +3,7 @@
 
 void adc_init(){
     
-    //AD1CON1bits.ADON = 1; //Enable CAN
+    AD1CON1bits.ADON = 0; //Disable CAN for configraztion
     AD1CON1bits.ADSIDL = 1; //Stop when in idle mode
     AD1CON1bits.MODE12 = 1; // 12 BITS CAN
     AD1CON1bits.FORM = 0b00; //Absolute decimal, unsigned, right-justified
@@ -56,12 +56,11 @@ void adc_init(){
     
     IPC3bits.AD1IP = 0b100; //interrupt priority set to 4
     //TODO => add CNx to CAN 
-   
+    AD1CON1bits.ADON = 1; //Enable CAN
 }
 
 void adc_launch(){
     AD1CON1bits.ASAM = 1;
-    AD1CON1bits.ADON = 1; //Enable CAN
     
   // set assam to 1
 }
