@@ -7,7 +7,7 @@ void adc_init(){
     AD1CON1bits.ADSIDL = 1; //Stop when in idle mode
     AD1CON1bits.MODE12 = 1; // 12 BITS CAN
     AD1CON1bits.FORM = 0b00; //Absolute decimal, unsigned, right-justified
-    AD1CON1bits.SSRC = 0b0111; //Auto-Convertion mode
+    AD1CON1bits.SSRC = 0b0111; //Auto-Conversion mode
     AD1CON1bits.ASAM = 0; //Wait for timer to start
     AD1CON1bits.SAMP = 0; //Wait for timer and ASSAM
     AD1CON1bits.DONE = 0; // Clear CAN flag
@@ -15,10 +15,11 @@ void adc_init(){
     AD1CON2bits.PVCFG = 0b00; //Set AVdd as reference
     AD1CON2bits.NVCFG0 = 0; //Set AVSS as reference
     AD1CON2bits.OFFCAL= 0; //Connect to normal inputs
-    AD1CON2bits.BUFREGEN = 0; // FIFO buffering
-    AD1CON2bits.SMPI = 0b00111; // Interruption occurs after 8 convertions
+    AD1CON2bits.BUFREGEN = 1; // No FIFO buffering
+    AD1CON2bits.SMPI = 0b00111; // Interruption occurs after 8 conversions
     AD1CON2bits.BUFM = 0; // FIFO buffer sucessive fill mode
     AD1CON2bits.ALTS = 0; // Always use sample A chanel
+    AD1CON2bits.CSCNA = 1 ; //scan imputs
     
     AD1CON3bits.ADRC = 0; //Use internal clock
     AD1CON3bits.SAMC = 0b00010; // Set as 2 * T_AD
@@ -60,14 +61,16 @@ void adc_init(){
 }
 
 void adc_launch(){
+   
     AD1CON1bits.ASAM = 1;
+    
     
   // set assam to 1
 }
 
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     
-    AD1CON1bits.ADON = 0; //Disable CAN
+   // AD1CON1bits.ADON = 0; //Disable CAN
     AD1CON1bits.ASAM = 0;    
         
     IFS0bits.AD1IF = 0 ; //reset interrupt falg

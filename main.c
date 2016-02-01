@@ -53,22 +53,22 @@
 
 
 int main(void) {
-    int i=0;
     CLKDIV = 0;
     TRISA = 0b0000110001111111;
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
     
-    ANSA = 0b0000000000010011;
-    ANSB = 0b1111000000000000;
-    ANSC = 0b0000000000000001;
+    ANSA =  0b0000000000010011;
+    ANSB =  0b1111000000000000;
+    ANSC =  0b0000000000000001;
     unsigned char buf0 = 0;
     unsigned char buf12 = 0;
     
     lcd_on();
     lcd_clear_screen();
+    lcd_on();
     lcd_bitmap(twinmaxLogo);    
-    delay_ms(500);
+    delay_ms(2000);
     lcd_clear_screen();
 
    
@@ -107,7 +107,7 @@ int main(void) {
         lcd_draw_bar(2, (ADC1BUF0 / 64), 0);
         lcd_draw_bar(3, (ADC1BUF12 / 64), 0);
         
-        delay_ms(200);
+        //delay_ms(200);
 
     }
 
