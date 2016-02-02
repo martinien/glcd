@@ -2,7 +2,7 @@
 
 void average_init(mavg * movingAvg, unsigned short defaultValue){
     int i;    
-    for(i=0; i<AVGSIZE; i++){
+    for(i = 0; i < AVGSIZE; i++){
         movingAvg->values[i] = defaultValue;
     }
     movingAvg->index = 0;
@@ -10,7 +10,7 @@ void average_init(mavg * movingAvg, unsigned short defaultValue){
 }
 
 void average_add_value(mavg * movingAvg, unsigned short value){
-    movingAvg->currentSum += value - movingAvg->values[movingAvg->index] ;
+    movingAvg->currentSum = movingAvg->currentSum + value - movingAvg->values[movingAvg->index] ;
     movingAvg->values[movingAvg->index] = value;
     movingAvg->index = (movingAvg->index + 1) % AVGSIZE;
 }

@@ -49,13 +49,15 @@
 
 // FICD
 #pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
-//
+
     volatile struct movingAverage a1;
     volatile struct movingAverage * avg1;
  
 int main(void) {
-
-    average_init(avg1,0);
+    unsigned long oldAvg;
+    unsigned long newAvg;
+    avg1 = &a1;
+    average_init(avg1, 0);
     CLKDIV = 0;
     TRISA = 0b0000110001111111;
     TRISB = 0b1111001000000000;
@@ -67,8 +69,9 @@ int main(void) {
     
     lcd_on();
     lcd_clear_screen();
+    lcd_on();
     lcd_bitmap(twinmaxLogo);    
-    delay_ms(2000);
+    delay_ms(5000);
     
     adc_init();
     
@@ -79,9 +82,15 @@ int main(void) {
     timer_start();
     
     while(1){
-        lcd_draw_bar(0,ADC1BUF12,0);
-        lcd_draw_bar(1, average_get_average(avg1),0);
-        delay_ms(200);
+        
+        newAvg = average_get_average(avg1);
+        
+        lcd_draw_bar(0, ADC1BUF6/64, 0);
+        lcd_draw_bar(1, newAvg / 64, 0);
+        lcd_draw_bar(2, (newAvg * 50 + oldAvg * 50) / 6400, 0);
+        
+        oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
+        delay_ms(100);
     }
 
     return 1;

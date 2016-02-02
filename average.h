@@ -6,7 +6,8 @@
 typedef struct movingAverage {
    unsigned short values[AVGSIZE] ;
    unsigned short index;
-   unsigned long currentSum;   
+   unsigned long currentSum;
+
 }mavg;
 
 // initialize an average array

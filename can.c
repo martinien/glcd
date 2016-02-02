@@ -66,5 +66,5 @@ void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     extern struct movingAverage * avg1;
     AD1CON1bits.ASAM = 0;
     IFS0bits.AD1IF = 0 ; //reset interrupt flag
-    average_add_value(avg1, ADC1BUF12);
+    average_add_value(avg1, ADC1BUF6);
 }
