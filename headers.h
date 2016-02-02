@@ -15,8 +15,7 @@
 #define delay_ms __delay_ms
 #define delay_us __delay_us
 
-//
-//#include "engine.h"
+#include "average.h"
 #include "twinmaxUI.h"
 #include "timer.h"
 

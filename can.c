@@ -1,9 +1,7 @@
 #include "can.h"
-
-
 void adc_init(){
     
-    AD1CON1bits.ADON = 0; //Disable CAN for configraztion
+    AD1CON1bits.ADON = 0; //Disable CAN for configuration
     AD1CON1bits.ADSIDL = 1; //Stop when in idle mode
     AD1CON1bits.MODE12 = 1; // 12 BITS CAN
     AD1CON1bits.FORM = 0b00; //Absolute decimal, unsigned, right-justified
@@ -17,9 +15,9 @@ void adc_init(){
     AD1CON2bits.OFFCAL= 0; //Connect to normal inputs
     AD1CON2bits.BUFREGEN = 1; // No FIFO buffering
     AD1CON2bits.SMPI = 0b00111; // Interruption occurs after 8 conversions
-    AD1CON2bits.BUFM = 0; // FIFO buffer sucessive fill mode
+    AD1CON2bits.BUFM = 0; // FIFO buffer successive fill mode
     AD1CON2bits.ALTS = 0; // Always use sample A chanel
-    AD1CON2bits.CSCNA = 1 ; //scan imputs
+    AD1CON2bits.CSCNA = 1 ; //scan inputs
     
     AD1CON3bits.ADRC = 0; //Use internal clock
     AD1CON3bits.SAMC = 0b00010; // Set as 2 * T_AD
@@ -47,36 +45,26 @@ void adc_init(){
      RC0 = capteur 4  =          an6
      RA4 = capteur 4 moyenne =   an16
      */
-     
-    
+
     AD1CSSL = 0b0001111001000011;
     AD1CSSH = 0b0000000000000000;
     
-    IFS0bits.AD1IF = 0 ; //reset interrupt falg
+    IFS0bits.AD1IF = 0 ; //reset interrupt flag
     IEC0bits.AD1IE = 1; //enable interrupt
     
     IPC3bits.AD1IP = 0b100; //interrupt priority set to 4
-    //TODO => add CNx to CAN 
+    
     AD1CON1bits.ADON = 1; //Enable CAN
 }
 
 void adc_launch(){
-   
     AD1CON1bits.ASAM = 1;
-    
-    
-  // set assam to 1
 }
 
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     
-   // AD1CON1bits.ADON = 0; //Disable CAN
-    AD1CON1bits.ASAM = 0;    
-        
-    IFS0bits.AD1IF = 0 ; //reset interrupt falg
-    
-            
+    extern struct movingAverage * avg1;
+    AD1CON1bits.ASAM = 0;
+    IFS0bits.AD1IF = 0 ; //reset interrupt flag
+    average_add_value(avg1, ADC1BUF12);
 }
-
-
-// _ADC1Interrupt  _AltADC1Interrupt ADC 1 convert completed
