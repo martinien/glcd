@@ -8,7 +8,7 @@
 #ifndef INPUTS_H
 #define	INPUTS_H
 
-//select input pins
+/*ADC BUFFER WITH SENSOR CONVERTED MEASURE*/
     /*
      * RB12 = capteur1 =         AN12
      RB13 = capteur moyenne 1 = an11
@@ -19,7 +19,6 @@
      RC0 = capteur 4  =          an6
      RA4 = capteur 4 moyenne =   an16
      */
-
 #define SENSOR1BUF       ADC1BUF12
 #define SENSOR1AVGBUF    ADC1BUF11
 #define SENSOR2BUF       ADC1BUF10
@@ -28,6 +27,14 @@
 #define SENSOR3AVGBUF    ADC1BUF1
 #define SENSOR4BUF       ADC1BUF6
 #define SENSOR4VAGBUF    ADC1BUF16
+
+
+/*BUTTONS*/
+#define TESTBUTTON PORTBbits.RB11;
+#define LEFTBUTTON 
+#define RIGHTBUTTON
+
+
 
 #endif	/* INPUTS_H */
 
