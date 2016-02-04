@@ -11,7 +11,11 @@
 #ifndef LOGO_H
 #include "logo.h"
 #endif
-//
+
+#ifndef ENGINE
+#include "engine.h"
+#endif
+
 #define delay_ms __delay_ms
 #define delay_us __delay_us
 

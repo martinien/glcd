@@ -72,7 +72,7 @@ int main(void) {
     lcd_on();
     lcd_bitmap(twinmaxLogo);    
     delay_ms(5000);
-    
+    init_interrupt();
     adc_init();
     
     // initialize average with first adc values

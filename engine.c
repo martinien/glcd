@@ -1,27 +1,52 @@
 #include "engine.h"
+#include "twinmaxUI.h"
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
     //todo : reset interruption flag
-    
-    // if(PORTAbits.RA6 == 1){
-    //     button_left_interupt
-    // }else if(PORTAbits.RA10 == 1){
-        
-    // }else if(PORTAbits.RA11 == 1){
-        
-    // }else if(PORTAbits.RA2 == 1){
-        
-    // }else if(PORTAbits.RA3 == 1){
-        
-    // }
+    delay_ms(40);
+    IFS1bits.CNIF = 0;
+//    if(PORTAbits.RA6 == 1){
+//        
+//        button_left_interupt();
+//    }else if(PORTAbits.RA10 == 1){
+//        
+//        button_left_interupt();
+//    }else if(PORTAbits.RA11 == 1){
+//        
+//        button_left_interupt();
+//    }else if(PORTAbits.RA2 == 1){
+//        
+//        button_left_interupt();
+//    }else if(PORTAbits.RA3 == 1){
+//        
+//        button_left_interupt();
+//    }
+    button_left_interupt();
     
 }
 
+void init_interrupt(){
+    /*
+     * The CNEN1 and CNEN3 registers contain the interrupt enable control
+     * 
+     * RA6 = CN8 <= !!!!!!!! WHERE THE FUCK IS CN8IE ?????????
+     * RA10 = CN35
+     * RA11 = CN36
+     * RA2 = CN30
+     * RA3 = CN29
+     * 
+    */
+    
+    CNEN1 = 0b0000000100000000; // <= here CN8 is acctually missing in the datasheet
+    CNEN2 = 0b0110000000000000;
+    CNEN3 = 0b0000000000011000;
+    
+    
+}
 
-// TODO julien le 19/01
-// The CNEN1 and CNEN3 registers contain the interrupt enable control
 void button_left_interupt(){
+    tui_battery(10);
   return;
 }
 
