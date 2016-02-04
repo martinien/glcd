@@ -67,7 +67,8 @@ int main(void) {
     ANSB =  0b1111000000000000;
     ANSC =  0b0000000000000001;
     
-    
+    engine_initialization();
+    engine_splash();
     init_interrupt();
     
     adc_init();
