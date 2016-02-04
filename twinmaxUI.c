@@ -1,6 +1,8 @@
 #include "twinmaxUI.h" 
 
 
+
+
 void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
     lcd_draw_bar(1, values[1], referenceIndex==1);

@@ -8,10 +8,6 @@
 #define FCY 16000000UL
 #include <libpic30.h>
 
-#ifndef LOGO_H
-#include "logo.h"
-#endif
-
 #ifndef ENGINE
 #include "engine.h"
 #endif

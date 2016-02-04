@@ -1,5 +1,4 @@
 #include "glcd.h"
-
 #include "myFont.h"
 
 int currentPage;

@@ -1,5 +1,21 @@
 #include "engine.h"
+#ifndef LOGO_H
+#include "logo.h"
+#endif
+#include "timer.h"
+#include "FRENCH.h"
+#include "glcd.h"
 #include "twinmaxUI.h"
+
+enum phase{
+    INIT,
+    BLUETOOTHMENU,
+    REFERENCEMENU
+    
+};
+volatile short blueetooth;
+volatile short referenceCarburator;
+volatile enum phase phase;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
@@ -66,31 +82,47 @@ void button_power_interupt(){
   return;
 }
 
+void engine_splash(){
+    lcd_on();
+    lcd_clear_screen();
+    lcd_on();
+    lcd_bitmap(twinmaxLogo);    
+    delay_ms(5000);
+    lcd_clear_screen();
+}
+
+void engine_menu(){
+    tui_writeAt(1,15,BLUETOOTH,0,0);
+    
+    
+    tui_writeAt(5,10,YES,0,0);
+    tui_writeAt(5,90,NO,1,0);
+    delay_ms(1000);
+    tui_writeAt(5,10,YES,1,0);
+    tui_writeAt(5,90,NO,0,0);    
+    delay_ms(700);   
+
+    lcd_clear_screen();
+
+    tui_writeAt(1,15,REFERENCE,0,0);
+    tui_writeAt(5,5,"1",1,0);
+    tui_writeAt(5,35,"2",0,0);
+    tui_writeAt(5,65,"3",0,0);
+    tui_writeAt(5,95,"4",0,0);   
+    delay_ms(800);    
+    tui_writeAt(5,5,"1",0,0);
+    tui_writeAt(5,35,"2",1,0);
+    delay_ms(300);    
+    tui_writeAt(5,35,"2",0,0);
+    tui_writeAt(5,65,"3",1,0);
+    delay_ms(1000); 
+    lcd_clear_screen();
+    
+}
+
 void engine_initialization() {
   lcd_clear_screen();
-  tui_writeAt(1,15,BLUETOOTH,0,0);
-  tui_writeAt(5,10,YES,0,0);
-  tui_writeAt(5,90,NO,1,0);
-  delay_ms(1000);
-  tui_writeAt(5,10,YES,1,0);
-  tui_writeAt(5,90,NO,0,0);    
-  delay_ms(700);   
-
-  lcd_clear_screen();
   
-  tui_writeAt(1,15,REFERENCE,0,0);
-  tui_writeAt(5,5,"1",1,0);
-  tui_writeAt(5,35,"2",0,0);
-  tui_writeAt(5,65,"3",0,0);
-  tui_writeAt(5,95,"4",0,0);   
-  delay_ms(800);    
-  tui_writeAt(5,5,"1",0,0);
-  tui_writeAt(5,35,"2",1,0);
-  delay_ms(300);    
-  tui_writeAt(5,35,"2",0,0);
-  tui_writeAt(5,65,"3",1,0);
-  delay_ms(1000); 
-  lcd_clear_screen();
 }
 
 void engine_start() {
