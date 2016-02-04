@@ -51,15 +51,15 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
     }
 }
 
-void tui_displayMeasures(unsigned short measures[4],unsigned short referenceMeasure, unsigned short sensitivity, int referenceIndex){
+void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short dynamic, int referenceIndex){
      
     unsigned char values[4];
     int ind=0;
     for(ind = 0; ind < 4; ind++){
-        values[ind]= (unsigned char)(sensitivity*(measures[ind]-referenceMeasure) + 32);
-       // values[i]= (unsigned char) measures[i];
+        values[ind]= (unsigned char)(63*(measures[ind]-reference + dynamic/2)/dynamic);
+       
         if(values[ind]>63){
-            values[ind]=64;
+            values[ind]=63;
         }
         if(values[ind]<0){
             values[ind]=0;
@@ -68,9 +68,9 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short referenceMeas
             
     
     tui_drawGraph(values,referenceIndex);
-    tui_numberAt(0,2,referenceMeasure +32*sensitivity);
-    tui_numberAt(3,2,referenceMeasure);
-    tui_numberAt(7,2,referenceMeasure -32*sensitivity);
+    tui_numberAt(0,2,reference +dynamic/2);
+    tui_numberAt(3,2,reference);
+    tui_numberAt(7,2,reference -dynamic/2);
     
 }
 
