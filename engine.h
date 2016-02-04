@@ -2,10 +2,7 @@
 #define	ENGINE_H
 
 
-#include "timer.h"
-#include "FRENCH.h"
-#include "glcd.h"
-#include "twinmaxUI.h"
+
 
 #ifndef delay_ms
 #define delay_ms __delay_ms

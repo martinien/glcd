@@ -67,11 +67,6 @@ int main(void) {
     ANSB =  0b1111000000000000;
     ANSC =  0b0000000000000001;
     
-    lcd_on();
-    lcd_clear_screen();
-    lcd_on();
-    lcd_bitmap(twinmaxLogo);    
-    delay_ms(5000);
     
     adc_init();
     
