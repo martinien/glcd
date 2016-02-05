@@ -54,18 +54,26 @@
     volatile struct movingAverage * avg1;
  
 int main(void) {
-    unsigned long oldAvg;
-    unsigned long newAvg;
+    
+    unsigned long oldAvg; //Use to store the previous displayed average
+    unsigned long newAvg; //Use to store the current displayed average
+    
+    CLKDIV = 0; // No clock prescaler
+
+    //Initialise pointers and arrays for the average
     avg1 = &a1;
     average_init(avg1, 0);
-    CLKDIV = 0;
+    
+    INTCON2 = 0; // Use standard vector table, DISI is not active, Every Interrupts on positive edge
+    INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled
+    
+ 
+    
+    // Set outputs / inputs
     TRISA = 0b0000110001111111;
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
-    
-    ANSA =  0b0000000000010011;
-    ANSB =  0b1111000000000000;
-    ANSC =  0b0000000000000001;
+
     
     engine_initialization();
     engine_splash();

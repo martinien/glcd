@@ -1,5 +1,10 @@
 #include "can.h"
 void adc_init(){
+           
+    // Set analog inputs for sensors
+    ANSA =  ANSA || 0b0000000000010011;
+    ANSB =  ANSB || 0b1111000000000000;
+    ANSC =  ANSC || 0b0000000000000001;
     
     AD1CON1bits.ADON = 0; //Disable CAN for configuration
     AD1CON1bits.ADSIDL = 1; //Stop when in idle mode
