@@ -67,6 +67,8 @@ int main(void) {
     INTCON2 = 0; // Use standard vector table, DISI is not active, Every Interrupts on positive edge
     INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled  
  
+
+    init_button_interrupt();
     
     // Set outputs / inputs
     TRISA = 0b0000110001111111;
