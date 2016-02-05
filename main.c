@@ -65,8 +65,7 @@ int main(void) {
     average_init(avg1, 0);
     
     INTCON2 = 0; // Use standard vector table, DISI is not active, Every Interrupts on positive edge
-    INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled
-    
+    INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled  
  
     
     // Set outputs / inputs
@@ -77,26 +76,31 @@ int main(void) {
     
     engine_initialization();
     engine_splash();
-    init_interrupt();
     
-    adc_init();
+    engine_start();
     
-    // initialize average with first adc values
-    lcd_clear_screen();
+    
+    
     
     //start time for conversion
-    timer_start();
     
+    int count = 0;
+    unsigned short testVals[0];
     while(1){
         
         newAvg = average_get_average(avg1);
         
-        lcd_draw_bar(0, ADC1BUF6/64, 0);
-        lcd_draw_bar(1, newAvg / 64, 0);
-        lcd_draw_bar(2, (newAvg * 50 + oldAvg * 50) / 6400, 0);
+        testVals[0]= ADC1BUF6/64;
+        testVals[1] = newAvg / 64;
+        testVals[2] = (newAvg * 50 + oldAvg * 50) / 6400;
+        testVals[3]=2014;
+        
+        tui_displayMeasures(testVals,2046,3000,1);
         
         oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
         delay_ms(100);
+        /*TESTING ZOOM ON DISPLAY*/
+        count = (count+1)%500;
     }
 
     return 1;
