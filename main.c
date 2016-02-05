@@ -68,6 +68,8 @@ int main(void) {
     INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled
     
  
+
+    init_button_interrupt();
     
     // Set outputs / inputs
     TRISA = 0b0000110001111111;

@@ -39,10 +39,38 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        button_left_interupt();
 //    }
     button_left_interupt();
-    
+    return;
 }
 
-void init_interrupt(){
+void init_button_interrupt(){
+
+    /*
+    * INTCON1, INTCON2 Registers
+    * IFSn: Interrupt Flag Status Registers
+    * IECn: Interrupt Enable Control Registers
+    * IPCn: Interrupt Priority Control Registers
+    */
+    
+    // Use standard vector table
+    // DISI is not active
+    // Every Interrupts on positive edge
+    INTCON2 = 0;
+    
+    // Interrupt Nesting Disabled
+    INTCON1bits.NSTDIS = 0;
+    
+    //Reset all flags
+    IFS0 = 0;
+    IFS1 = 0;
+    IFS2 = 0;
+    IFS3 = 0;
+    IFS4 = 0;
+    IFS5 = 0;
+    IFS6 = 0;
+    
+    // Enable Change Notification(CN) Interrupts.
+    IEC1bits.CNIE = 1;
+
     /*
      * The CNEN1 and CNEN3 registers contain the interrupt enable control
      * 
@@ -62,7 +90,7 @@ void init_interrupt(){
 }
 
 void button_left_interupt(){
-    tui_battery(10);
+  tui_battery(20);
   return;
 }
 
