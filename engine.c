@@ -121,10 +121,17 @@ void engine_menu(){
 }
 
 void engine_initialization() {
+  init_interrupt();
+  adc_init();
   lcd_clear_screen();
+  engine_splash();
+  engine_menu();
+  
+  
   
 }
 
 void engine_start() {
+    
   timer_start();
 }
