@@ -52,11 +52,12 @@
 
     volatile struct movingAverage a1;
     volatile struct movingAverage * avg1;
+    volatile unsigned short range ;
  
 int main(void) {
     
-    unsigned long oldAvg; //Use to store the previous displayed average
-    unsigned long newAvg; //Use to store the current displayed average
+    unsigned long oldAvg = 0; //Use to store the previous displayed average
+    unsigned long newAvg = 0; //Use to store the current displayed average
     
     CLKDIV = 0; // No clock prescaler
 
@@ -76,9 +77,9 @@ int main(void) {
     TRISC = 0b0000000001000011;
 
     
-    engine_initialization();
+    //engine_initialization();
     engine_splash();
-    
+    adc_init();
     engine_start();
     
     
@@ -87,22 +88,40 @@ int main(void) {
     //start time for conversion
     
     int count = 0;
-    unsigned short testVals[0];
+    int range = 4000;
+    int reference = 2046;
+    unsigned short testVals[4];
     while(1){
+//        if(count==99){
+//           reference = oldAvg;
+//           range = range/2; 
+//           if(range<500){
+//            range=3000;
+//         }
+//        }
+        
+        
         
         newAvg = average_get_average(avg1);
+        oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
         
         testVals[0]= ADC1BUF6/64;
         testVals[1] = newAvg / 64;
-        testVals[2] = (newAvg * 50 + oldAvg * 50) / 6400;
-        testVals[3]=2014;
+        testVals[2] = oldAvg / 64;
+        testVals[3]=count%64;
         
-        tui_displayMeasures(testVals,2046,3000,1);
+       tui_displayMeasures(testVals,reference,range,1);
         
-        oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
-        delay_ms(100);
+//        lcd_draw_bar(0,testVals[2],0);       
+//        lcd_draw_bar(1,newAvg / 64,0);
+//         lcd_draw_bar(2,testVals[3],0);
+//        lcd_draw_bar(3,count%64,0);
+        
+        
+       
+        delay_ms(50);
         /*TESTING ZOOM ON DISPLAY*/
-        count = (count+1)%500;
+        count = (count+1)%4096;
     }
 
     return 1;

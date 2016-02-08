@@ -7,6 +7,7 @@
 #include "glcd.h"
 #include "twinmaxUI.h"
 
+
 enum phase{
     INIT,
     BLUETOOTHMENU,
@@ -149,7 +150,7 @@ void engine_menu(){
 }
 
 void engine_initialization() {
-  init_interrupt();
+  init_button_interrupt();
   adc_init();
   lcd_clear_screen();
   engine_splash();

@@ -29,8 +29,8 @@ void tui_menuItem(int index,const char *string,unsigned char highlighted){
     }
 }
 
-void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed,int width){
-    char i = 0;
+void tui_writeAt(unsigned char page,unsigned char y,const char* string,int reversed,int width){
+    int i = 0;
     unsigned char referenceY = y;
     if(width == 0){
         width = 127;
@@ -39,48 +39,52 @@ void tui_writeAt(unsigned char x,unsigned char y,const char* string,int reversed
         //start new line if address is at the end of the screen
         if(y + FONT_WIDTH > width){
             y = referenceY;
-            x++;
+            page++;
         }
         if(reversed == 1){
-            lcd_draw_reversed_char(x, y, string[i++]);
+            lcd_draw_reversed_char(page, y, string[i++]);
              y += FONT_WIDTH;
         }
         else{
-            lcd_draw_char(x, y, string[i++]);
+            lcd_draw_char(page, y, string[i++]);
             y += FONT_WIDTH;
         }
-        y++;
+        
     }
 }
 
-void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short dynamic, int referenceIndex){
+void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short range, int referenceIndex){
      
-    unsigned char values[4];
-    int ind=0;
-    for(ind = 0; ind < 4; ind++){
-        values[ind]= (unsigned char)(63*(measures[ind]-reference + dynamic/2)/dynamic);
+    unsigned short values[4];
+    int i=0;
+    for(i = 0; i < 4; i++){
+        //values[i]= (unsigned char)(measures[i]);
+        values[i]= (63*(measures[i]-reference + range/2))/range;
        
-        if(values[ind]>63){
-            values[ind]=63;
+        if(values[i]>63){
+            values[i]=63;
         }
-        if(values[ind]<0){
-            values[ind]=0;
+        if(values[i]<0){
+            values[i]=0;
         }
     }
             
+    char string[4];
     
     tui_drawGraph(values,referenceIndex);
-    tui_numberAt(0,2,reference +dynamic/2);
-    tui_numberAt(3,2,reference);
-    tui_numberAt(7,2,reference -dynamic/2);
+    
+    tui_numberAt(0,0,reference + range/2);   
+    tui_numberAt(3,0,reference);   
+    tui_numberAt(7,0,reference - range/2);
     
 }
 
-void tui_numberAt(unsigned char x,unsigned char y,unsigned short val){
-    char string[4];
-    sprintf(string, "%u", val);
-    tui_writeAt( x, y,"    ",0,0);
-    tui_writeAt( x, y,string,0,0);
+void tui_numberAt(unsigned char page,unsigned char y,unsigned short val){
+    char string[5]="coucou";
+    //tui_writeAt(page,y,"coucou",0,0);
+    snprintf(string,5, "%u", val);
+    tui_writeAt(page,y,"    ",0,0);
+    tui_writeAt(page,y,string,0,0);
 }
 
 void tui_battery(unsigned char val){
