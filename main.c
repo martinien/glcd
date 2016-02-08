@@ -6,6 +6,7 @@
  */
 
 #include "headers.h"
+#include "inputs.h"
 
 // PIC24FV16KM204 Configuration Bit Settings
 
@@ -91,8 +92,8 @@ int main(void) {
         newAvg = average_get_average(avg1);
         oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
         
-        testVals[0] = 2047;
-        testVals[1] = 2047;
+        testVals[0] = SENSOR4BUF;
+        testVals[1] = oldAvg;
         testVals[2] = (unsigned long)2047;
         testVals[3] = count * 64;
         

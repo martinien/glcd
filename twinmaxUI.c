@@ -57,20 +57,25 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
      
     unsigned char values[4];
     int i = 0;
-    unsigned long temp = 0;
+    long temp = 0;
     for(i = 0; i < 4; i++){
-        temp = measures[i] / 64;
+        temp = measures[i];
+        temp = temp - reference;
+        temp = temp + range / 2;
+        temp = 63 * temp;
+        temp = temp / range;
         //temp = 2047 / 64;
+         if(temp>=63){
+            temp=63;
+        }
+        if(temp<=0){
+            temp=0;
+        }
         values[i] = (unsigned char)temp;
         
         //values[i]= (unsigned char)(63*(measures[i]-reference + range/2))/range;
        
-        if(values[i]>63){
-            values[i]=63;
-        }
-        if(values[i]<0){
-            values[i]=0;
-        }
+       
     }
             
     char string[4];
