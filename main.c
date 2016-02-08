@@ -51,9 +51,12 @@
 // FICD
 #pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
 
-    volatile struct movingAverage a1;
-    volatile struct movingAverage * avg1;
-    volatile unsigned short range ;
+  
+
+
+volatile struct movingAverage a1;
+volatile struct movingAverage * avg1;
+volatile unsigned short range ;
  
 int main(void) {
     
@@ -84,7 +87,7 @@ int main(void) {
     engine_start();
     
     int count = 0;
-    int range =  4097;
+    int range =  2000;
     int reference = 2047;
     unsigned short testVals[4];
     while(1){

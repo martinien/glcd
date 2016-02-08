@@ -1,13 +1,12 @@
 #include "glcd.h"
 #include "myFont.h"
+#include "params.h"
 
 int currentPage;
 int currentY;
 
 
-int BAR_WIDTH=20;
-int BAR_SPAN=24;
-int MENU_WIDTH=28;
+
 unsigned char BLANK_BIT=0b00000000;
 unsigned char FULL_BIT=0b11111111;
 
@@ -272,7 +271,6 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     int nb_blank_pages, nb_full_pages, nb_blank_pixel_in_transition_page;
     int x,y,y_start;
     int i;
-    int arrow_drawn = 0;
     unsigned char transition_page_bit;
     
     
@@ -288,8 +286,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
         if(i==nb_blank_pages - 1 && isReference==1){ //Reference bar
-         lcd_draw_char(x,12+y,0);   
-         arrow_drawn = 1;
+         lcd_draw_char(x, BAR_SPAN/2 + 3+y,0);   
         }
         x++;
     }

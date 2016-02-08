@@ -15,6 +15,7 @@
       <itemPath>headers.h</itemPath>
       <itemPath>average.h</itemPath>
       <itemPath>inputs.h</itemPath>
+      <itemPath>params.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

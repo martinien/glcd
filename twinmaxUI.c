@@ -1,13 +1,15 @@
 #include "twinmaxUI.h" 
-
+#include "params.h"
 
 
 
 void tui_drawGraph(unsigned char values[4],int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
     lcd_draw_bar(1, values[1], referenceIndex==1);
+#ifndef TWO_BARS
     lcd_draw_bar(2, values[2], referenceIndex==2);
     lcd_draw_bar(3, values[3], referenceIndex==3);
+#endif
 }
 
 void tui_menuItem(int index,const char *string,unsigned char highlighted){
