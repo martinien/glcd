@@ -82,46 +82,34 @@ int main(void) {
     adc_init();
     engine_start();
     
-    
-    
-    
-    //start time for conversion
-    
     int count = 0;
-    int range = 4000;
-    int reference = 2046;
+    int range =  4097;
+    int reference = 2047;
     unsigned short testVals[4];
     while(1){
-//        if(count==99){
-//           reference = oldAvg;
-//           range = range/2; 
-//           if(range<500){
-//            range=3000;
-//         }
-//        }
-        
-        
         
         newAvg = average_get_average(avg1);
         oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
         
-        testVals[0]= ADC1BUF6/64;
-        testVals[1] = newAvg / 64;
-        testVals[2] = oldAvg / 64;
-        testVals[3]=count%64;
+        testVals[0] = 2047;
+        testVals[1] = 2047;
+        testVals[2] = (unsigned long)2047;
+        testVals[3] = count * 64;
         
-       tui_displayMeasures(testVals,reference,range,1);
-        
-//        lcd_draw_bar(0,testVals[2],0);       
-//        lcd_draw_bar(1,newAvg / 64,0);
-//         lcd_draw_bar(2,testVals[3],0);
-//        lcd_draw_bar(3,count%64,0);
-        
-        
-       
-        delay_ms(50);
-        /*TESTING ZOOM ON DISPLAY*/
-        count = (count+1)%4096;
+//        lcd_draw_bar(0,2047 / 64,0);
+//        lcd_draw_bar(0,2047 / 64,1);
+//        lcd_draw_bar(0,2047 / 64,2);
+//        lcd_draw_bar(0,2047 / 64,3);
+//        
+        tui_displayMeasures(testVals,reference,range,1);
+
+        delay_ms(100);
+        if(count > 64){
+            count = 0;
+            range = range / 2;
+        }else{
+            count = count + 1;
+        }
     }
 
     return 1;

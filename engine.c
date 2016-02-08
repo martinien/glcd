@@ -116,7 +116,7 @@ void engine_splash(){
     lcd_clear_screen();
     lcd_on();
     lcd_bitmap(twinmaxLogo);    
-    delay_ms(5000);
+    delay_ms(1000);
     lcd_clear_screen();
 }
 

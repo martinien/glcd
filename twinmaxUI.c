@@ -55,11 +55,15 @@ void tui_writeAt(unsigned char page,unsigned char y,const char* string,int rever
 
 void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short range, int referenceIndex){
      
-    unsigned short values[4];
-    int i=0;
+    unsigned char values[4];
+    int i = 0;
+    unsigned long temp = 0;
     for(i = 0; i < 4; i++){
-        //values[i]= (unsigned char)(measures[i]);
-        values[i]= (63*(measures[i]-reference + range/2))/range;
+        temp = measures[i] / 64;
+        //temp = 2047 / 64;
+        values[i] = (unsigned char)temp;
+        
+        //values[i]= (unsigned char)(63*(measures[i]-reference + range/2))/range;
        
         if(values[i]>63){
             values[i]=63;
