@@ -25,4 +25,6 @@ void engine_initialization();
 
 void engine_start();
 
+void set_scale(unsigned short ref , unsigned short rg );
+
 #endif

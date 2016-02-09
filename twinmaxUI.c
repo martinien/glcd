@@ -1,5 +1,6 @@
 #include "twinmaxUI.h" 
 #include "params.h"
+#include "engine.h"
 
 
 
@@ -60,6 +61,11 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
     unsigned char values[4];
     int i = 0;
     long temp = 0;
+//    if(measures[referenceIndex]>=reference+range/2 || measures[referenceIndex]<=reference-range/2){
+//        reference = measures[referenceIndex];        
+//        set_scale(reference,range);
+//                
+//            }
     for(i = 0; i < 4; i++){
         temp = measures[i];
         temp = temp - reference;
@@ -68,10 +74,11 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
         temp = temp / range;
         //temp = 2047 / 64;
          if(temp>=63){
-            temp=63;
+            temp=63;  
+            
         }
         if(temp<=0){
-            temp=0;
+           temp=0;
         }
         values[i] = (unsigned char)temp;
         

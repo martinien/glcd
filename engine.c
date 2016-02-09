@@ -6,6 +6,8 @@
 #include "FRENCH.h"
 #include "glcd.h"
 #include "twinmaxUI.h"
+#include "params.h"
+#include "inputs.h"
 
 
 enum phase{
@@ -91,9 +93,22 @@ void init_button_interrupt(){
 }
 
 void button_left_interupt(){
-  tui_battery(20);
+  //tui_battery(20);
+    extern unsigned short range;
+    if(range>20){
+        range=range/2;
+    }
+    else{
+        range = 2560;
+    }
+    extern unsigned short oldAvg;
+    extern unsigned short reference;
+    reference = oldAvg;
+    delay_ms(100);
   return;
 }
+
+
 
 void button_right_interupt(){
   return;
@@ -111,6 +126,13 @@ void button_power_interupt(){
   return;
 }
 
+void set_scale(unsigned short ref , unsigned short rg ){
+    extern unsigned short reference;
+    extern unsigned short range;
+    reference = ref;
+    range = rg;
+}
+
 void engine_splash(){
     lcd_on();
     lcd_clear_screen();
@@ -121,30 +143,33 @@ void engine_splash(){
 }
 
 void engine_menu(){
-    tui_writeAt(1,15,BLUETOOTH,0,0);
-    
-    
+    tui_writeAt(1,15,BLUETOOTH,0,0);      
     tui_writeAt(5,10,YES,0,0);
     tui_writeAt(5,90,NO,1,0);
-    delay_ms(1000);
-    tui_writeAt(5,10,YES,1,0);
-    tui_writeAt(5,90,NO,0,0);    
-    delay_ms(700);   
-
+    while(TESTBUTTON==0){
+       
+    }       
+    delay_ms(50);
     lcd_clear_screen();
 
     tui_writeAt(1,15,REFERENCE,0,0);
     tui_writeAt(5,5,"1",1,0);
     tui_writeAt(5,35,"2",0,0);
+#ifndef TWO_BARS
     tui_writeAt(5,65,"3",0,0);
-    tui_writeAt(5,95,"4",0,0);   
-    delay_ms(800);    
-    tui_writeAt(5,5,"1",0,0);
-    tui_writeAt(5,35,"2",1,0);
-    delay_ms(300);    
-    tui_writeAt(5,35,"2",0,0);
-    tui_writeAt(5,65,"3",1,0);
-    delay_ms(1000); 
+    tui_writeAt(5,95,"4",0,0); 
+#endif
+    while(TESTBUTTON==0)
+    {
+        
+    }
+//    delay_ms(800);    
+//    tui_writeAt(5,5,"1",0,0);
+//    tui_writeAt(5,35,"2",1,0);
+//    delay_ms(300);    
+//    tui_writeAt(5,35,"2",0,0);
+//    tui_writeAt(5,65,"3",1,0);
+//    delay_ms(1000); 
     lcd_clear_screen();
     
 }

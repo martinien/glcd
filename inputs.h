@@ -30,7 +30,7 @@
 
 
 /*BUTTONS*/
-#define TESTBUTTON PORTBbits.RB11;
+#define TESTBUTTON PORTAbits.RA10
 #define LEFTBUTTON 
 #define RIGHTBUTTON
 

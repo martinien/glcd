@@ -56,12 +56,16 @@
 
 volatile struct movingAverage a1;
 volatile struct movingAverage * avg1;
-volatile unsigned short range ;
+volatile unsigned short range = 0 ;
+volatile unsigned short reference = 0;
+volatile  unsigned long newAvg = 0; //Use to store the current displayed average
+volatile unsigned long oldAvg = 0;
+
+
  
 int main(void) {
     
-    unsigned long oldAvg = 0; //Use to store the previous displayed average
-    unsigned long newAvg = 0; //Use to store the current displayed average
+    // //Use to store the previous displayed average
     
     CLKDIV = 0; // No clock prescaler
 
@@ -81,13 +85,13 @@ int main(void) {
     TRISC = 0b0000000001000011;
 
     
-    //engine_initialization();
-    engine_splash();
-    adc_init();
+    engine_initialization();
+//    engine_splash();
+//    adc_init();
     engine_start();
     
     int count = 0;
-    int range =  2000;
+    range = 2560;
     int reference = 2047;
     unsigned short testVals[4];
     while(1){
@@ -105,7 +109,7 @@ int main(void) {
 //        lcd_draw_bar(0,2047 / 64,2);
 //        lcd_draw_bar(0,2047 / 64,3);
 //        
-        tui_displayMeasures(testVals,reference,range,1);
+        tui_displayMeasures(testVals,reference,range,0);
 
         delay_ms(100);
         if(count > 64){
