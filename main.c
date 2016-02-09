@@ -53,13 +53,16 @@
 
   
 
-
-volatile struct movingAverage a1;
-volatile struct movingAverage * avg1;
 volatile unsigned short range = 0 ;
 volatile unsigned short reference = 0;
-volatile  unsigned long newAvg = 0; //Use to store the current displayed average
-volatile unsigned long oldAvg = 0;
+volatile struct movingAverage a1;
+volatile struct movingAverage * avg1;
+volatile  unsigned long newAvg1 = 0; //Use to store the current displayed average
+volatile unsigned long oldAvg1 = 0;
+volatile struct movingAverage a2;
+volatile struct movingAverage * avg2;
+volatile  unsigned long newAvg2 = 0; 
+volatile unsigned long oldAvg2 = 0;
 
 
  
@@ -72,6 +75,8 @@ int main(void) {
     //Initialise pointers and arrays for the average
     avg1 = &a1;
     average_init(avg1, 0);
+    avg2 = &a2;
+    average_init(avg2,0);
     
     INTCON2 = 0; // Use standard vector table, DISI is not active, Every Interrupts on positive edge
     INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled  
@@ -92,15 +97,17 @@ int main(void) {
     
     int count = 0;
     range = 2560;
-    int reference = 2047;
+    //int reference = 2047;
     unsigned short testVals[4];
     while(1){
         
-        newAvg = average_get_average(avg1);
-        oldAvg = (newAvg * 50 + oldAvg * 50) / 100;
+        newAvg1 = average_get_average(avg1);
+        oldAvg1 = (newAvg1 * 50 + oldAvg1 * 50) / 100;
+        newAvg2 = average_get_average(avg2);
+        oldAvg2 = (newAvg2 * 50 + oldAvg2 * 50) / 100;
         
-        testVals[0] = SENSOR4BUF;
-        testVals[1] = oldAvg;
+        testVals[0] = oldAvg1;
+        testVals[1] = oldAvg2;
         testVals[2] = (unsigned long)2047;
         testVals[3] = count * 64;
         

@@ -10,21 +10,20 @@
 #include "inputs.h"
 
 
-enum phase{
+enum engine_phase{
     INIT,
     BLUETOOTHMENU,
-    REFERENCEMENU
+    REFERENCEMENU,
+    RUN
     
 };
 volatile short blueetooth;
 volatile short referenceCarburator;
-volatile enum phase phase;
+volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-    //todo : reset interruption flag
-    delay_ms(40);
-    IFS1bits.CNIF = 0;
+   
 //    if(PORTAbits.RA6 == 1){
 //        
 //        button_left_interupt();
@@ -42,6 +41,9 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        button_left_interupt();
 //    }
     button_left_interupt();
+     //todo : reset interruption flag
+    delay_ms(150);
+    IFS1bits.CNIF = 0;
     return;
 }
 
@@ -94,18 +96,23 @@ void init_button_interrupt(){
 
 void button_left_interupt(){
   //tui_battery(20);
-    extern unsigned short range;
-    if(range>20){
-        range=range/2;
+    
+    if(phase == RUN){
+        extern unsigned short range;
+        unsigned short reference;
+        if(range>20){
+            range=range/2;
+        }
+        else{
+            range = 2560;
+        }
+        extern unsigned short oldAvg1;
+        set_scale(reference,range);
+        reference = oldAvg1;
+        delay_ms(200);
+        return;
     }
-    else{
-        range = 2560;
-    }
-    extern unsigned short oldAvg;
-    extern unsigned short reference;
-    reference = oldAvg;
-    delay_ms(100);
-  return;
+    
 }
 
 
@@ -149,7 +156,7 @@ void engine_menu(){
     while(TESTBUTTON==0){
        
     }       
-    delay_ms(50);
+    delay_ms(200);
     lcd_clear_screen();
 
     tui_writeAt(1,15,REFERENCE,0,0);
@@ -163,7 +170,7 @@ void engine_menu(){
     {
         
     }
-//    delay_ms(800);    
+    delay_ms(200);    
 //    tui_writeAt(5,5,"1",0,0);
 //    tui_writeAt(5,35,"2",1,0);
 //    delay_ms(300);    
@@ -180,12 +187,12 @@ void engine_initialization() {
   lcd_clear_screen();
   engine_splash();
   engine_menu();
-  
+   
   
   
 }
 
 void engine_start() {
-    
-  timer_start();
+    phase = RUN;
+    timer_start();
 }
