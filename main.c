@@ -51,6 +51,14 @@
 // FICD
 #pragma config ICS = PGx2               // ICD Pin Placement Select bits (EMUC/EMUD share PGC2/PGD2)
 
+
+volatile struct movingAverage avgs[4];
+volatile struct movingAverage * averages[4];
+volatile unsigned long newAverages[4] ;
+volatile unsigned long oldAverages[4];
+
+// struct movingAverage average_struct1;
+// struct movingAverage * average1;
  
 int main(void) {
 

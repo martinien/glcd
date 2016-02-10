@@ -25,8 +25,7 @@ volatile int reference_sensor;
 volatile int reference_measure;
 volatile unsigned short range;
 
-volatile unsigned long newAvg1 = 0; 
-volatile unsigned long oldAvg1 = 0;
+
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
@@ -230,26 +229,32 @@ void engine_initialization() {
     engine_splash();
     engine_menu();
     init_button_interrupt();
+    averages_init();
     adc_init();
     lcd_clear_screen();
 }
 
 void engine_start() {
-    unsigned long testVals[4];
+    unsigned short testVals[4];
+    int i = 0;
+    extern unsigned long newAverages[4] ;
+    extern unsigned long oldAverages[4];
     phase = RUN;
-    //timer_start();
+    int count = 0;
+    timer_start();
     while(1){
-        // newAvg1 = average_get_average(0);
-        // oldAvg1 = (newAvg1 * 50 + oldAvg1 * 50) / 100;
-        // newAvg2 = average_get_average(1);
-        // //oldAvg2 = (newAvg2 * 50 + oldAvg2 * 50) / 100;
+        for(i=0;i<4;i++){
+            newAverages[i]=average_get_average(i);
+            oldAverages[i] = (newAverages[i]*50 + oldAverages[i]*50)/100;
+            //testVals[i] = oldAverages[i];
+        }
         
-        testVals[0] = (unsigned long)2047;
-        testVals[1] = (unsigned long)2047;
-        testVals[2] = (unsigned long)2047;
-        testVals[3] = (unsigned long)1024;
-        
-        tui_displayMeasures(testVals, 2042, 2000, 0);
+        testVals[0] = SENSOR4BUF;
+        testVals[1] = oldAverages[3];
+        testVals[2] = count;
+        testVals[3] = 1024;
+        count = (count +10)%4000;
+        tui_displayMeasures(testVals, 2042, 3000, 0);
 
         delay_ms(100);
 
