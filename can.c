@@ -1,5 +1,4 @@
 #include "can.h"
-#include "inputs.h"
 void adc_init(){
            
     // Set analog inputs for sensors
@@ -64,15 +63,18 @@ void adc_init(){
 }
 
 void adc_launch(){
+    // Launch the 8 conversions
     AD1CON1bits.ASAM = 1;
 }
 
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
-    
-    extern struct movingAverage * avg1;
-    extern struct movingAverage * avg2;
+    extern struct movingAverage * average1;
+    extern struct movingAverage * average2;
+
     AD1CON1bits.ASAM = 0;
     IFS0bits.AD1IF = 0 ; //reset interrupt flag
-    average_add_value(avg1, SENSOR4BUF);
-    average_add_value(avg2, SENSOR3BUF);
+
+    // add the new values in the average
+    average_add_value(average1, SENSOR4BUF);
+    average_add_value(average2, SENSOR3BUF);
 }

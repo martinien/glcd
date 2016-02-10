@@ -5,8 +5,6 @@
 int currentPage;
 int currentY;
 
-
-
 unsigned char BLANK_BIT=0b00000000;
 unsigned char FULL_BIT=0b11111111;
 
@@ -19,7 +17,6 @@ void _lcd_enable(void){
     ENABLE=0;
     __delay_us(.5);
  }
-
 
 /*TODO time optimisation*/
 unsigned char _lcd_status(void){
@@ -49,8 +46,7 @@ unsigned char _lcd_status(void){
     CS1 = cs1;
     CS2= cs2;
     
-    return (status);        
-   
+    return (status);
 }
 
 void _lcd_reset(void){

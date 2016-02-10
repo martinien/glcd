@@ -8,7 +8,7 @@
 #ifndef PARAMS_H
 #define	PARAMS_H
 
-#define TWO_BARS
+// #define TWO_BARS
 #ifdef TWO_BARS
 #define BAR_WIDTH 40
 #define BAR_SPAN 48

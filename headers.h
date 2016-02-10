@@ -23,12 +23,8 @@
 extern "C" {
 #endif
 
-
-
-
 #ifdef	__cplusplus
 }
 #endif
 
 #endif	/* HEADERS_H */
-

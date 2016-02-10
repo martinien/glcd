@@ -55,35 +55,33 @@
 
 volatile unsigned short range = 0 ;
 volatile unsigned short reference = 0;
-volatile struct movingAverage a1;
-volatile struct movingAverage * avg1;
+volatile struct movingAverage average_struct1;
+volatile struct movingAverage * average1;
 volatile  unsigned long newAvg1 = 0; //Use to store the current displayed average
 volatile unsigned long oldAvg1 = 0;
-volatile struct movingAverage a2;
-volatile struct movingAverage * avg2;
+volatile struct movingAverage average_struct2;
+volatile struct movingAverage * average2;
 volatile  unsigned long newAvg2 = 0; 
 volatile unsigned long oldAvg2 = 0;
 
 
  
 int main(void) {
-    
-    // //Use to store the previous displayed average
-    
+
     CLKDIV = 0; // No clock prescaler
 
     //Initialise pointers and arrays for the average
-    avg1 = &a1;
-    average_init(avg1, 0);
-    avg2 = &a2;
-    average_init(avg2,0);
+    average1 = &average_struct1;
+    average_init(average1, 0);
+    average2 = &average_struct2;
+    average_init(average2,0);
     
-    INTCON2 = 0; // Use standard vector table, DISI is not active, Every Interrupts on positive edge
-    INTCON1bits.NSTDIS = 0; // Interrupt Nesting Disabled  
- 
+    // Use standard vector table, DISI is not active, Every Interrupts on positive edge
+    INTCON2 = 0;
 
-    init_button_interrupt();
-    
+    // Interrupt Nesting Disabled
+    INTCON1bits.NSTDIS = 0;
+ 
     // Set outputs / inputs
     TRISA = 0b0000110001111111;
     TRISB = 0b1111001000000000;
@@ -91,40 +89,29 @@ int main(void) {
 
     
     engine_initialization();
-//    engine_splash();
-//    adc_init();
+    //    engine_splash();
+    //    adc_init();
     engine_start();
     
-    int count = 0;
     range = 2560;
     //int reference = 2047;
     unsigned short testVals[4];
     while(1){
         
-        newAvg1 = average_get_average(avg1);
+        newAvg1 = average_get_average(average1);
         oldAvg1 = (newAvg1 * 50 + oldAvg1 * 50) / 100;
-        newAvg2 = average_get_average(avg2);
+        newAvg2 = average_get_average(average2);
         oldAvg2 = (newAvg2 * 50 + oldAvg2 * 50) / 100;
         
         testVals[0] = oldAvg1;
         testVals[1] = oldAvg2;
         testVals[2] = (unsigned long)2047;
-        testVals[3] = count * 64;
+        testVals[3] = (unsigned long)1024;
         
-//        lcd_draw_bar(0,2047 / 64,0);
-//        lcd_draw_bar(0,2047 / 64,1);
-//        lcd_draw_bar(0,2047 / 64,2);
-//        lcd_draw_bar(0,2047 / 64,3);
-//        
-        tui_displayMeasures(testVals,reference,range,0);
+        tui_displayMeasures(testVals, reference, range, 0);
 
         delay_ms(100);
-        if(count > 64){
-            count = 0;
-            range = range / 2;
-        }else{
-            count = count + 1;
-        }
+
     }
 
     return 1;

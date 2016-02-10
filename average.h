@@ -1,30 +1,28 @@
 #ifndef AVERAGE_H
 #define	AVERAGE_H
-#define AVGSIZE 200
+#define AVERAGE_SIZE 200
 
+// Average structure
+typedef struct movingAverage{
+  
+  // Olds the value
+  unsigned short values[AVERAGE_SIZE];
+  
+  // Index of the next value to pop out
+  unsigned short index;
 
-typedef struct movingAverage {
-   unsigned short values[AVGSIZE] ;
-   unsigned short index;
-   unsigned long currentSum;
-
-}mavg;
+  // Keep the sum of the values updated at each changes
+  unsigned long sum;
+} moving_average;
 
 // initialize an average array
-void average_init(mavg *,unsigned short);
-
+void average_init(moving_average *, unsigned short);
 
 // add a value to the average array at the specific index.
 // return next index to use
-void average_add_value(mavg * , unsigned short );
+void average_add_value(moving_average *, unsigned short);
 
-
-// return the average if the array is full
-unsigned short average_get_average(mavg *);
-
-
-// return 1 if all values as been set in the array at least once
-// (ie check if the last value is different from init value (0xFFFF))
-// return 0 otherwise
+// return the average
+unsigned short average_get_average(moving_average *);
 
 #endif

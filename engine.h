@@ -1,15 +1,10 @@
 #ifndef ENGINE_H
 #define	ENGINE_H
 
-
-
-
 #ifndef delay_ms
 #define delay_ms __delay_ms
 #define delay_us __delay_us
 #endif
-
-
 
 void button_left_interupt();
 

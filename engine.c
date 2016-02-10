@@ -14,16 +14,15 @@ enum engine_phase{
     INIT,
     BLUETOOTHMENU,
     REFERENCEMENU,
-    RUN
-    
+    RUN,
+    SLEEP
 };
+
 volatile short blueetooth;
-volatile short referenceCarburator;
 volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-   
 //    if(PORTAbits.RA6 == 1){
 //        
 //        button_left_interupt();
@@ -40,9 +39,12 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        
 //        button_left_interupt();
 //    }
-    button_left_interupt();
-     //todo : reset interruption flag
+
+    button_left_interupt(phase);
+
     delay_ms(150);
+
+    // Reset flag
     IFS1bits.CNIF = 0;
     return;
 }
@@ -89,14 +91,20 @@ void init_button_interrupt(){
     
     CNEN1 = 0b0000000100000000; // <= here CN8 is acctually missing in the datasheet
     CNEN2 = 0b0110000000000000;
-    CNEN3 = 0b0000000000011000;
-    
-    
+    CNEN3 = 0b0000000000011000; 
 }
 
 void button_left_interupt(){
-  //tui_battery(20);
-    
+    // extern enum engine_phase phase;
+    // extern unsigned short range;
+    // unsigned short reference;
+
+    // if(phase == RUN){
+    //     zoom_in();
+    //     return;
+    // }else if(phase == BLUETOOTHMENU || phase == REFERENCEMENU){
+    //     menu_right_command();
+    // }
     if(phase == RUN){
         extern unsigned short range;
         unsigned short reference;
@@ -112,25 +120,28 @@ void button_left_interupt(){
         delay_ms(200);
         return;
     }
-    
 }
 
-
-
 void button_right_interupt(){
-  return;
+    return;
 }
 
 void button_select_interupt(){
-  return;
+    return;
 }
 
 void button_light_interupt(){
-  return;
+    return;
 }
 
 void button_power_interupt(){
-  return;
+    // extern enum engine_phase phase;
+    // if(phase == SLEEP){
+    //     wake();
+    // }else{
+    //     sleep();
+    // }
+    return;
 }
 
 void set_scale(unsigned short ref , unsigned short rg ){
@@ -149,47 +160,84 @@ void engine_splash(){
     lcd_clear_screen();
 }
 
-void engine_menu(){
-    tui_writeAt(1,15,BLUETOOTH,0,0);      
-    tui_writeAt(5,10,YES,0,0);
-    tui_writeAt(5,90,NO,1,0);
-    while(TESTBUTTON==0){
-       
-    }       
+void engine_display_bluetooth_question(int is_bluetooth_activated){
+    tui_write_at(1, 15, BLUETOOTH, 0, 0);      
+    tui_write_at(5, 10, YES, is_bluetooth_activated==0, 0);
+    tui_write_at(5, 90, NO, is_bluetooth_activated==1, 0);
+}
+
+void engine_ask_for_bluetooth(){
+    int selected = 0;
+    int is_bluetooth_activated = 0;
+
+    // Temporaly disable button interruption
+    IEC1bits.CNIE = 0;
+    
+    engine_display_bluetooth_question(is_bluetooth_activated);
+    
+    while(selected == 0){
+        while((LEFT_BUTTON || SELECTION_BUTTON || RIGHT_BUTTON) == 0){  
+        }
+        if(LEFT_BUTTON == 1){
+            is_bluetooth_activated = (is_bluetooth_activated + 1) % 2;
+        }else if(RIGHT_BUTTON == 1){
+            is_bluetooth_activated = (is_bluetooth_activated + 1) % 2;
+        }else{
+            selected = 1;
+        }
+        engine_display_bluetooth_question(is_bluetooth_activated);
+        delay_ms(200);
+    }
+
+    if(is_bluetooth_activated == 0){
+        //ble_init();
+    }
+    return;
+}
+
+void engine_ask_for_reference(){
+    int selected = 0;
+    int reference = 0;
+    
+    // Temporaly disable button interruption
+    IEC1bits.CNIE = 0;
+
+    while(selected == 0){
+        while((LEFT_BUTTON || ))
+    }
+}
+
+void engine_menu(){ 
+    
+    engine_ask_for_bluetooth();
+    engine_ask_for_reference();
+
     delay_ms(200);
     lcd_clear_screen();
 
-    tui_writeAt(1,15,REFERENCE,0,0);
-    tui_writeAt(5,5,"1",1,0);
-    tui_writeAt(5,35,"2",0,0);
+    tui_write_at(1, 15, REFERENCE, 0, 0);
+    tui_write_at(5, 5, "1", 1, 0);
+    tui_write_at(5, 35, "2", 0, 0);
+
 #ifndef TWO_BARS
-    tui_writeAt(5,65,"3",0,0);
-    tui_writeAt(5,95,"4",0,0); 
+    tui_write_at(5, 65, "3", 0, 0);
+    tui_write_at(5, 95, "4", 0, 0); 
 #endif
-    while(TESTBUTTON==0)
-    {
-        
+    
+    while(LEFT_BUTTON == 0){    
     }
+
     delay_ms(200);    
-//    tui_writeAt(5,5,"1",0,0);
-//    tui_writeAt(5,35,"2",1,0);
-//    delay_ms(300);    
-//    tui_writeAt(5,35,"2",0,0);
-//    tui_writeAt(5,65,"3",1,0);
-//    delay_ms(1000); 
     lcd_clear_screen();
     
 }
 
 void engine_initialization() {
-  init_button_interrupt();
-  adc_init();
-  lcd_clear_screen();
-  engine_splash();
-  engine_menu();
-   
-  
-  
+    engine_splash();
+    engine_menu();
+    init_button_interrupt();
+    adc_init();
+    lcd_clear_screen();
 }
 
 void engine_start() {
