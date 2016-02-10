@@ -8,6 +8,7 @@
 #include "twinmaxUI.h"
 #include "params.h"
 #include "inputs.h"
+#include "headers.h"
 
 
 enum engine_phase{
@@ -18,8 +19,14 @@ enum engine_phase{
     SLEEP
 };
 
-volatile short blueetooth;
+volatile int is_blueetooth_enable;
 volatile enum engine_phase phase = INIT;
+volatile int reference_sensor;
+volatile int reference_measure;
+volatile unsigned short range;
+
+volatile unsigned long newAvg1 = 0; 
+volatile unsigned long oldAvg1 = 0;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
@@ -40,7 +47,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        button_left_interupt();
 //    }
 
-    button_left_interupt(phase);
+    button_left_interupt();
 
     delay_ms(150);
 
@@ -50,7 +57,6 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 }
 
 void init_button_interrupt(){
-
     /*
     * INTCON1, INTCON2 Registers
     * IFSn: Interrupt Flag Status Registers
@@ -95,31 +101,19 @@ void init_button_interrupt(){
 }
 
 void button_left_interupt(){
-    // extern enum engine_phase phase;
-    // extern unsigned short range;
-    // unsigned short reference;
-
-    // if(phase == RUN){
-    //     zoom_in();
-    //     return;
-    // }else if(phase == BLUETOOTHMENU || phase == REFERENCEMENU){
-    //     menu_right_command();
-    // }
-    if(phase == RUN){
-        extern unsigned short range;
-        unsigned short reference;
-        if(range>20){
-            range=range/2;
-        }
-        else{
-            range = 2560;
-        }
-        extern unsigned short oldAvg1;
-        set_scale(reference,range);
-        reference = oldAvg1;
-        delay_ms(200);
-        return;
-    }
+//    extern unsigned short range;
+//    unsigned short reference;
+//    //extern unsigned long oldAvg1;
+//    if(range>20){
+//        range=range/2;
+//    }
+//    else{
+//        range = 2560;
+//    }
+//    set_scale(reference,range);
+//    reference = 2017;
+    delay_ms(200);
+    return;
 }
 
 void button_right_interupt(){
@@ -145,10 +139,10 @@ void button_power_interupt(){
 }
 
 void set_scale(unsigned short ref , unsigned short rg ){
-    extern unsigned short reference;
-    extern unsigned short range;
-    reference = ref;
-    range = rg;
+//    extern unsigned short reference;
+//    extern unsigned short range;
+//    reference = ref;
+//    range = rg;
 }
 
 void engine_splash(){
@@ -160,76 +154,76 @@ void engine_splash(){
     lcd_clear_screen();
 }
 
-void engine_display_bluetooth_question(int is_bluetooth_activated){
+void engine_display_bluetooth_question(){
     tui_write_at(1, 15, BLUETOOTH, 0, 0);      
-    tui_write_at(5, 10, YES, is_bluetooth_activated==0, 0);
-    tui_write_at(5, 90, NO, is_bluetooth_activated==1, 0);
+    tui_write_at(5, 10, YES, is_blueetooth_enable==0, 0);
+    tui_write_at(5, 90, NO, is_blueetooth_enable==1, 0);
 }
 
-void engine_ask_for_bluetooth(){
-    int selected = 0;
-    int is_bluetooth_activated = 0;
+void engine_display_reference_question(int reference_sensor){
+    tui_write_at(1, 15, REFERENCE, 0, 0);
+    tui_write_at(5, 5, "1", reference_sensor==0, 0);
+    tui_write_at(5, 35, "2", reference_sensor==1, 0);
+#ifndef TWO_BARS
+    tui_write_at(5, 65, "3", reference_sensor==2, 0);
+    tui_write_at(5, 95, "4", reference_sensor==3, 0); 
+#endif
+}
 
-    // Temporaly disable button interruption
-    IEC1bits.CNIE = 0;
-    
-    engine_display_bluetooth_question(is_bluetooth_activated);
+int engine_ask_for_bluetooth(){
+    int selected = 0;
     
     while(selected == 0){
+        engine_display_bluetooth_question(is_blueetooth_enable);
         while((LEFT_BUTTON || SELECTION_BUTTON || RIGHT_BUTTON) == 0){  
         }
         if(LEFT_BUTTON == 1){
-            is_bluetooth_activated = (is_bluetooth_activated + 1) % 2;
+            is_blueetooth_enable = (is_blueetooth_enable + 1) % 2;
         }else if(RIGHT_BUTTON == 1){
-            is_bluetooth_activated = (is_bluetooth_activated + 1) % 2;
+            is_blueetooth_enable = (is_blueetooth_enable + 1) % 2;
         }else{
             selected = 1;
         }
-        engine_display_bluetooth_question(is_bluetooth_activated);
         delay_ms(200);
     }
 
-    if(is_bluetooth_activated == 0){
-        //ble_init();
-    }
-    return;
+    return is_blueetooth_enable;
 }
 
-void engine_ask_for_reference(){
+int engine_ask_for_reference_sensor(){
     int selected = 0;
-    int reference = 0;
+    unsigned int reference = 0;
+
+    while(selected == 0){
+        engine_display_reference_question(reference);
+        while((LEFT_BUTTON || RIGHT_BUTTON || SELECTION_BUTTON) == 0){
+        }
+        if (LEFT_BUTTON == 1){
+            reference = (reference - 1) % 4;
+            selected = 1;
+        }else if(RIGHT_BUTTON == 1){
+            reference = (reference + 1) % 4;
+        }else if(SELECTION_BUTTON == 1){
+            selected = 1;
+        }
+        delay_ms(200);
+    }
+    return (int)reference;
+}
+
+void engine_menu(){ 
+    //TODO (julien 10/02/2016) don't disable all interruption because we want to be interrupted if user press sleep button
     
     // Temporaly disable button interruption
     IEC1bits.CNIE = 0;
 
-    while(selected == 0){
-        while((LEFT_BUTTON || ))
-    }
-}
+    // if(engine_ask_for_bluetooth()){
+    //     //ble_init();
+    // }
 
-void engine_menu(){ 
-    
-    engine_ask_for_bluetooth();
-    engine_ask_for_reference();
+    // reference_sensor = engine_ask_for_reference_sensor();
 
-    delay_ms(200);
     lcd_clear_screen();
-
-    tui_write_at(1, 15, REFERENCE, 0, 0);
-    tui_write_at(5, 5, "1", 1, 0);
-    tui_write_at(5, 35, "2", 0, 0);
-
-#ifndef TWO_BARS
-    tui_write_at(5, 65, "3", 0, 0);
-    tui_write_at(5, 95, "4", 0, 0); 
-#endif
-    
-    while(LEFT_BUTTON == 0){    
-    }
-
-    delay_ms(200);    
-    lcd_clear_screen();
-    
 }
 
 void engine_initialization() {
@@ -241,6 +235,23 @@ void engine_initialization() {
 }
 
 void engine_start() {
+    unsigned long testVals[4];
     phase = RUN;
-    timer_start();
+    //timer_start();
+    while(1){
+        // newAvg1 = average_get_average(0);
+        // oldAvg1 = (newAvg1 * 50 + oldAvg1 * 50) / 100;
+        // newAvg2 = average_get_average(1);
+        // //oldAvg2 = (newAvg2 * 50 + oldAvg2 * 50) / 100;
+        
+        testVals[0] = (unsigned long)2047;
+        testVals[1] = (unsigned long)2047;
+        testVals[2] = (unsigned long)2047;
+        testVals[3] = (unsigned long)1024;
+        
+        tui_displayMeasures(testVals, 2042, 2000, 0);
+
+        delay_ms(100);
+
+    }
 }

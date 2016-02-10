@@ -68,13 +68,15 @@ void adc_launch(){
 }
 
 void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
-    extern struct movingAverage * average1;
-    extern struct movingAverage * average2;
+    // extern struct movingAverage * average1;
+    // extern struct movingAverage * average2;
 
     AD1CON1bits.ASAM = 0;
     IFS0bits.AD1IF = 0 ; //reset interrupt flag
 
     // add the new values in the average
-    average_add_value(average1, SENSOR4BUF);
-    average_add_value(average2, SENSOR3BUF);
+    // average_add_value(average1, SENSOR4BUF);
+    // average_add_value(average2, SENSOR3BUF);
+
+    average_add_values(SENSOR1BUF, SENSOR2BUF, SENSOR3BUF, SENSOR4BUF);
 }
