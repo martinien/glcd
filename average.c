@@ -1,12 +1,11 @@
 #include "average.h"
 
-struct movingAverage avgs[4];
-volatile struct movingAverage * averages[4];
-// struct movingAverage average_struct1;
-// struct movingAverage * average1;
+
 
 void averages_init(){
     // Initialise 4 averages
+    extern struct movingAverage avgs[4];
+    extern struct movingAverage * averages[4];
     int i;
     for(i = 0; i < 4; ++i){
         averages[i] = &avgs[i];
@@ -14,7 +13,7 @@ void averages_init(){
     }
 }
 
-void average_init(moving_average * average, unsigned short default_value){
+void average_init(struct movingAverage * average, unsigned short default_value){
     int i;    
     for(i = 0; i < AVERAGE_SIZE; i++){
         average->values[i] = default_value;
@@ -23,7 +22,7 @@ void average_init(moving_average * average, unsigned short default_value){
     average->sum = AVERAGE_SIZE * default_value;        
 }
 
-void average_add_value(moving_average * average, unsigned short value){
+void average_add_value(struct movingAverage * average, unsigned short value){
     // change the sum by adding the new value and removing the old one
     average->sum = average->sum + value - average->values[average->index];
 
@@ -35,16 +34,18 @@ void average_add_value(moving_average * average, unsigned short value){
 }
 
 unsigned short average_get_average(int index){
+    extern struct movingAverage * averages[4];
     return ((unsigned short)(averages[index]->sum / AVERAGE_SIZE));
 }
 
 unsigned short average_get_average_when_in_interrupt(int index){
 //    extern struct movingAverage * averages[4];
+    extern struct movingAverage * averages[4];
     return ((unsigned short)(averages[index]->sum / AVERAGE_SIZE));
 }
 
 void average_add_values(unsigned short value1, unsigned short value2, unsigned short value3, unsigned short value4){
-//    extern struct movingAverage * averages[4];
+    extern struct movingAverage * averages[4];
     average_add_value(averages[0], value1);
     average_add_value(averages[1], value2);
     average_add_value(averages[2], value3);
