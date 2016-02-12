@@ -21,9 +21,7 @@ enum engine_phase{
 
 volatile int is_blueetooth_enable;
 volatile enum engine_phase phase = INIT;
-volatile int reference_sensor;
-volatile int reference_measure;
-volatile unsigned short range;
+
 
 
 
@@ -46,7 +44,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        button_left_interupt();
 //    }
 
-    button_left_interupt();
+    button_right_interupt();
 
     delay_ms(150);
 
@@ -100,22 +98,28 @@ void init_button_interrupt(){
 }
 
 void button_left_interupt(){
-//    extern unsigned short range;
-//    unsigned short reference;
-//    //extern unsigned long oldAvg1;
-//    if(range>20){
-//        range=range/2;
-//    }
-//    else{
-//        range = 2560;
-//    }
-//    set_scale(reference,range);
-//    reference = 2017;
+    extern unsigned short pression_reference;
+    extern unsigned short pression_range;
+    extern unsigned short weightedAverages[4];
+    extern unsigned short reference_sensor;
+    pression_reference = weightedAverages[reference_sensor];
+    if(pression_range*RANGE_STEP <= MAX_RANGE){
+        pression_range = pression_range*RANGE_STEP;
+    }
+    return;
     delay_ms(200);
     return;
 }
 
 void button_right_interupt(){
+    extern unsigned short pression_reference;
+    extern unsigned short pression_range;
+    extern unsigned short weightedAverages[4];
+    extern unsigned short reference_sensor;
+    pression_reference = weightedAverages[reference_sensor];
+    if(pression_range/RANGE_STEP >= MIN_RANGE){
+        pression_range = pression_range/RANGE_STEP;
+    }
     return;
 }
 
@@ -137,12 +141,7 @@ void button_power_interupt(){
     return;
 }
 
-void set_scale(unsigned short ref , unsigned short rg ){
-//    extern unsigned short reference;
-//    extern unsigned short range;
-//    reference = ref;
-//    range = rg;
-}
+
 
 void engine_splash(){
     lcd_on();
@@ -235,26 +234,34 @@ void engine_initialization() {
 }
 
 void engine_start() {
+    extern unsigned short weightedAverages[4];
+    extern unsigned short pression_range;
+    extern unsigned short pression_reference;
+    extern unsigned short reference_sensor;    
+    pression_range = MAX_RANGE;
+    pression_reference = 2000;
+    reference_sensor = 3;
+    
+    
     unsigned short testVals[4];
     int i = 0;
-    extern unsigned long newAverages[4] ;
-    extern unsigned long oldAverages[4];
     phase = RUN;
     int count = 0;
     timer_start();
     while(1){
         for(i=0;i<4;i++){
-            newAverages[i]=average_get_average(i);
-            oldAverages[i] = (newAverages[i]*50 + oldAverages[i]*50)/100;
+
             //testVals[i] = oldAverages[i];
         }
+        average_update_weighted_averages();
+        
         
         testVals[0] = SENSOR4BUF;
-        testVals[1] = oldAverages[3];
-        testVals[2] = count;
-        testVals[3] = 1024;
+        testVals[1] = weightedAverages[3];
+        testVals[2] = averages_get_average(3);
+        testVals[3] = weightedAverages[3];
         count = (count +10)%4000;
-        tui_displayMeasures(testVals, 2042, 3000, 0);
+        tui_displayMeasures(testVals, pression_reference, pression_range, reference_sensor);
 
         delay_ms(100);
 

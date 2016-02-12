@@ -53,9 +53,11 @@
 
 
 volatile struct movingAverage avgs[4];
-volatile struct movingAverage * averages[4];
-volatile unsigned long newAverages[4] ;
-volatile unsigned long oldAverages[4];
+volatile struct movingAverage * movingAverages[4];
+volatile unsigned long weightedAverages[4];
+volatile unsigned short pression_reference;
+volatile unsigned short pression_range;
+volatile unsigned short reference_sensor;
 
 // struct movingAverage average_struct1;
 // struct movingAverage * average1;

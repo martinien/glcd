@@ -8,6 +8,10 @@
 #ifndef PARAMS_H
 #define	PARAMS_H
 
+#define MAX_RANGE 2560
+#define MIN_RANGE 20
+#define RANGE_STEP 2
+
 // #define TWO_BARS
 #ifdef TWO_BARS
 #define BAR_WIDTH 40
