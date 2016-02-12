@@ -370,10 +370,10 @@ void lcd_bitmap(const char * bmp){
     unsigned char i, j;
     for(i = 0; i < 8; i++){   
         lcd_draw(i,0,bmp[(i*128)]);
-       for(j = 0; j < 64 ; j++){
+       for(j = 1; j < 64 ; j++){
            lcd_write(bmp[(i*128)+j]);          
        }  
-        lcd_draw(i,64,bmp[(i*128)]);
+        lcd_draw(i,64,bmp[(i*128)+64]);
        for(j = 65; j < 124 ; j++){
            lcd_write(bmp[(i*128)+j]);          
        }  
