@@ -1,9 +1,9 @@
 #include "bluetooth.h"
 
-void init(){
+void ble_init(){
   // ble intitialisation
 }
 
-void send(){
+void ble_send(){
   //send values
 }

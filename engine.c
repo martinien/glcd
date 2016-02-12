@@ -92,8 +92,9 @@ void init_button_interrupt(){
      * 
     */
     
-    CNEN1 = 0b0000000100000000; // <= here CN8 is acctually missing in the datasheet
-    CNEN2 = 0b0110000000000000;
+    CNEN1 = 0b0000000000000000; // 
+    //CNEN2 = 0b0110000000000000; //TODO RESTORE
+    CNEN2 = 0b0000000000000000;
     CNEN3 = 0b0000000000011000; 
 }
 
@@ -148,7 +149,7 @@ void engine_splash(){
     lcd_clear_screen();
     lcd_on();
     lcd_bitmap(twinmaxLogo);    
-    delay_ms(1000);
+    delay_ms(4000);
     lcd_clear_screen();
 }
 
@@ -238,31 +239,39 @@ void engine_start() {
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
     extern unsigned short reference_sensor;    
-    pression_range = MAX_RANGE;
-    pression_reference = 2000;
-    reference_sensor = 3;
-    
-    
+    pression_range = MAX_RANGE;   
+    reference_sensor = 3;           
     unsigned short testVals[4];
     int i = 0;
     phase = RUN;
     int count = 0;
-    timer_start();
-    while(1){
-        for(i=0;i<4;i++){
-
-            //testVals[i] = oldAverages[i];
-        }
+    timer_start();    
+    for(i=0;i<10;i++){
         average_update_weighted_averages();
+        delay_ms(10)
+    };
+    average_update_weighted_averages();
+    pression_reference = weightedAverages[reference_sensor];
+    
+    while(1){
+       
         
-        
-        testVals[0] = SENSOR4BUF;
-        testVals[1] = weightedAverages[3];
-        testVals[2] = averages_get_average(3);
-        testVals[3] = weightedAverages[3];
-        count = (count +10)%4000;
-        tui_displayMeasures(testVals, pression_reference, pression_range, reference_sensor);
+            
+        average_update_weighted_averages();    
 
+        
+//        testVals[0] = SENSOR4BUF;
+//        testVals[1] = weightedAverages[3];
+//        testVals[2] = averages_get_average(3);
+//        testVals[3] = weightedAverages[3];
+//        count = (count +10)%4000;
+        tui_displayMeasures(weightedAverages, pression_reference, pression_range, reference_sensor);
+        
+//        delay_ms(20);
+//        count = (count+1)%101;
+//        tui_battery(count);
+        
+       
         delay_ms(100);
 
     }

@@ -2,6 +2,6 @@
 #define	BLUETOOTH_H
 
 void ble_init();
-void send();
+void ble_send();
 
 #endif

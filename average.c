@@ -44,7 +44,7 @@ void average_update_weighted_averages(){
     long tmp;
     int i=0;
     for(i=0;i<4;i++){
-        tmp =  average_get_average(movingAverages[i]);
+        tmp = (weightedAverages[i] +  average_get_average(movingAverages[i]))/2;
         weightedAverages[i]= (unsigned short)tmp;
     }      
 }

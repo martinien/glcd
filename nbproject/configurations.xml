@@ -16,6 +16,7 @@
       <itemPath>average.h</itemPath>
       <itemPath>inputs.h</itemPath>
       <itemPath>params.h</itemPath>
+      <itemPath>bluetooth.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

@@ -1,8 +1,19 @@
 #include "twinmaxUI.h" 
 #include "params.h"
 #include "engine.h"
+//#ifndef LOGO_H
+//#include "logo.h"
+//#endif
 
 
+const char battery[6] = {
+    0b11111110,
+    0b10000010,
+    0b10000011,
+    0b10000011,
+    0b10000010,
+    0b11111110
+};
 
 void tui_draw_graph(unsigned char values[4], int referenceIndex){
     lcd_draw_bar(0, values[0], referenceIndex==0);
@@ -91,18 +102,26 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
 
 void tui_draw_number(unsigned char page,unsigned char y,unsigned short val){
     char string[5];
-
     // Convert an unsigned short to a 5 char string
     snprintf(string, 5, "%u", val);
-
     // Clear the space
     tui_write_at(page, y, "    ", 0, 0);
-
     // Draw the 5 char string
     tui_write_at(page, y, string, 0, 0);
 }
 
 void tui_battery(unsigned char val){
-    glcd_smallNumberAt(0,120,val/10,1);
-    glcd_smallNumberAt(0,124,val%10,1); 
+//    glcd_smallNumberAt(0,120,val/10,1);
+//    glcd_smallNumberAt(0,124,val%10,1)
+    
+    int i=0;      
+    
+    unsigned char t;
+    unsigned char fillMeter = 0b11111100 << (5-val/20);
+    lcd_draw(0,120,battery[i]);
+    for(i = 1; i < 6; i++){
+        t = (unsigned char)(battery[i]|fillMeter);
+        lcd_write(t);
+    }    
+    
 }

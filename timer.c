@@ -26,7 +26,7 @@ void timer_start(void){
     //      don't use external clock sync
     //      Internal clock (FOSC/2)   
     // count 9600 time, with f_osc = 32Mhz that make every 600us
-    
+   
     PR1 = 0b0010010110000000;
     T1CON = 0b0010000000000000;
     
