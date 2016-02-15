@@ -100,29 +100,33 @@ void init_button_interrupt(){
     CNEN3 = 0b0000000000011000; 
 }
 
-void button_left_interupt(){
-    extern unsigned short pression_reference;
+void set_scale(unsigned short new_reference, unsigned short new_range){
     extern unsigned short pression_range;
-    extern unsigned short weightedAverages[4];
-    extern unsigned short reference_sensor;
-    pression_reference = weightedAverages[reference_sensor];
-    if(pression_range*RANGE_STEP <= MAX_RANGE){
-        pression_range = pression_range*RANGE_STEP;
+    extern unsigned short pression_reference;
+
+    pression_reference = new_reference;
+
+    if(new_range <= MAX_RANGE && new_range >= MIN_RANGE){
+        pression_range = pression_range * RANGE_STEP;
     }
     return;
+}
+
+void button_left_interupt(){
+    extern unsigned short reference_sensor;
+    extern unsigned short weightedAverages[4];
+    extern unsigned short pression_range;
+    set_scale(weightedAverages[reference_sensor], pression_range * RANGE_STEP);
     delay_ms(200);
     return;
 }
 
 void button_right_interupt(){
-    extern unsigned short pression_reference;
-    extern unsigned short pression_range;
-    extern unsigned short weightedAverages[4];
     extern unsigned short reference_sensor;
-    pression_reference = weightedAverages[reference_sensor];
-    if(pression_range/RANGE_STEP >= MIN_RANGE){
-        pression_range = pression_range/RANGE_STEP;
-    }
+    extern unsigned short weightedAverages[4];
+    extern unsigned short pression_range;
+    set_scale(weightedAverages[reference_sensor], pression_range / RANGE_STEP);
+    delay_ms(200);
     return;
 }
 
@@ -149,10 +153,7 @@ void button_power_interupt(){
          lcd_off();
          delay_ms(10);
          Sleep();
-  
         }
-            
-     
     return;
 }
 
