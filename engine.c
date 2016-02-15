@@ -45,12 +45,12 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //    }
 
     delay_ms(500);
+        // Reset flag
     IFS1bits.CNIF = 0;
-    button_power_interupt();
+    button_right_interupt();
 
     delay_ms(150);
 
-    // Reset flag
     
     return;
 }

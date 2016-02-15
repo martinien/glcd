@@ -32,4 +32,6 @@ void glcd_smallNumberAt(unsigned char page,unsigned char y,unsigned char value,i
 
 void tui_test();
 
+unsigned short measure_to_pressure(short val);
+
 #endif

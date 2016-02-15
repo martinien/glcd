@@ -66,6 +66,12 @@ void tui_write_at(unsigned char page, unsigned char y, const char* string, int r
     }
 }
 
+unsigned short measure_to_pressure(short val){
+    double tmp;    
+    tmp = 0.54541 * val - 138;
+    return (unsigned short)tmp;    
+}
+
 void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short range, int referenceIndex){    
     unsigned char values[4];
     int i = 0;
@@ -95,9 +101,9 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
     tui_draw_graph(values,referenceIndex);
 
     // draw the scale on the left
-    tui_draw_number(0,0,reference + range/2);   
-    tui_draw_number(3,0,reference);   
-    tui_draw_number(7,0,reference - range/2);
+    tui_draw_number(0,0, measure_to_pressure(reference + range/2));   
+    tui_draw_number(3,0,measure_to_pressure(reference));   
+    tui_draw_number(7,0,measure_to_pressure((reference - range/2)));
 }
 
 void tui_draw_number(unsigned char page,unsigned char y,unsigned short val){
@@ -105,7 +111,7 @@ void tui_draw_number(unsigned char page,unsigned char y,unsigned short val){
     // Convert an unsigned short to a 5 char string
     snprintf(string, 5, "%u", val);
     // Clear the space
-    tui_write_at(page, y, "    ", 0, 0);
+    tui_write_at(page, y, "     ", 0, 0);
     // Draw the 5 char string
     tui_write_at(page, y, string, 0, 0);
 }
@@ -125,3 +131,4 @@ void tui_battery(unsigned char val){
     }    
     
 }
+
