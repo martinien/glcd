@@ -104,10 +104,14 @@ void set_scale(unsigned short new_reference, unsigned short new_range){
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
 
+    if(new_reference - new_range < 0){
+        new_reference = new_range / 2;
+    }
+
     pression_reference = new_reference;
 
     if(new_range <= MAX_RANGE && new_range >= MIN_RANGE){
-        pression_range = pression_range * RANGE_STEP;
+        pression_range = new_range;
     }
     return;
 }
