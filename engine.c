@@ -44,12 +44,14 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 //        button_left_interupt();
 //    }
 
-    button_right_interupt();
+    delay_ms(500);
+    IFS1bits.CNIF = 0;
+    button_power_interupt();
 
     delay_ms(150);
 
     // Reset flag
-    IFS1bits.CNIF = 0;
+    
     return;
 }
 
@@ -134,11 +136,23 @@ void button_light_interupt(){
 
 void button_power_interupt(){
     // extern enum engine_phase phase;
-    // if(phase == SLEEP){
-    //     wake();
-    // }else{
-    //     sleep();
-    // }
+     if(phase == SLEEP){
+         phase == INIT ;        
+     }        
+         
+     else{
+         phase = SLEEP;
+         RCONbits.RETEN = 1; 
+         RCONbits.PMSLP = 0;
+         timer_stop();
+         lcd_clear_screen();
+         lcd_off();
+         delay_ms(10);
+         Sleep();
+  
+        }
+            
+     
     return;
 }
 
@@ -232,6 +246,7 @@ void engine_initialization() {
     averages_init();
     adc_init();
     lcd_clear_screen();
+    engine_start();
 }
 
 void engine_start() {
@@ -244,7 +259,6 @@ void engine_start() {
     unsigned short testVals[4];
     int i = 0;
     phase = RUN;
-    int count = 0;
     timer_start();    
     for(i=0;i<10;i++){
         average_update_weighted_averages();
@@ -253,12 +267,11 @@ void engine_start() {
     average_update_weighted_averages();
     pression_reference = weightedAverages[reference_sensor];
     
-    while(1){
+    while(phase == RUN){
        
         
             
         average_update_weighted_averages();    
-
         
 //        testVals[0] = SENSOR4BUF;
 //        testVals[1] = weightedAverages[3];

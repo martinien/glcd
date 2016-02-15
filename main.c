@@ -42,7 +42,7 @@
 
 // FPOR
 #pragma config BOREN = BOR3             // Brown-out Reset Enable bits (Brown-out Reset enabled in hardware, SBOREN bit disabled)
-#pragma config RETCFG = OFF             //  (Retention regulator is not available)
+#pragma config RETCFG = ON             //  (Retention regulator available)
 #pragma config PWRTEN = OFF             // Power-up Timer Enable bit (PWRT disabled)
 #pragma config I2C1SEL = PRI            // Alternate I2C1 Pin Mapping bit (Use Default SCL1/SDA1 Pins For I2C1)
 #pragma config BORV = V18               // Brown-out Reset Voltage bits (Brown-out Reset set to lowest voltage (1.8V))
@@ -79,7 +79,7 @@ int main(void) {
     TRISC = 0b0000000001000011;
 
     engine_initialization();
-    engine_start();
+    //engine_start();
 
     return 1;
 }

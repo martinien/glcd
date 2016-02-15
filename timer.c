@@ -36,3 +36,10 @@ void timer_start(void){
     IFS0bits.T1IF = 0; //clear timer flag
     T1CONbits.TON = 1; //start timer
 }
+
+
+void timer_stop(){
+    IFS0bits.T1IF = 0; //clear timer flag
+    T1CONbits.TON = 0; //start timer
+    
+}
