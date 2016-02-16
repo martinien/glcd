@@ -15,12 +15,12 @@ const char battery[6] = {
     0b11111110
 };
 
-void tui_draw_graph(unsigned char values[4], int referenceIndex){
-    lcd_draw_bar(0, values[0], referenceIndex==0);
-    lcd_draw_bar(1, values[1], referenceIndex==1);
+void tui_draw_graph(unsigned char height[4], int referenceIndex){
+    lcd_draw_bar(0, height[0], referenceIndex==0);
+    lcd_draw_bar(1, height[1], referenceIndex==1);
 #ifndef TWO_BARS
-    lcd_draw_bar(2, values[2], referenceIndex==2);
-    lcd_draw_bar(3, values[3], referenceIndex==3);
+    lcd_draw_bar(2, height[2], referenceIndex==2);
+    lcd_draw_bar(3, height[3], referenceIndex==3);
 #endif
 }
 
@@ -66,19 +66,19 @@ void tui_write_at(unsigned char page, unsigned char y, const char* string, int r
     }
 }
 
-unsigned short measure_to_pressure(short val){
-    double tmp;    
-    tmp = 0.54541 * val - 138;
-    return (unsigned short)tmp;    
+unsigned short measure_to_pressure(short measure){
+    double pressure;    
+    pressure = 0.54541 * measure - 138;
+    return (unsigned short)pressure;    
 }
 
-void tui_displayMeasures(unsigned short measures[4],unsigned short reference, unsigned short range, int referenceIndex){    
-    unsigned char values[4];
+void tui_displayMeasures(unsigned short measures[4], unsigned short reference, unsigned short range, int referenceIndex){    
+    unsigned char height[4];
     int i = 0;
     long temp = 0;
 
     for(i = 0; i < 4; i++){
-        // Calculate each values between 0 and 64 to display
+        // Calculate each height between 0 and 64 to display
         temp = measures[i];
         temp = temp - reference;
         temp = temp + range / 2;
@@ -94,19 +94,19 @@ void tui_displayMeasures(unsigned short measures[4],unsigned short reference, un
         }
 
         // store the value for display
-        values[i] = (unsigned char)temp;
+        height[i] = (unsigned char)temp;
     }
 
-    // draw the graph with the values
-    tui_draw_graph(values,referenceIndex);
+    // draw the graph with the height
+    tui_draw_graph(height, referenceIndex);
 
     // draw the scale on the left
-    tui_draw_number(0,0, measure_to_pressure(reference + range/2));   
-    tui_draw_number(3,0,measure_to_pressure(reference));   
-    tui_draw_number(7,0,measure_to_pressure((reference - range/2)));
+    tui_draw_number(0, 0, measure_to_pressure(reference + range / 2));   
+    tui_draw_number(3, 0, measure_to_pressure(reference));   
+    tui_draw_number(7, 0, measure_to_pressure((reference - range / 2)));
 }
 
-void tui_draw_number(unsigned char page,unsigned char y,unsigned short val){
+void tui_draw_number(unsigned char page, unsigned char y, unsigned short val){
     char string[5];
     // Convert an unsigned short to a 5 char string
     snprintf(string, 5, "%u", val);
@@ -131,4 +131,3 @@ void tui_battery(unsigned char val){
     }    
     
 }
-

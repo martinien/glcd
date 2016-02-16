@@ -15,14 +15,18 @@ typedef struct movingAverage{
   unsigned long sum;
 } moving_average;
 
-// // initialize an average array
-// void average_init(moving_average *, unsigned short);
+void averages_init();
 
-// // add a value to the average array at the specific index.
-// // return next index to use
-// void average_add_value(moving_average *, unsigned short);
+void average_init(struct movingAverage * average, unsigned short default_value);
 
-// // return the average
-// unsigned short average_get_average(moving_average *);
+void average_add_value(struct movingAverage * average, unsigned short value);
+
+unsigned short average_get_average(struct movingAverage * average);
+
+void average_update_weighted_averages();
+
+unsigned short averages_get_average(int i);
+
+void average_add_values(unsigned short value1, unsigned short value2, unsigned short value3, unsigned short value4);
 
 #endif

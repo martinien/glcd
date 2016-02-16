@@ -1,8 +1,8 @@
 
 #ifndef FRENCH_H
-#define	FRENCH_H
+#define FRENCH_H
 
-#ifdef	__cplusplus
+#ifdef  __cplusplus
 extern "C" {
 #endif
 
@@ -12,9 +12,9 @@ extern "C" {
     #define REFERENCE "Cylindre de       reference"
 
     
-#ifdef	__cplusplus
+#ifdef  __cplusplus
 }
 #endif
 
-#endif	/* FRENCH_H */
+#endif  /* FRENCH_H */
 

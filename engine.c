@@ -13,8 +13,6 @@
 
 enum engine_phase{
     INIT,
-    BLUETOOTHMENU,
-    REFERENCEMENU,
     RUN,
     SLEEP
 };
@@ -27,22 +25,17 @@ volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-//    if(PORTAbits.RA6 == 1){
-//        
-//        button_left_interupt();
-//    }else if(PORTAbits.RA10 == 1){
-//        
-//        button_left_interupt();
-//    }else if(PORTAbits.RA11 == 1){
-//        
-//        button_left_interupt();
-//    }else if(PORTAbits.RA2 == 1){
-//        
-//        button_left_interupt();
-//    }else if(PORTAbits.RA3 == 1){
-//        
-//        button_left_interupt();
-//    }
+   // if(LEFT_BUTTON == 1){
+   //     button_left_interupt();
+   // }else if(RIGHT_BUTTON == 1){
+   //     button_right_interupt();
+   // }else if(SELECTION_BUTTON == 1){
+   //     button_select_interupt();
+   // }else if(POWER_BUTTON == 1){
+   //     button_power_interupt();
+   // }else if(BACKLIGHT_BUTTON == 1){
+   //     button_light_interupt();
+   // }
 
     delay_ms(500);
         // Reset flag
@@ -94,9 +87,8 @@ void init_button_interrupt(){
      * 
     */
     
-    CNEN1 = 0b0000000000000000; // 
-    //CNEN2 = 0b0110000000000000; //TODO RESTORE
-    CNEN2 = 0b0000000000000000;
+    CNEN1 = 0b0000000000000000; 
+    CNEN2 = 0b0110000000000000;
     CNEN3 = 0b0000000000011000; 
 }
 
@@ -104,7 +96,10 @@ void set_scale(unsigned short new_reference, unsigned short new_range){
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
 
-    if(new_reference - new_range < 0){
+    // todo : julien 15/02/2016
+    //can't step inside the next if because we are working with unsigned shit.
+    // need to use somthing else to handle negative values
+    if(new_reference - new_range / 2 < 0){
         new_reference = new_range / 2;
     }
 
@@ -143,15 +138,10 @@ void button_light_interupt(){
 }
 
 void button_power_interupt(){
-    // extern enum engine_phase phase;
      if(phase == SLEEP){
-         phase == INIT ;        
-     }        
-         
-     else{
+         phase = INIT;
+     }else{
          phase = SLEEP;
-         RCONbits.RETEN = 1; 
-         RCONbits.PMSLP = 0;
          timer_stop();
          lcd_clear_screen();
          lcd_off();
@@ -160,8 +150,6 @@ void button_power_interupt(){
         }
     return;
 }
-
-
 
 void engine_splash(){
     lcd_on();
@@ -173,7 +161,7 @@ void engine_splash(){
 }
 
 void engine_display_bluetooth_question(){
-    tui_write_at(1, 15, BLUETOOTH, 0, 0);      
+    tui_write_at(1, 15, BLUETOOTH, 0, 0);
     tui_write_at(5, 10, YES, is_blueetooth_enable==0, 0);
     tui_write_at(5, 90, NO, is_blueetooth_enable==1, 0);
 }
@@ -235,8 +223,8 @@ void engine_menu(){
     // Temporaly disable button interruption
     IEC1bits.CNIE = 0;
 
-    // if(engine_ask_for_bluetooth()){
-    //     //ble_init();
+    // if(engine_ask_for_bluetooth() == 1){
+    //     ble_init();
     // }
 
     // reference_sensor = engine_ask_for_reference_sensor();
@@ -246,6 +234,11 @@ void engine_menu(){
 
 void engine_initialization() {
     engine_splash();
+
+    // Initialise sleeping options
+    RCONbits.RETEN = 1;
+    RCONbits.PMSLP = 0;
+
     engine_menu();
     init_button_interrupt();
     averages_init();
@@ -260,37 +253,24 @@ void engine_start() {
     extern unsigned short pression_reference;
     extern unsigned short reference_sensor;    
     pression_range = MAX_RANGE;   
-    reference_sensor = 3;           
+    reference_sensor = 3;  //todo remove when buttons are ready         
     unsigned short testVals[4];
     int i = 0;
     phase = RUN;
-    timer_start();    
+    
+    timer_start();
+
     for(i=0;i<10;i++){
         average_update_weighted_averages();
         delay_ms(10)
     };
+
     average_update_weighted_averages();
     pression_reference = weightedAverages[reference_sensor];
     
     while(phase == RUN){
-       
-        
-            
         average_update_weighted_averages();    
-        
-//        testVals[0] = SENSOR4BUF;
-//        testVals[1] = weightedAverages[3];
-//        testVals[2] = averages_get_average(3);
-//        testVals[3] = weightedAverages[3];
-//        count = (count +10)%4000;
         tui_displayMeasures(weightedAverages, pression_reference, pression_range, reference_sensor);
-        
-//        delay_ms(20);
-//        count = (count+1)%101;
-//        tui_battery(count);
-        
-       
         delay_ms(100);
-
     }
 }

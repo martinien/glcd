@@ -96,7 +96,7 @@ void lcd_off(){
     __delay_us(.1);
 }
 
-/*Clear scran*/
+/*Clear screen*/
 void lcd_clear_screen(void){
     //lcd clear screen
     unsigned char x,y;

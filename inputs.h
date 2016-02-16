@@ -5,5 +5,7 @@
 #define LEFT_BUTTON PORTAbits.RA10
 #define RIGHT_BUTTON 0
 #define SELECTION_BUTTON 0
+#define POWER_BUTTON 0
+#define BACKLIGHT_BUTTON 0
 
 #endif	/* INPUTS_H */

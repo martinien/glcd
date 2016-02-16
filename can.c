@@ -15,7 +15,7 @@ void adc_init(){
     AD1CON1bits.ASAM = 0; //Wait for timer to start
     AD1CON1bits.SAMP = 0; //Wait for timer and ASSAM
     AD1CON1bits.DONE = 0; // Clear CAN flag
-    
+
     AD1CON2bits.PVCFG = 0b00; //Set AVdd as reference
     AD1CON2bits.NVCFG0 = 0; //Set AVSS as reference
     AD1CON2bits.OFFCAL= 0; //Connect to normal inputs
@@ -82,6 +82,4 @@ void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     average_add_values(SENSOR1BUF, SENSOR2BUF, SENSOR3BUF, SENSOR4BUF);
     
     ble_send();
-    
-    
 }

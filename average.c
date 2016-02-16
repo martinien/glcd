@@ -33,10 +33,6 @@ void average_add_value(struct movingAverage * average, unsigned short value){
     average->index = (average->index + 1) % AVERAGE_SIZE;
 }
 
-unsigned short average_get_average(struct movingAverage * average){
-    
-    return ((unsigned short)(average->sum / AVERAGE_SIZE));
-}
 
 void average_update_weighted_averages(){
     extern struct movingAverage * movingAverages[4];
@@ -48,11 +44,15 @@ void average_update_weighted_averages(){
         weightedAverages[i]= (unsigned short)tmp;
     }      
 }
+
 unsigned short averages_get_average(int i){
     extern struct movingAverage * movingAverages[4];
     return average_get_average(movingAverages[i]);
 }
 
+unsigned short average_get_average(struct movingAverage * average){  
+    return ((unsigned short)(average->sum / AVERAGE_SIZE));
+}
 
 
 
