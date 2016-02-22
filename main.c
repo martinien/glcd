@@ -65,16 +65,14 @@ volatile unsigned short reference_sensor;
 int main(void) {
 
     CLKDIV = 0; // No clock prescaler
-
     // Use standard vector table, DISI is not active, Every Interrupts on positive edge
     INTCON2 = 0;
-
     // Interrupt Nesting Disabled
     INTCON1bits.NSTDIS = 0;
  
     // Set outputs / inputs
-    //TRISA = 0b0000110001111111; // TODO RESTORE THIS
-    TRISA = 0b0000110001110011;  //FOR TESTS
+    TRISA = 0b0000110001111111; 
+    //TRISA = 0b0000110001110011;  //FOR TESTS
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
 

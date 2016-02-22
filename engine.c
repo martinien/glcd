@@ -25,7 +25,7 @@ volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-    delay_ms(400);
+    delay_ms(300);
     
     if(LEFT_BUTTON == 1){
         button_left_interupt();
@@ -42,7 +42,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
     delay_ms(100);
         // Reset flag
     IFS1bits.CNIF = 0;
-    button_right_interupt();
+   
 
     delay_ms(150);
 
@@ -81,17 +81,17 @@ void init_button_interrupt(){
     /*
      * The CNEN1 and CNEN3 registers contain the interrupt enable control
      * 
-     * RA6 = CN8 <= !!!!!!!! WHERE THE FUCK IS CN8IE ?????????
+     * RA9 = CN34 
      * RA10 = CN35
      * RA11 = CN36
-     * RA2 = CN30
+     * RA2 = CN30   => power button 
      * RA3 = CN29
      * 
     */
     
     CNEN1 = 0b0000000000000000; 
     CNEN2 = 0b0110000000000000;
-    CNEN3 = 0b0000000000011000; 
+    CNEN3 = 0b0000000000011100; 
 }
 
 void set_scale(unsigned short new_reference, unsigned short new_range){
@@ -149,11 +149,21 @@ void button_power_interupt(){
          phase = INIT;
      }else{
          //TODO changer les registres ECN pour désactiver les interruptions autres que le buton pwoer
+         CNEN1 =0;
+         CNEN2 = 0b0100000000000000; // Only keep power button interrupt
+         CNEN3 = 0 ;         
          phase = SLEEP;
          timer_stop();
          lcd_clear_screen();
-         lcd_off();
-         delay_ms(10);
+         tui_write_at(3,20,"ARTHOUR COUILLERE",0,70);
+         delay_ms(2000);
+         //lcd_off();
+         POWER_CIRCUIT_ENABLE = 0;
+         IFS1bits.CNIF = 0;   
+         
+         
+
+
          Sleep();
         }
     return;
@@ -236,6 +246,7 @@ void engine_menu(){
          ble_init();
      }
 
+     lcd_clear_screen();
      reference_sensor = engine_ask_for_reference_sensor();
 
     lcd_clear_screen();
@@ -247,12 +258,14 @@ void engine_initialization() {
     // Initialise sleeping options
     RCONbits.RETEN = 1;
     RCONbits.PMSLP = 0;
-
+    POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
+    PORTAbits.RA7 = 1; // pwm
     engine_menu();
     init_button_interrupt();
     averages_init();
     adc_init();
     lcd_clear_screen();
+    
     engine_start();
 }
 
@@ -261,8 +274,7 @@ void engine_start() {
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
     extern unsigned short reference_sensor;    
-    pression_range = MAX_RANGE;   
-    reference_sensor = 3;  //todo remove when buttons are ready         
+    pression_range = MAX_RANGE;             
     unsigned short testVals[4];
     int i = 0;
     phase = RUN;
