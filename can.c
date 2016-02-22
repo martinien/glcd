@@ -1,5 +1,6 @@
 #include "can.h"
 #include "bluetooth.h"
+#include "inputs.h"
 void adc_init(){
            
     // Set analog inputs for sensors
@@ -79,7 +80,7 @@ void __attribute__((__interrupt__,__auto_psv__)) _ADC1Interrupt(void){
     // average_add_value(average1, SENSOR4BUF);
     // average_add_value(average2, SENSOR3BUF);
 
-    average_add_values(SENSOR1BUF, SENSOR2BUF, SENSOR3BUF, SENSOR4BUF);
+    average_add_values(SENSOR1AVGBUF, SENSOR2AVGBUF, SENSOR3AVGBUF, SENSOR4AVGBUF);
     
     ble_send();
 }

@@ -25,19 +25,21 @@ volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-   // if(LEFT_BUTTON == 1){
-   //     button_left_interupt();
-   // }else if(RIGHT_BUTTON == 1){
-   //     button_right_interupt();
-   // }else if(SELECTION_BUTTON == 1){
-   //     button_select_interupt();
-   // }else if(POWER_BUTTON == 1){
-   //     button_power_interupt();
-   // }else if(BACKLIGHT_BUTTON == 1){
-   //     button_light_interupt();
-   // }
+    delay_ms(400);
+    
+    if(LEFT_BUTTON == 1){
+        button_left_interupt();
+    }else if(RIGHT_BUTTON == 1){
+        button_right_interupt();
+    }else if(SELECTION_BUTTON == 1){
+        button_select_interupt();
+    }else if(POWER_BUTTON == 1){
+        button_power_interupt();
+    }else if(BACKLIGHT_BUTTON == 1){
+        button_light_interupt();
+    }
 
-    delay_ms(500);
+    delay_ms(100);
         // Reset flag
     IFS1bits.CNIF = 0;
     button_right_interupt();
@@ -130,6 +132,11 @@ void button_right_interupt(){
 }
 
 void button_select_interupt(){
+    extern unsigned short reference_sensor;
+    extern unsigned short weightedAverages[4];
+    extern unsigned short pression_range;
+    set_scale(weightedAverages[reference_sensor], pression_range);
+    delay_ms(200);
     return;
 }
 
@@ -141,6 +148,7 @@ void button_power_interupt(){
      if(phase == SLEEP){
          phase = INIT;
      }else{
+         //TODO changer les registres ECN pour désactiver les interruptions autres que le buton pwoer
          phase = SLEEP;
          timer_stop();
          lcd_clear_screen();
@@ -222,19 +230,20 @@ void engine_menu(){
     
     // Temporaly disable button interruption
     IEC1bits.CNIE = 0;
+    extern unsigned short reference_sensor;
 
-    // if(engine_ask_for_bluetooth() == 1){
-    //     ble_init();
-    // }
+     if(engine_ask_for_bluetooth() == 1){
+         ble_init();
+     }
 
-    // reference_sensor = engine_ask_for_reference_sensor();
+     reference_sensor = engine_ask_for_reference_sensor();
 
     lcd_clear_screen();
 }
 
 void engine_initialization() {
     engine_splash();
-
+    
     // Initialise sleeping options
     RCONbits.RETEN = 1;
     RCONbits.PMSLP = 0;
