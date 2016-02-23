@@ -58,12 +58,14 @@ volatile unsigned long weightedAverages[4];
 volatile unsigned short pression_reference;
 volatile unsigned short pression_range;
 volatile unsigned short reference_sensor;
+volatile int backlight_level ; 
 
 // struct movingAverage average_struct1;
 // struct movingAverage * average1;
  
 int main(void) {
 
+    
     CLKDIV = 0; // No clock prescaler
     // Use standard vector table, DISI is not active, Every Interrupts on positive edge
     INTCON2 = 0;
@@ -76,8 +78,16 @@ int main(void) {
     TRISB = 0b1111001000000000;
     TRISC = 0b0000000001000011;
 
+    POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
+    //tui_writeAt(3,20,"COUCOU LES LOULOUS",0,0);
+    BACKLIGHT_OUTPUT = 0;
+    delay_ms(2000);
+    BACKLIGHT_OUTPUT = 1 ;
+    delay_ms(2000);
+    
+    
     engine_initialization();
-    //engine_start();
+    
 
     return 1;
 }

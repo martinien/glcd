@@ -1,6 +1,7 @@
 #include <p24FV16KM204.h>
 
 
+
 #include "engine.h"
 #ifndef LOGO_H
 #include "logo.h"
@@ -47,7 +48,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
     IFS1bits.CNIF = 0;
    
 
-    ;
+    
 
     
     return;
@@ -84,20 +85,22 @@ void init_button_interrupt(){
     /*
      * The CNEN1 and CNEN3 registers contain the interrupt enable control
      * 
-     * RA9 = CN34 
-     * RA10 = CN35
-     * RA11 = CN36
+     * RA9 = CN34  => LEFT
+     * RA10 = CN35 =>SELECT
+     * RA11 = CN36 <>RIGHT
      * RA2 = CN30   => power button 
-     * RA3 = CN29
+     * RA3 = CN29 => backlight
      * 
     */
     
     CNEN1 = 0b0000000000000000; 
     CNEN2 = 0b0110000000000000;
-    CNEN3 = 0b0000000000011100; 
-    
+    CNEN3 = 0b0000000000011100;     
     
 }
+
+
+
 
 void set_scale(unsigned short new_reference, unsigned short new_range){
     extern unsigned short pression_range;
@@ -146,7 +149,9 @@ void button_select_interupt(){
 }
 
 void button_light_interupt(){
-    BACKLIGHT_OUTPUT ^= 1; // pwm
+    extern int backlight_level;
+    backlight_level = (backlight_level + 1)%3 ;
+    pwm_set(backlight_level);
     return;
 }
 
@@ -168,8 +173,8 @@ void button_power_interupt(){
 //         LATC = 0;
          //lcd_off();
          POWER_CIRCUIT_ENABLE = 0;
-         IFS1bits.CNIF = 0;   
-         
+
+         IFS1bits.CNIF = 0;
          
          //OSCCONbits.CLKLOCK;
 
@@ -178,6 +183,46 @@ void button_power_interupt(){
     return;
 }
 
+void pwm_init(){
+    CCP5CON1Lbits.CCSEL = 0; //MCCP operting mode
+    CCP5CON1Lbits.MOD = 0b0101;   // Set mode (Buffered Dual-Compare/PWM mode)
+    
+    CCP5CON1Lbits.TMR32 = 0;      // Set timebase width (16-bit)
+    CCP5CON1Lbits.TMRSYNC = 0;    // Set timebase synchronization (Synchronized) 
+    CCP5CON1Lbits.CLKSEL = 0b000; // Set the clock source (Tcy)
+    CCP5CON1Lbits.TMRPS = 0b00;   // Set the clock pre-scaler (1:1)
+
+    CCP5CON1Hbits.TRIGEN = 0;     // Set Sync/Triggered mode (Synchronous)
+    CCP5CON1Hbits.SYNC = 0b00000; // Select Sync/Trigger source (Self-sync)
+    
+    CCP5CON2Hbits.OCAEN = 1;    
+    CCP5CON3Hbits.POLACE = 0;
+    CCP5CON3Hbits.PSSACE = 0b10;   //pins driven inactive on shutdown
+    
+    CCP5TMRL = 0x0000;
+    CCP5PRL = 0xFFFF;
+    CCP5RA = 0x0000;
+    CCP5RB = 0xFFFF;
+    CCP5CON1Lbits.CCPON = 1;      // Turn on MCCP module
+    
+    
+    
+          
+
+}
+
+void pwm_set(int level){
+    if(level == 0){        
+        CCP5RB = 0xFFFF;
+    }
+    if(level == 1){
+        CCP5RB = 0x8888;        
+    }
+    if(level == 2){
+        CCP5RB = 0x00;
+        
+    }
+}
 void engine_splash(){
     lcd_on();
     lcd_clear_screen();
@@ -268,10 +313,9 @@ void engine_initialization() {
     // Initialise sleeping options
     RCONbits.RETEN = 1;
     RCONbits.PMSLP = 0;
+    pwm_init();   
     
     
-    
-    BACKLIGHT_OUTPUT = 0; // pwm
     engine_menu();
     init_button_interrupt();
     averages_init();
