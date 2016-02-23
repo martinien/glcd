@@ -145,6 +145,12 @@ void _lcd_waitbusy(void){
     }
 }
 
+void _lcd_waiton(void){
+    while (_lcd_status() & 0b10000000){
+        __delay_us(.1); // .5 us
+    }
+}
+
 /*write a byte to the display ram - data will be written at the active X and Y - the display increments its y register  */
 void lcd_write(unsigned char data){
     _lcd_waitbusy();

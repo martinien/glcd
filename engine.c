@@ -1,3 +1,6 @@
+#include <p24FV16KM204.h>
+
+
 #include "engine.h"
 #ifndef LOGO_H
 #include "logo.h"
@@ -25,7 +28,7 @@ volatile enum engine_phase phase = INIT;
 
 void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
-    delay_ms(300);
+    delay_ms(100);
     
     if(LEFT_BUTTON == 1){
         button_left_interupt();
@@ -44,7 +47,7 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
     IFS1bits.CNIF = 0;
    
 
-    delay_ms(150);
+    ;
 
     
     return;
@@ -92,6 +95,8 @@ void init_button_interrupt(){
     CNEN1 = 0b0000000000000000; 
     CNEN2 = 0b0110000000000000;
     CNEN3 = 0b0000000000011100; 
+    
+    
 }
 
 void set_scale(unsigned short new_reference, unsigned short new_range){
@@ -141,6 +146,7 @@ void button_select_interupt(){
 }
 
 void button_light_interupt(){
+    BACKLIGHT_OUTPUT ^= 1; // pwm
     return;
 }
 
@@ -155,14 +161,17 @@ void button_power_interupt(){
          phase = SLEEP;
          timer_stop();
          lcd_clear_screen();
-         tui_write_at(3,20,"ARTHOUR COUILLERE",0,70);
+         tui_write_at(3,40,BYE,0,0);
          delay_ms(2000);
+//         PORTA = 0;
+//         PORTB = 0;
+//         LATC = 0;
          //lcd_off();
          POWER_CIRCUIT_ENABLE = 0;
          IFS1bits.CNIF = 0;   
          
          
-
+         //OSCCONbits.CLKLOCK;
 
          Sleep();
         }
@@ -176,6 +185,7 @@ void engine_splash(){
     lcd_bitmap(twinmaxLogo);    
     delay_ms(4000);
     lcd_clear_screen();
+    lcd_on();
 }
 
 void engine_display_bluetooth_question(){
@@ -223,8 +233,7 @@ int engine_ask_for_reference_sensor(){
         while((LEFT_BUTTON || RIGHT_BUTTON || SELECTION_BUTTON) == 0){
         }
         if (LEFT_BUTTON == 1){
-            reference = (reference - 1) % 4;
-            selected = 1;
+            reference = (reference - 1) % 4;            
         }else if(RIGHT_BUTTON == 1){
             reference = (reference + 1) % 4;
         }else if(SELECTION_BUTTON == 1){
@@ -253,13 +262,16 @@ void engine_menu(){
 }
 
 void engine_initialization() {
-    engine_splash();
-    
+   
+    POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
+    engine_splash();    
     // Initialise sleeping options
     RCONbits.RETEN = 1;
     RCONbits.PMSLP = 0;
-    POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
-    PORTAbits.RA7 = 1; // pwm
+    
+    
+    
+    BACKLIGHT_OUTPUT = 0; // pwm
     engine_menu();
     init_button_interrupt();
     averages_init();

@@ -20,6 +20,6 @@
 #define SENSOR4AVGBUF    ADC1BUF16
 
 #define POWER_CIRCUIT_ENABLE PORTAbits.RA8 
-
+#define BACKLIGHT_OUTPUT PORTAbits.RA7
 
 #endif	/* INPUTS_H */
