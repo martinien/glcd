@@ -297,7 +297,7 @@ void engine_initialization() {
    
     POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
     delay_ms(1500);
-    engine_splash();    
+   engine_splash();    
     // Initialise sleeping options
     RCONbits.RETEN = 1;
     RCONbits.PMSLP = 0;

@@ -20,7 +20,7 @@ void _lcd_enable(void){
 
 /*TODO time optimisation*/
 unsigned char _lcd_status(void){
-    unsigned char status,_lcd_tris;
+    unsigned short status,_lcd_tris;
     _lcd_tris = LCD_TRIS;           // stores the state of tris, CS1 and CS2
     int cs1 = CS1;
     int cs2 = CS2; 
@@ -30,7 +30,7 @@ unsigned char _lcd_status(void){
     __delay_us(1);            //tf
     RW = 1;                 //Read
     DI = 0;                 //Status  
-    LCD_TRIS=0b11111111;
+    LCD_TRIS=0b0000000011111111 | TRISB_BASE_CONF;
     __delay_us(1);            //tasu
     ENABLE = 1;                 //High Enable
     __delay_us(5);            //tr + max(td,twh)->twh    
@@ -70,7 +70,7 @@ void lcd_on(){
     RW = 0;
     DI=0;
     data = 0x3F;
-    LCD_TRIS = 0;
+    LCD_TRIS = 0b0000000000000000 | TRISB_BASE_CONF;
     LCD_DATA = data;
     __delay_us(.5); 
     ENABLE=1;
@@ -87,7 +87,7 @@ void lcd_off(){
     RW = 0;
     DI=0;
     data = 0x3E;
-    LCD_TRIS = 0;
+    LCD_TRIS = 0b000000000000000 | TRISB_BASE_CONF;
     LCD_DATA = data;
     __delay_us(.5); 
     ENABLE=1;
@@ -155,7 +155,7 @@ void _lcd_waiton(void){
 void lcd_write(unsigned char data){
     _lcd_waitbusy();
     DI=1; RW = 0;
-    LCD_TRIS = 0;
+    LCD_TRIS = 0b0000000000000000 | TRISB_BASE_CONF;
     LCD_DATA = data;
     _lcd_enable();
     currentY++;
@@ -183,10 +183,10 @@ void lcd_selectside(unsigned char sides){
 
 /*Reads a byte from the display ram - data will be read from the active X and Y - the display increments its y register  */
 unsigned char lcd_read(void){
-    unsigned char _lcd_tris, _data;
+    unsigned short _lcd_tris, _data;
     ENABLE = 0;
     _lcd_tris = LCD_TRIS;
-    LCD_TRIS=0xFF; // all inputs
+    LCD_TRIS=0b0000000011111111 | TRISB_BASE_CONF; // all inputs
     DI=1; RW=1;    
     __delay_us(.5);
     ENABLE=1;
@@ -363,7 +363,7 @@ void lcd_startLine(unsigned int z){
     cs2 = CS2;
     CS1 = CSHIGH;
     CS2 = CSHIGH;
-    LCD_TRIS = 0;
+    LCD_TRIS = 0b0000000000000000 | TRISB_BASE_CONF;
     _lcd_waitbusy();
     DI=0; RW=0;
     LCD_DATA = 0b11000000 | (z & 0b00111111);
