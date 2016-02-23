@@ -99,17 +99,13 @@ void init_button_interrupt(){
     
 }
 
-
-
-
 void set_scale(unsigned short new_reference, unsigned short new_range){
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
+    int new_reference_pressure = measure_to_pressure(new_reference);
+    int new_range_pressure = measure_to_pressure(new_range);
 
-    // todo : julien 15/02/2016
-    //can't step inside the next if because we are working with unsigned shit.
-    // need to use somthing else to handle negative values
-    if(new_reference - new_range / 2 < 0){
+    if(new_reference_pressure - new_range_pressure / 2 <= 0){
         new_reference = new_range / 2;
     }
 
@@ -204,11 +200,6 @@ void pwm_init(){
     CCP5RA = 0x0000;
     CCP5RB = 0x0000;
     CCP5CON1Lbits.CCPON = 1;      // Turn on MCCP module
-    
-    
-    
-          
-
 }
 
 void pwm_set(int level){
@@ -219,8 +210,7 @@ void pwm_set(int level){
         CCP5RB = 0x8888;        
     }
     if(level == 2){
-        CCP5RB = 0x00;
-        
+        CCP5RB = 0x00; 
     }
 }
 void engine_splash(){
@@ -265,7 +255,6 @@ int engine_ask_for_bluetooth(){
         }
         delay_ms(200);
     }
-
     return is_blueetooth_enable;
 }
 
@@ -289,9 +278,7 @@ int engine_ask_for_reference_sensor(){
     return (int)reference;
 }
 
-void engine_menu(){ 
-    //TODO (julien 10/02/2016) don't disable all interruption because we want to be interrupted if user press sleep button
-    
+void engine_menu(){
     // Temporaly disable button interruption
     IEC1bits.CNIE = 0;
     extern unsigned short reference_sensor;
