@@ -80,13 +80,11 @@ int main(void) {
 
     POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
     //tui_writeAt(3,20,"COUCOU LES LOULOUS",0,0);
-    BACKLIGHT_OUTPUT = 0;
-    delay_ms(2000);
-    BACKLIGHT_OUTPUT = 1 ;
-    delay_ms(2000);
     
     
     engine_initialization();
+    
+   
     
 
     return 1;

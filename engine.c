@@ -202,7 +202,7 @@ void pwm_init(){
     CCP5TMRL = 0x0000;
     CCP5PRL = 0xFFFF;
     CCP5RA = 0x0000;
-    CCP5RB = 0xFFFF;
+    CCP5RB = 0x0000;
     CCP5CON1Lbits.CCPON = 1;      // Turn on MCCP module
     
     
@@ -309,6 +309,7 @@ void engine_menu(){
 void engine_initialization() {
    
     POWER_CIRCUIT_ENABLE = 1 ; //ALMIENTATION ENABLE
+    delay_ms(1500);
     engine_splash();    
     // Initialise sleeping options
     RCONbits.RETEN = 1;

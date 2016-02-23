@@ -54,13 +54,11 @@ void adc_init(){
      */
 
     AD1CSSL = 0b0001111001000011;
-    AD1CSSH = 0b0000000000000000;
+    AD1CSSH = 0b0000000000000001;
     
     IFS0bits.AD1IF = 0 ; //reset interrupt flag
-    IEC0bits.AD1IE = 1; //enable interrupt
-    
-    IPC3bits.AD1IP = 0b100; //interrupt priority set to 4
-    
+    IEC0bits.AD1IE = 1; //enable interrupt    
+    IPC3bits.AD1IP = 0b100; //interrupt priority set to 4    
     AD1CON1bits.ADON = 1; //Enable CAN
 }
 

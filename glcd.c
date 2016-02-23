@@ -288,7 +288,7 @@ void lcd_draw_bar(unsigned char index, unsigned char value, int isReference){
     for (i = 0; i < nb_blank_pages; ++i){
         lcd_draw_n_times(x, y, BAR_SPAN, BLANK_BIT);
         if(i==nb_blank_pages - 1 && isReference==1){ //Reference bar
-         lcd_draw_char(x, BAR_SPAN/2 + 3+y,0);   
+         lcd_draw_char(x, BAR_WIDTH/2 + 3+y,0);   
         }
         x++;
     }
