@@ -59,12 +59,24 @@ volatile unsigned short pression_reference;
 volatile unsigned short pression_range;
 volatile unsigned short reference_sensor;
 volatile int backlight_level ; 
+volatile int sensor_offsets[4];
+volatile int is_offset_set;
+
 
 // struct movingAverage average_struct1;
 // struct movingAverage * average1;
  
 int main(void) {
 
+    if(is_offset_set != 1){
+        int i=0;
+        for(i=0;i<4;i++){
+        sensor_offsets[i]=0;      
+            
+        }
+        is_offset_set = 1 ;
+    }
+    
     
     CLKDIV = 0; // No clock prescaler
     // Use standard vector table, DISI is not active, Every Interrupts on positive edge

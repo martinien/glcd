@@ -31,7 +31,10 @@ void __attribute__((__interrupt__, __auto_psv__)) _CNInterrupt(void){
 
     delay_ms(100);
     
-    if(LEFT_BUTTON == 1){
+    if(LEFT_BUTTON == 1 && RIGHT_BUTTON == 1){
+     button_calibration_interrupt();   
+    }
+    else if(LEFT_BUTTON == 1){
         button_left_interupt();
     }else if(RIGHT_BUTTON == 1){
         button_right_interupt();
@@ -179,6 +182,27 @@ void button_power_interupt(){
     return;
 }
 
+void button_calibration_interrupt(){
+    delay_ms(500);
+    average_update_weighted_averages();
+    extern unsigned short reference_sensor;
+    extern unsigned short weightedAverages[4];
+    extern int sensor_offsets[4];
+    int i;
+    
+//    sensor_offsets[0] = 0;
+//    sensor_offsets[1] = SENSOR1AVGBUF - SENSOR2AVGBUF;
+//    sensor_offsets[2] = SENSOR1AVGBUF - SENSOR3AVGBUF;
+//    sensor_offsets[3] = SENSOR1AVGBUF - SENSOR4AVGBUF;
+    
+    for(i=0;i<4;i++){
+        sensor_offsets[i]= weightedAverages[reference_sensor] - weightedAverages[i];
+            
+        }
+          
+    
+}
+
 void pwm_init(){
     CCP5CON1Lbits.CCSEL = 0; //MCCP operting mode
     CCP5CON1Lbits.MOD = 0b0101;   // Set mode (Buffered Dual-Compare/PWM mode)
@@ -304,7 +328,9 @@ void engine_initialization() {
     pwm_init();   
     
     
+    
     engine_menu();
+    delay_ms(650);
     init_button_interrupt();
     averages_init();
     adc_init();
@@ -317,9 +343,10 @@ void engine_start() {
     extern unsigned short weightedAverages[4];
     extern unsigned short pression_range;
     extern unsigned short pression_reference;
-    extern unsigned short reference_sensor;    
+    extern unsigned short reference_sensor;  
+    extern int sensor_offsets[4];
     pression_range = MAX_RANGE;             
-    unsigned short testVals[4];
+    unsigned short vals[4];
     int i = 0;
     phase = RUN;
     
@@ -334,8 +361,11 @@ void engine_start() {
     pression_reference = weightedAverages[reference_sensor];
     
     while(phase == RUN){
-        average_update_weighted_averages();    
-        tui_displayMeasures(weightedAverages, pression_reference, pression_range, reference_sensor);
+        average_update_weighted_averages(); 
+        for(i=0;i<4;i++){
+            vals[i]= weightedAverages[i] + sensor_offsets[i];
+        }
+        tui_displayMeasures(vals, pression_reference, pression_range, reference_sensor);
         delay_ms(100);
     }
 }
